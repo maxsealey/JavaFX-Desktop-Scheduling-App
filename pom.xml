@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                sealey.javafxdesktopschedulingapp/sealey.javafxdesktopschedulingapp.HelloApplication
+                                sealey.javafxdesktopschedulingapp/sealey.javafxdesktopschedulingapp.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sealey.javafxdesktopschedulingapp.util.JDBC;
 
 import java.io.IOException;
 
@@ -14,14 +15,16 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginForm.class.getResource("LoginForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LoginForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
-        stage.setTitle("Desktop Scheduler");
+        stage.setTitle("GMS Virtual Scheduler");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) {
-        launch();
+    public static void main(String[] args) throws Exception {
+        JDBC.openConnection();
+        launch(args);
+        JDBC.closeConnection();
     }
 }

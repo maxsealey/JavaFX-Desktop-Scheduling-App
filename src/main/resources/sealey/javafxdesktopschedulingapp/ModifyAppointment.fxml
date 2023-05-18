@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
-            prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sealey.javafxdesktopschedulingapp.controller.ModifyAppointment" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0"
+            style="-fx-background-color: #475053;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sealey.javafxdesktopschedulingapp.controller.ModifyAppointment">
+   <children>
+      <Button fx:id="cancelButton" layoutX="836.0" layoutY="646.0" mnemonicParsing="false" onAction="#onActionCancel" prefHeight="40.0" prefWidth="150.0" text="Cancel">
+         <font>
+            <Font name="Futura Medium" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveButton" layoutX="679.0" layoutY="646.0" mnemonicParsing="false" onAction="#onActionSave" prefHeight="40.0" prefWidth="150.0" text="Save and Go Back">
+         <font>
+            <Font name="Futura Medium" size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="64.0" layoutY="65.0" text="Update Customer Information" textFill="#2e94b9">
+         <font>
+            <Font name="Futura Medium" size="32.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,8 +1,10 @@
-package sealey.javafxdesktopschedulingapp.util;
+package sealey.javafxdesktopschedulingapp.helpers;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 
-public abstract class JDBC {
+public abstract class DBConnection {
+
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
     private static final String location = "//localhost/";
@@ -22,18 +24,18 @@ public abstract class JDBC {
         }
         catch(Exception e)
         {
-            System.out.println("Error connecting to database: " + e.getMessage());
+            System.out.println("Error connecting to database:" + e.getMessage());
         }
     }
 
     public static void closeConnection() {
         try {
             connection.close();
-            System.out.println("Successfully closed connection to database.");
+            System.out.println("Database connection successfully closed.");
         }
         catch(Exception e)
         {
-            System.out.println("Error closing connection to database: " + e.getMessage());
+            System.out.println("Error closing database connection:" + e.getMessage());
         }
     }
 }

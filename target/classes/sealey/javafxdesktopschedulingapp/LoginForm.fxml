@@ -7,31 +7,42 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: e5e5e5;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sealey.javafxdesktopschedulingapp.controller.LoginForm">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #475053;"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sealey.javafxdesktopschedulingapp.controller.LoginForm">
    <children>
-      <TextField fx:id="usernameField" layoutX="382.0" layoutY="387.0" prefHeight="40.0" prefWidth="250.0" promptText="Username">
+      <TextField fx:id="usernameField" layoutX="375.0" layoutY="371.0" prefHeight="40.0" prefWidth="250.0" promptText="Username">
          <font>
-            <Font name="Futura" size="18.0" />
+            <Font name="Futura Medium" size="18.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="passwordField" layoutX="382.0" layoutY="446.0" prefHeight="40.0" prefWidth="250.0" promptText="Password">
+      <PasswordField fx:id="passwordField" layoutX="376.0" layoutY="424.0" prefHeight="40.0" prefWidth="250.0" promptText="Password">
          <font>
-            <Font name="Futura" size="18.0" />
+            <Font name="Futura Medium" size="18.0" />
          </font>
       </PasswordField>
-      <Button layoutX="438.0" layoutY="504.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Sign in">
+      <Button fx:id="signinButton" layoutX="425.0" layoutY="501.0" mnemonicParsing="false" onAction="#onActionOpenDashboard" prefHeight="40.0" prefWidth="150.0" text="Sign in">
          <font>
-            <Font name="Futura" size="18.0" />
+            <Font name="Futura Medium" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="locationLabel" layoutX="24.0" layoutY="659.0" prefHeight="17.0" prefWidth="194.0" text="Location:">
+      <Label fx:id="locationLabel" layoutX="24.0" layoutY="659.0" prefHeight="17.0" prefWidth="194.0" text="Location:" textFill="WHITE">
          <font>
-            <Font name="Futura" size="16.0" />
+            <Font name="Futura Medium" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="481.0" layoutY="341.0" text="ERROR:" textAlignment="CENTER" textFill="RED">
+      <Button fx:id="exitButton" layoutX="796.0" layoutY="639.0" mnemonicParsing="false" onAction="#onActionExit" prefHeight="40.0" prefWidth="150.0" text="Exit">
          <font>
-            <Font name="Futura" size="16.0" />
+            <Font name="Futura Medium" size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="headerText" layoutX="384.0" layoutY="94.0" prefHeight="181.0" prefWidth="232.0" text="GMS" textFill="#2e94b9">
+         <font>
+            <Font name="Futura Medium" size="96.0" />
+         </font>
+      </Label>
+      <Label fx:id="subheaderText" layoutX="294.0" layoutY="256.0" text="GLOBAL VIRTUAL SCHEDULER" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Futura Medium" size="29.0" />
          </font>
       </Label>
    </children>

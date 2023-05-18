@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sealey.javafxdesktopschedulingapp.util.JDBC;
+import sealey.javafxdesktopschedulingapp.helpers.DBConnection;
 
 import java.io.IOException;
 
@@ -17,14 +17,14 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LoginForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
-        stage.setTitle("GMS Virtual Scheduler");
+        stage.setTitle("GMS Scheduling - Please sign-in");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) throws Exception {
-        JDBC.openConnection();
+    public static void main(String[] args) {
+        DBConnection.openConnection();
         launch(args);
-        JDBC.closeConnection();
+        DBConnection.closeConnection();
     }
 }

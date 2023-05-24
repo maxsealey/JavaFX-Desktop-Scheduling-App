@@ -3,6 +3,11 @@ package sealey.javafxdesktopschedulingapp.helpers;
 import java.sql.DriverManager;
 import java.sql.Connection;
 
+/**
+ * Description:
+ *
+ * @author Max Sealey
+ * */
 public abstract class DBConnection {
 
     private static final String protocol = "jdbc";
@@ -15,6 +20,9 @@ public abstract class DBConnection {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
+    /**
+     * Gets connection to the database
+     * */
     public static void openConnection()
     {
         try {
@@ -28,6 +36,9 @@ public abstract class DBConnection {
         }
     }
 
+    /**
+     * Closes connection to the database
+     * */
     public static void closeConnection() {
         try {
             connection.close();

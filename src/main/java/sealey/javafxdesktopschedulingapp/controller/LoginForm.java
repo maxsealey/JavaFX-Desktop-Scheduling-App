@@ -15,9 +15,13 @@ import sealey.javafxdesktopschedulingapp.helpers.Helpers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Description:
+ *
+ * @author Max Sealey
+ * */
 public class LoginForm implements Initializable
 {
     Stage stage;
@@ -41,11 +45,23 @@ public class LoginForm implements Initializable
     void onActionExit(ActionEvent event) {
 
     }
+
+    /**
+     * Upon verification takes user to dashboard
+     *
+     * @param event Back button event
+     * @throws IOException IOException
+     * */
     @FXML
-    void onActionOpenDashboard(ActionEvent e) throws IOException {
+    void onActionOpenDashboard(ActionEvent event) throws IOException {
         Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
     }
 
+    /**
+     *
+     * @param url location used to resolve relative paths for the root object, or null
+     * @param resourceBundle resources used to localize root object or null
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("initialized");

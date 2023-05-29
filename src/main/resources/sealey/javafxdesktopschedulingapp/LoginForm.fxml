@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #475053;"
-            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sealey.javafxdesktopschedulingapp.controller.LoginForm">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #475053;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sealey.javafxdesktopschedulingapp.controller.LoginForm">
    <children>
       <TextField fx:id="usernameField" layoutX="375.0" layoutY="371.0" prefHeight="40.0" prefWidth="250.0" promptText="Username">
          <font>
@@ -25,7 +24,7 @@
             <Font name="Futura Medium" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="locationLabel" layoutX="24.0" layoutY="659.0" prefHeight="17.0" prefWidth="194.0" text="Location:" textFill="WHITE">
+      <Label fx:id="locationLabel" layoutX="24.0" layoutY="659.0" prefHeight="22.0" prefWidth="449.0" text="Location:" textFill="WHITE">
          <font>
             <Font name="Futura Medium" size="16.0" />
          </font>
@@ -35,7 +34,7 @@
             <Font name="Futura Medium" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="headerText" layoutX="384.0" layoutY="94.0" prefHeight="181.0" prefWidth="232.0" text="GMS" textFill="#2e94b9">
+      <Label fx:id="headerText" layoutX="384.0" layoutY="94.0" prefHeight="181.0" prefWidth="232.0" text="GVS" textFill="#2e94b9">
          <font>
             <Font name="Futura Medium" size="96.0" />
          </font>

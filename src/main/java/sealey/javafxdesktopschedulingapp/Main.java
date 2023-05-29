@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.helpers.DBConnection;
 
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Description: The Main class sets the initial scene and launches the application.
@@ -36,6 +37,9 @@ public class Main extends Application {
      * @param args String arguments that may be passed in. Will not be utilized in this program.
      * */
     public static void main(String[] args) {
+        //For testing french labels:
+        //Locale.setDefault(new Locale("fr"));
+
         DBConnection.openConnection();
         launch(args);
         DBConnection.closeConnection();

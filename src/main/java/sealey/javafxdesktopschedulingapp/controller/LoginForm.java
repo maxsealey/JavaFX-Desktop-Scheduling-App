@@ -2,10 +2,8 @@ package sealey.javafxdesktopschedulingapp.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -15,6 +13,9 @@ import sealey.javafxdesktopschedulingapp.helpers.Helpers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
+import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
@@ -29,8 +30,6 @@ public class LoginForm implements Initializable
     @FXML
     private Button exitButton;
     @FXML
-    private Label headerText;
-    @FXML
     private Label locationLabel;
     @FXML
     private PasswordField passwordField;
@@ -40,6 +39,9 @@ public class LoginForm implements Initializable
     private Label subheaderText;
     @FXML
     private TextField usernameField;
+
+    private Locale locale;
+    private ZoneId zoneId;
 
     @FXML
     void onActionExit(ActionEvent event) {
@@ -57,6 +59,47 @@ public class LoginForm implements Initializable
         Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
     }
 
+    private void setAllLabels(ResourceBundle bundle){
+        exitButton.setText(bundle.getString(String.valueOf(exitButton)));
+        passwordField.setPromptText(bundle.getString(String.valueOf(passwordField)));
+        signinButton.setText(bundle.getString(String.valueOf(signinButton)));
+        subheaderText.setText(bundle.getString(String.valueOf(subheaderText)));
+        usernameField.setPromptText(bundle.getString(String.valueOf(usernameField)));
+    }
+
+    private void setLocationLabel(){
+        try {
+            ResourceBundle bundle;
+            if(locale.getLanguage().equals("fr")){
+                bundle = ResourceBundle.getBundle("lang_FR", locale);
+            } else {
+                bundle = ResourceBundle.getBundle("lang_EN", locale);
+            }
+            locationLabel.setText(bundle.getString(String.valueOf(locationLabel)) + ": " + String.valueOf(zoneId));
+        } catch (MissingResourceException e) {
+            System.out.printf(" Error setting location label: " + e);
+        }
+    }
+
+    private void frenchTranslation(){
+        try {
+            ResourceBundle bundle;
+            if(locale.getLanguage().equals("fr")){
+                bundle = ResourceBundle.getBundle("lang_FR", locale);
+                setAllLabels(bundle);
+            } else {
+                bundle = ResourceBundle.getBundle("lang_EN", locale);
+                setAllLabels(bundle);
+            }
+        } catch (MissingResourceException e) {
+            System.out.println(" Error with translation: " + e);
+        }
+    }
+
+    private void authentication(String username, String password) {
+
+    }
+
     /**
      *
      * @param url location used to resolve relative paths for the root object, or null
@@ -64,6 +107,10 @@ public class LoginForm implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("initialized");
+        this.locale = Locale.getDefault();
+        this.zoneId = ZoneId.systemDefault();
+
+        setLocationLabel();
+        frenchTranslation();
     }
 }

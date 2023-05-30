@@ -24,10 +24,11 @@ public class Main extends Application {
      * */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LoginForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
         stage.setTitle("GVS");
         stage.setScene(scene);
+        stage.setResizable(false); // not designed to keep components centered
         stage.show();
     }
 
@@ -38,7 +39,7 @@ public class Main extends Application {
      * */
     public static void main(String[] args) {
         //For testing french labels:
-        //Locale.setDefault(new Locale("fr"));
+        Locale.setDefault(new Locale("fr"));
 
         DBConnection.openConnection();
         launch(args);

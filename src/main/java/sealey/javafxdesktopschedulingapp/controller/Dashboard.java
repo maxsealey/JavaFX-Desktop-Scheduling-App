@@ -137,7 +137,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionLogout(ActionEvent event) throws IOException {
-        Helpers.setStage("LoginForm.fxml","GVS Scheduling - Please sign-in", logoutButton);
+        Helpers.setStage("LoginForm.fxml","GVS", logoutButton);
     }
 
     /**

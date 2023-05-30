@@ -26,7 +26,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LoginForm.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
-        stage.setTitle("GMS Scheduling - Please sign-in");
+        stage.setTitle("GVS");
         stage.setScene(scene);
         stage.show();
     }

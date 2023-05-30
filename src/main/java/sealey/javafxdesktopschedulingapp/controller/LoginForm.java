@@ -59,40 +59,18 @@ public class LoginForm implements Initializable
         Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
     }
 
-    private void setAllLabels(ResourceBundle bundle){
-        exitButton.setText(bundle.getString(String.valueOf(exitButton)));
-        passwordField.setPromptText(bundle.getString(String.valueOf(passwordField)));
-        signinButton.setText(bundle.getString(String.valueOf(signinButton)));
-        subheaderText.setText(bundle.getString(String.valueOf(subheaderText)));
-        usernameField.setPromptText(bundle.getString(String.valueOf(usernameField)));
-    }
-
-    private void setLocationLabel(){
+    private void setLabels(){
         try {
-            ResourceBundle bundle;
-            if(locale.getLanguage().equals("fr")){
-                bundle = ResourceBundle.getBundle("lang_FR", locale);
-            } else {
-                bundle = ResourceBundle.getBundle("lang_EN", locale);
-            }
-            locationLabel.setText(bundle.getString(String.valueOf(locationLabel)) + ": " + String.valueOf(zoneId));
-        } catch (MissingResourceException e) {
-            System.out.printf(" Error setting location label: " + e);
-        }
-    }
+            ResourceBundle bundle = ResourceBundle.getBundle("lang", locale);
 
-    private void frenchTranslation(){
-        try {
-            ResourceBundle bundle;
-            if(locale.getLanguage().equals("fr")){
-                bundle = ResourceBundle.getBundle("lang_FR", locale);
-                setAllLabels(bundle);
-            } else {
-                bundle = ResourceBundle.getBundle("lang_EN", locale);
-                setAllLabels(bundle);
-            }
-        } catch (MissingResourceException e) {
-            System.out.println(" Error with translation: " + e);
+            exitButton.setText(bundle.getString("exitButton"));
+            passwordField.setPromptText(bundle.getString("passwordField"));
+            signinButton.setText(bundle.getString("signinButton"));
+            subheaderText.setText(bundle.getString("subheaderText"));
+            usernameField.setPromptText(bundle.getString("usernameField"));
+            locationLabel.setText(bundle.getString("locationLabel") + ": " + String.valueOf(zoneId));
+        } catch (MissingResourceException e){
+            System.out.println("Missing bundle: " + e);
         }
     }
 
@@ -107,10 +85,8 @@ public class LoginForm implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.locale = Locale.getDefault();
-        this.zoneId = ZoneId.systemDefault();
-
-        setLocationLabel();
-        frenchTranslation();
+        locale = Locale.getDefault();
+        zoneId = ZoneId.systemDefault();
+        setLabels();
     }
 }

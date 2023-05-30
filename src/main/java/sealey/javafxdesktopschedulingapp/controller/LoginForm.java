@@ -9,10 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sealey.javafxdesktopschedulingapp.dao.UserQuery;
+import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.Helpers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -43,9 +46,12 @@ public class LoginForm implements Initializable
     private Locale locale;
     private ZoneId zoneId;
 
+    /**
+     * Closes and exits the program
+     * */
     @FXML
-    void onActionExit(ActionEvent event) {
-
+    private void onActionExit(ActionEvent event) {
+        System.exit(0);
     }
 
     /**
@@ -55,10 +61,26 @@ public class LoginForm implements Initializable
      * @throws IOException IOException
      * */
     @FXML
-    void onActionOpenDashboard(ActionEvent event) throws IOException {
-        Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
+    private void onActionOpenDashboard(ActionEvent event) throws IOException {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        try {
+            if(UserQuery.validateCredentials(username, password) > 0){
+                Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
+            } else {
+                System.out.println("wrong username or password");
+                Alerts.invalidCredentials();
+            }
+        } catch(Exception e) {
+            System.out.println("Something went wrong opening dashboard: " + e);
+        }
     }
 
+    /**
+     * Sets all labels, including locale, in either English or French depending
+     * on user setting
+     * */
     private void setLabels(){
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("lang", locale);
@@ -70,12 +92,8 @@ public class LoginForm implements Initializable
             usernameField.setPromptText(bundle.getString("usernameField"));
             locationLabel.setText(bundle.getString("locationLabel") + ": " + String.valueOf(zoneId));
         } catch (MissingResourceException e){
-            System.out.println("Missing bundle: " + e);
+            System.out.println("Missing bundle error: " + e);
         }
-    }
-
-    private void authentication(String username, String password) {
-
     }
 
     /**
@@ -87,6 +105,7 @@ public class LoginForm implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         locale = Locale.getDefault();
         zoneId = ZoneId.systemDefault();
+
         setLabels();
     }
 }

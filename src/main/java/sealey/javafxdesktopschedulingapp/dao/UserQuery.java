@@ -9,9 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Description:
+ *
+ * @author Max Sealey
+ * */
 public class UserQuery {
     private static ObservableList<User> userList = FXCollections.observableArrayList();
 
+    /**
+     * Populates list of users from data in database
+     * */
     private static void populateUserList() throws SQLException {
         String sql = "SELECT User_ID, User_Name, Password FROM client_schedule.users";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
@@ -25,10 +33,22 @@ public class UserQuery {
         }
     }
 
+    /**
+     * Returns lists of users; called when validating credentials
+     *
+     * @return userList list of users
+     * */
     private static ObservableList<User> getUserList() {
         return userList;
     }
 
+    /**
+     * Searches list for users for matching username and password, returns id# if found, 0 if not
+     *
+     * @param username username
+     * @param password password
+     * @return int 0 or user id
+     * */
     public static int validateCredentials(String username, String password) throws SQLException {
         populateUserList();
 
@@ -36,7 +56,6 @@ public class UserQuery {
             if(a.getUsername().equals(username) && a.getPassword().equals(password)){
                 return a.getUserID();
             }
-            System.out.println(a.getUsername() + "\n");
         }
         return 0;
     }

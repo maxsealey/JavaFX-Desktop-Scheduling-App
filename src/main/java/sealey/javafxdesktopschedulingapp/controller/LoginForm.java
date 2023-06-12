@@ -15,14 +15,13 @@ import sealey.javafxdesktopschedulingapp.helpers.Helpers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: Controller for the initial log-in scene.
  *
  * @author Max Sealey
  * */

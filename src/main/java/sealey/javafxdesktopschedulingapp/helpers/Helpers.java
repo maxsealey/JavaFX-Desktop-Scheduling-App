@@ -1,11 +1,16 @@
 package sealey.javafxdesktopschedulingapp.helpers;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
+import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -36,4 +41,33 @@ public abstract class Helpers {
         stage.setTitle(windowTitle);
         stage.show();
     }
+
+    /**
+     * Sets cells in table of customers
+     *
+     * @param customers
+     * @param table
+     * @param idCol
+     * @param nameCol
+     * @param addressCol
+     * @param phoneCol
+     * @param postalCol
+     * @param divCol
+     * */
+    public static void setCustomerTable(ObservableList<Customer> customers, TableView<Customer> table,
+                                        TableColumn<Customer, Integer> idCol, TableColumn<Customer, String> nameCol,
+                                        TableColumn<Customer, String> addressCol, TableColumn<Customer, String> postalCol,
+                                        TableColumn<Customer, String> phoneCol, TableColumn<Customer, String> divCol)
+    {
+        table.setItems(customers);
+
+        idCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+        postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        divCol.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+    }
 }
+
+

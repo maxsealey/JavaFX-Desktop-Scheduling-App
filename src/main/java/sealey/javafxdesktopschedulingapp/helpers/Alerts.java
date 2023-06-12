@@ -37,4 +37,13 @@ public class Alerts {
 
         message(title,content, Alert.AlertType.ERROR);
     }
+
+    /**
+     * Calls message() and creates simple alert
+     *
+     * @param content message to be displayed
+     * */
+    public static void simpleMessage(String content) {
+        message("Something went wrong.",content, Alert.AlertType.ERROR);
+    }
 }

@@ -1,6 +1,20 @@
 package sealey.javafxdesktopschedulingapp.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
+
 public class AppointmentQuery {
+    private static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+
+
+    public static ObservableList<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public static void setAppointmentList(ObservableList<Appointment> appointmentList) {
+        AppointmentQuery.appointmentList = appointmentList;
+    }
 }
 
 // LECTURE NOTES FOR REFERENCE:

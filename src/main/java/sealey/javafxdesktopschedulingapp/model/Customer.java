@@ -1,5 +1,8 @@
 package sealey.javafxdesktopschedulingapp.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Timestamp;
 
 /**
@@ -35,6 +38,16 @@ public class Customer {
     private String postalCode;
     private String phone;
     private int divisionID;
+
+    private static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+
+    public static ObservableList<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public static void setAppointmentList(ObservableList<Appointment> appointmentList) {
+        Customer.appointmentList = appointmentList;
+    }
 
     /**
      * @return customerID id

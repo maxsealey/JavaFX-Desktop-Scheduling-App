@@ -66,7 +66,7 @@ public abstract class Helpers {
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        divCol.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+        divCol.setCellValueFactory(new PropertyValueFactory<>("location"));
     }
 }
 

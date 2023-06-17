@@ -22,7 +22,7 @@ public class Customer {
      * @param phone phone number
      * @param divisionID division id
      * */
-    public Customer(int customerID, String customerName, String address, String postalCode, String phone, int divisionID) {
+    public Customer(int customerID, String customerName, String address, String postalCode, String phone, int divisionID, String location) {
 
         this.customerID = customerID;
         this.customerName = customerName;
@@ -30,6 +30,7 @@ public class Customer {
         this.postalCode = postalCode;
         this.phone = phone;
         this.divisionID = divisionID;
+        this.location = location;
     }
 
     private int customerID;
@@ -38,6 +39,7 @@ public class Customer {
     private String postalCode;
     private String phone;
     private int divisionID;
+    private String location;
 
     private static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
@@ -131,5 +133,13 @@ public class Customer {
      */
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

@@ -62,10 +62,6 @@ public class Alerts {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == ButtonType.OK) {
-            return true;
-        } else {
-            return false;
-        }
+        return result.get() == ButtonType.OK;
     }
 }

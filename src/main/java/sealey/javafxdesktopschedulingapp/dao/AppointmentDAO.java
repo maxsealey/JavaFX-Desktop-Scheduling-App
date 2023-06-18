@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
 
-public class AppointmentQuery {
+public class AppointmentDAO {
     private static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
 
@@ -13,7 +13,7 @@ public class AppointmentQuery {
     }
 
     public static void setAppointmentList(ObservableList<Appointment> appointmentList) {
-        AppointmentQuery.appointmentList = appointmentList;
+        AppointmentDAO.appointmentList = appointmentList;
     }
 }
 

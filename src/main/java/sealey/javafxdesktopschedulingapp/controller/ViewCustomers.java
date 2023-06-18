@@ -110,22 +110,30 @@ public class ViewCustomers implements Initializable
                 Alerts.message("Could not delete.", "Please select an item.", Alert.AlertType.ERROR);
                 throw new NoSuchElementException();
             } else {
-                // use retrieved customer ID (for the customer to be deleted) and
-                // use it to loop through CustomerQuery customerList and determine whether
+                // Customer cannot be deleted while they have an existing appointment
+                boolean emptyAptList = customerTable.getSelectionModel().getSelectedItem().getAppointmentList().isEmpty();
 
-            int customerID = customerTable.getSelectionModel().getSelectedItem().getCustomerID();
-            for(Customer c : CustomerQuery.getCustomerList()){
-                if (c.getCustomerID() == customerID){
+                if(emptyAptList && Alerts.deleteConfirmation()){
+                    // delete customer
 
+
+                    CustomerQuery.populateCustomerList();
+                    Alerts.message("Success", "Customer successfully removed from" +
+                            "the database.", Alert.AlertType.INFORMATION);
+                    return;
+                } else if (!emptyAptList){
+                    Alerts.message("Customer has existing appointment(s)",
+                            "We were unable to delete the customer because they have an existing" +
+                                    " appointment. Please remove the appointment(s) and try again.", Alert.AlertType.ERROR);
+                    return;
                 }
             }
-
-
-
-            }
         } catch(NoSuchElementException e) {
-            System.out.println("no item selected error");
+            System.out.println("no item selected");
             return;
+        } catch (SQLException e) {
+            System.out.println("Error repopulating table from db");
+            throw new RuntimeException(e);
         }
     }
 

@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import sealey.javafxdesktopschedulingapp.dao.UserQuery;
+import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
@@ -65,7 +65,7 @@ public class LoginForm implements Initializable
         String password = passwordField.getText();
 
         try {
-            if(UserQuery.validateCredentials(username, password) > 0){
+            if(UserDAO.validateCredentials(username, password) > 0){
                 FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
             } else {
                 System.out.println("wrong username or password");

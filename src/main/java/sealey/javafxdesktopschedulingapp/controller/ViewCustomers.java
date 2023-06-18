@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import sealey.javafxdesktopschedulingapp.dao.CustomerQuery;
+import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Customer;
@@ -117,7 +117,7 @@ public class ViewCustomers implements Initializable
                     // delete customer
 
 
-                    CustomerQuery.populateCustomerList();
+                    CustomerDAO.populateCustomerList();
                     Alerts.message("Success", "Customer successfully removed from" +
                             "the database.", Alert.AlertType.INFORMATION);
                     return;
@@ -145,10 +145,10 @@ public class ViewCustomers implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            CustomerQuery.populateCustomerList();
+            CustomerDAO.populateCustomerList();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        FXML_Helpers.setCustomerTable(CustomerQuery.getCustomerList(), customerTable, idCol, nameCol, addressCol, postalCol, phoneCol, divCol);
+        FXML_Helpers.setCustomerTable(CustomerDAO.getCustomerList(), customerTable, idCol, nameCol, addressCol, postalCol, phoneCol, divCol);
     }
 }

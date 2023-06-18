@@ -9,8 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Description:
+ *
+ * @author Max Sealey
+ * */
 public class CustomerQuery {
 
+    // static list of all customers currently in the database
     private static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     /**
@@ -55,6 +61,12 @@ public class CustomerQuery {
             }
     }
 
+    /**
+     * uses division_ID FK from customer table and retrieves division and country names
+     *
+     * @param division_id divisionID that points to customer FLD and Country names
+     * @return location returns division name + country name concatenated
+     * */
     private static String getLocation(int division_id) throws SQLException {
         String sql = "SELECT FD.Division, C.Country FROM client_schedule.customers AS CUS " +
         "RIGHT JOIN client_schedule.first_level_divisions AS FD ON CUS.Division_ID = FD.Division_ID " +
@@ -66,9 +78,20 @@ public class CustomerQuery {
         String location = "";
 
         while(results.next()){
+            // will always only contain one result unless duplicate primary key error (which would break the program)
             location = results.getString("Division") + ", " + results.getString("Country");
         }
-
         return location;
+    }
+
+    /**
+     * Deletes customer from the database
+     * */
+    public static int deleteCustomer(int customerID) throws SQLException {
+        String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = " + customerID;
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+        ps.setInt(1, customerID);
+
+        return ps.executeUpdate();
     }
 }

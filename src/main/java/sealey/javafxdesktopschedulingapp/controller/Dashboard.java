@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import sealey.javafxdesktopschedulingapp.helpers.Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +60,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionGenerateReport(ActionEvent event) throws IOException {
-        Helpers.setStage("GenerateReports.fxml","Generate Reports", generateReportsButton);
+        FXML_Helpers.setStage("GenerateReports.fxml","Generate Reports", generateReportsButton);
     }
 
     /**
@@ -71,7 +71,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionNewAppointment(ActionEvent event) throws IOException {
-        Helpers.setStage("AddAppointment.fxml","Add New Appointment", newApptButton);
+        FXML_Helpers.setStage("AddAppointment.fxml","Add New Appointment", newApptButton);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionNewCustomer(ActionEvent event) throws IOException {
-        Helpers.setStage("AddCustomer.fxml","Add New Customer", newCustomerButton);
+        FXML_Helpers.setStage("AddCustomer.fxml","Add New Customer", newCustomerButton);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionSortCustomers(ActionEvent event) throws IOException {
-        Helpers.setStage("ViewCustomers.fxml","All Customers", sortCustomersButton);
+        FXML_Helpers.setStage("ViewCustomers.fxml","All Customers", sortCustomersButton);
     }
 
     /**
@@ -104,7 +104,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionUpdateAppt(ActionEvent event) throws IOException {
-        Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateApptButton);
+        FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateApptButton);
     }
 
     /**
@@ -115,7 +115,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException {
-        Helpers.setStage("ModifyCustomer.fxml","Update Customer Information", updateCustomerButton);
+        FXML_Helpers.setStage("ModifyCustomer.fxml","Update Customer Information", updateCustomerButton);
     }
 
     /**
@@ -126,7 +126,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionViewSchedule(ActionEvent event) throws IOException {
-        Helpers.setStage("AppointmentSchedule.fxml","Schedule - All Appointments", viewScheduleButton);
+        FXML_Helpers.setStage("AppointmentSchedule.fxml","Schedule - All Appointments", viewScheduleButton);
     }
 
     /**
@@ -137,7 +137,7 @@ public class Dashboard implements Initializable
      * */
     @FXML
     void onActionLogout(ActionEvent event) throws IOException {
-        Helpers.setStage("LoginForm.fxml","GVS", logoutButton);
+        FXML_Helpers.setStage("LoginForm.fxml","GVS", logoutButton);
     }
 
     /**

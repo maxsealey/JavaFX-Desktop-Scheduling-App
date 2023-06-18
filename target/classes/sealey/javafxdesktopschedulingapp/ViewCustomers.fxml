@@ -44,7 +44,7 @@
             <TableColumn fx:id="phoneCol" prefWidth="160.0" text="Phone" />
         </columns>
       </TableView>
-      <Button fx:id="newAppointmentButton1" layoutX="382.0" layoutY="597.0" mnemonicParsing="false" onAction="#onActionNewAppointment" prefHeight="40.0" prefWidth="150.0" text="Delete Customer">
+      <Button fx:id="deleteButton" layoutX="382.0" layoutY="597.0" mnemonicParsing="false" onAction="#onActionDeleteCustomer" prefHeight="40.0" prefWidth="150.0" text="Delete Customer">
          <font>
             <Font name="Futura Medium" size="13.0" />
          </font>

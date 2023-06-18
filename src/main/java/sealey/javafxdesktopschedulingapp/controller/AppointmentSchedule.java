@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import sealey.javafxdesktopschedulingapp.helpers.Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +32,7 @@ public class AppointmentSchedule implements Initializable
      * */
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
-        Helpers.setStage("Dashboard.fxml", "Employee Dashboard", backButton);
+        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", backButton);
     }
 
     /**
@@ -43,7 +43,7 @@ public class AppointmentSchedule implements Initializable
      * */
     @FXML
     void onActionNewAppt(ActionEvent event) throws IOException {
-        Helpers.setStage("AddAppointment.fxml", "Add New Appointment", newApptButton);
+        FXML_Helpers.setStage("AddAppointment.fxml", "Add New Appointment", newApptButton);
     }
 
     /**
@@ -54,7 +54,7 @@ public class AppointmentSchedule implements Initializable
      * */
     @FXML
     void onActionUpdate(ActionEvent event) throws IOException {
-        Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateButton);
+        FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateButton);
     }
 
     /**

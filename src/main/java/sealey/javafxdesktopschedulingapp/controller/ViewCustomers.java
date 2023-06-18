@@ -3,16 +3,19 @@ package sealey.javafxdesktopschedulingapp.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import sealey.javafxdesktopschedulingapp.dao.CustomerQuery;
-import sealey.javafxdesktopschedulingapp.helpers.Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.Alerts;
+import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
@@ -57,7 +60,7 @@ public class ViewCustomers implements Initializable
      * */
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
-        Helpers.setStage("Dashboard.fxml", "Employee Dashboard", backButton);
+        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", backButton);
     }
 
     /**
@@ -68,7 +71,7 @@ public class ViewCustomers implements Initializable
      * */
     @FXML
     void onActionNewAppointment(ActionEvent event) throws IOException {
-        Helpers.setStage("AddAppointment.fxml", "Add New Appointment", newAppointmentButton);
+        FXML_Helpers.setStage("AddAppointment.fxml", "Add New Appointment", newAppointmentButton);
     }
 
     /**
@@ -79,7 +82,7 @@ public class ViewCustomers implements Initializable
      * */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException {
-        Helpers.setStage("ModifyCustomer.fxml","Update Customer Information", updateCustomerButton);
+        FXML_Helpers.setStage("ModifyCustomer.fxml","Update Customer Information", updateCustomerButton);
     }
 
     /**
@@ -90,7 +93,7 @@ public class ViewCustomers implements Initializable
      * */
     @FXML
     void onActionNewCustomer(ActionEvent event) throws IOException {
-        Helpers.setStage("AddCustomer.fxml","Add New Customer", newCustomerButton);
+        FXML_Helpers.setStage("AddCustomer.fxml","Add New Customer", newCustomerButton);
     }
     /**
      * Deletes customer if no associated appointments attached
@@ -100,7 +103,30 @@ public class ViewCustomers implements Initializable
      * */
     @FXML
     void onActionDeleteCustomer(ActionEvent event) throws IOException {
+        boolean success = false;
 
+        try {
+            if(customerTable.getSelectionModel().isEmpty()){
+                Alerts.message("Could not delete.", "Please select an item.", Alert.AlertType.ERROR);
+                throw new NoSuchElementException();
+            } else {
+                // use retrieved customer ID (for the customer to be deleted) and
+                // use it to loop through CustomerQuery customerList and determine whether
+
+            int customerID = customerTable.getSelectionModel().getSelectedItem().getCustomerID();
+            for(Customer c : CustomerQuery.getCustomerList()){
+                if (c.getCustomerID() == customerID){
+
+                }
+            }
+
+
+
+            }
+        } catch(NoSuchElementException e) {
+            System.out.println("no item selected error");
+            return;
+        }
     }
 
     /**
@@ -115,6 +141,6 @@ public class ViewCustomers implements Initializable
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        Helpers.setCustomerTable(CustomerQuery.getCustomerList(), customerTable, idCol, nameCol, addressCol, postalCol, phoneCol, divCol);
+        FXML_Helpers.setCustomerTable(CustomerQuery.getCustomerList(), customerTable, idCol, nameCol, addressCol, postalCol, phoneCol, divCol);
     }
 }

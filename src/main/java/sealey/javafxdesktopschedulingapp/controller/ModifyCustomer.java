@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import sealey.javafxdesktopschedulingapp.helpers.Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +30,7 @@ public class ModifyCustomer implements Initializable
      * */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
-        Helpers.setStage("Dashboard.fxml", "Employee Dashboard", cancelButton);
+        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", cancelButton);
     }
 
     /**
@@ -41,7 +41,7 @@ public class ModifyCustomer implements Initializable
      * */
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
-        Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
     }
 
     /**

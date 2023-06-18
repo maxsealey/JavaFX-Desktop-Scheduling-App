@@ -40,15 +40,13 @@ public class Customer {
     private String phone;
     private int divisionID;
     private String location;
-
     private static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
-
     public static ObservableList<Appointment> getAppointmentList() {
         return appointmentList;
     }
 
-    public static void setAppointmentList(ObservableList<Appointment> appointmentList) {
-        Customer.appointmentList = appointmentList;
+    public static void setAppointmentList(ObservableList<Appointment> newList) {
+        appointmentList = newList;
     }
 
     /**

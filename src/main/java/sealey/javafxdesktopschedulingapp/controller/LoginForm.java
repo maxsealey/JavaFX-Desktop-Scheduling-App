@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.UserQuery;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
-import sealey.javafxdesktopschedulingapp.helpers.Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -66,7 +66,7 @@ public class LoginForm implements Initializable
 
         try {
             if(UserQuery.validateCredentials(username, password) > 0){
-                Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
+                FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
             } else {
                 System.out.println("wrong username or password");
                 Alerts.invalidCredentials();

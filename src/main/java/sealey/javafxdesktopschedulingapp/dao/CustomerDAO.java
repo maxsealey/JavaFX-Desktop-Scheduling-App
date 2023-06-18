@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author Max Sealey
  * */
-public class CustomerQuery {
+public class CustomerDAO {
 
     // static list of all customers currently in the database
     private static ObservableList<Customer> customerList = FXCollections.observableArrayList();

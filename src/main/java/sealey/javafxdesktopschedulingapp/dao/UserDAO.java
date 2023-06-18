@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author Max Sealey
  * */
-public class UserQuery {
+public class UserDAO {
     private static ObservableList<User> userList = FXCollections.observableArrayList();
 
     /**

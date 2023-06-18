@@ -23,6 +23,15 @@ public class CustomerQuery {
     }
 
     /**
+     * Sets new list - EXERCISE CAUTION
+     *
+     * @param newList resets entire list of customers
+     * */
+    private static void setCustomerList(ObservableList<Customer> newList){
+        customerList = newList;
+    }
+
+    /**
      * Populates customer list from database
      * */
     public static void populateCustomerList() throws SQLException {

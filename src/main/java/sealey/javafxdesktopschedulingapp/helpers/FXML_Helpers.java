@@ -13,14 +13,13 @@ import sealey.javafxdesktopschedulingapp.Main;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * Description:
  *
  * @author Max Sealey
  * */
-public abstract class Helpers {
+public abstract class FXML_Helpers {
 
     /**
      * Helper function used globally (except for initial main load) to switch to a different scene

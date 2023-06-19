@@ -18,13 +18,9 @@ public class Appointment {
      * @param type type
      * @param startDateTime start time and date
      * @param endDateTime end time and date
-     * @param createDate date created
-     * @param createdBy user who added appointment
-     * @param lastUpdate date last updated
-     * @param lastUpdatedBy user who last updated appointment
      */
     public Appointment(int appointmentID, int customerID, int userID, int contactID, String title, String description, String location, String type,
-                       String startDateTime, String endDateTime, String createDate, String createdBy, String lastUpdate, String lastUpdatedBy)
+                       String startDateTime, String endDateTime)
     {
 
         this.appointmentID = appointmentID;
@@ -37,10 +33,6 @@ public class Appointment {
         this.type = type;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.createDate = createDate;
-        this.createdBy = createdBy;
-        this.lastUpdate = lastUpdate;
-        this.lastUpdatedBy = lastUpdatedBy;
     }
 
     private int appointmentID;
@@ -53,10 +45,6 @@ public class Appointment {
     private String type;
     private String startDateTime;
     private String endDateTime;
-    private String createDate;
-    private String createdBy;
-    private String lastUpdate;
-    private String lastUpdatedBy;
 
     public int getAppointmentID() {
         return appointmentID;
@@ -190,61 +178,5 @@ public class Appointment {
      * */
     public void setEndDateTime(String endDateTime) {
         this.endDateTime = endDateTime;
-    }
-
-    /**
-     * @return createDate date added to db
-     * */
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    /**
-     * @param createDate date added to db
-     * */
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    /**
-     * @return createdBy user who added to db
-     * */
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    /**
-     * @param createdBy sets name of user who added to db
-     * */
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    /**
-     * @return lastUpdate Timestamp of last update
-     * */
-    public String getLastUpdate() {
-        return lastUpdate;
-    }
-
-    /**
-     * @param lastUpdate Timestamp of last update
-     * */
-    public void setLastUpdate(String lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    /**
-     * @return lastUpdatedBy user who last updated
-     * */
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    /**
-     * @param lastUpdatedBy user who last updated
-     * */
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
     }
 }

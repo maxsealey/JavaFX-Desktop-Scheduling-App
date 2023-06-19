@@ -36,7 +36,7 @@
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="IDTextField" disable="true" layoutX="503.0" layoutY="194.0" prefHeight="25.0" prefWidth="87.0" />
+      <TextField fx:id="IDTextField" disable="true" layoutX="504.0" layoutY="194.0" prefHeight="25.0" prefWidth="87.0" />
       <TextField fx:id="nameTextField" layoutX="466.0" layoutY="234.0" prefHeight="25.0" prefWidth="204.0" />
       <Label layoutX="327.0" layoutY="317.0" text="Street Address:">
          <font>

@@ -112,9 +112,9 @@ public class CustomerDAO {
         ps.setString(5, newCustomer.getPhone());
         ps.setInt(6, newCustomer.getDivisionID());
         ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-        ps.setString(8, UserDAO.getCurrentUser());
+        ps.setString(8, UserDAO.getCurrentUser().getUsername());
         ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
-        ps.setString(10, UserDAO.getCurrentUser());
+        ps.setString(10, UserDAO.getCurrentUser().getUsername());
 
         return ps.executeUpdate();
     }

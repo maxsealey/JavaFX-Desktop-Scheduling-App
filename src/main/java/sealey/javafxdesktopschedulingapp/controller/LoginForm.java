@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
+import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +51,11 @@ public class LoginForm implements Initializable
      * */
     @FXML
     private void onActionExit(ActionEvent event) {
-        System.exit(0);
+        try {
+            System.exit(0);
+        } catch(Exception e){
+            System.out.println("error closing program");
+        }
     }
 
     /**
@@ -66,7 +71,7 @@ public class LoginForm implements Initializable
 
         try {
             if(UserDAO.validateCredentials(username, password) > 0){
-                UserDAO.setCurrentUser(username); // informs rest of the program who is signed in
+                UserDAO.setCurrentUser(new User(UserDAO.getIDwUsername(username), username, "hidden")); // informs rest of the program who is signed in
                 FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
             } else {
                 System.out.println("wrong username or password");

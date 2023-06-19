@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
@@ -51,6 +52,8 @@ public class Dashboard implements Initializable
 
     @FXML
     private Label welcomeText;
+
+    private static String currentUser;
 
     /**
      * Takes user to GenerateReports page
@@ -140,6 +143,10 @@ public class Dashboard implements Initializable
         FXML_Helpers.setStage("LoginForm.fxml","GVS", logoutButton);
     }
 
+    public static String getCurrentUser(){
+        return currentUser;
+    }
+
     /**
      *
      * @param url location used to resolve relative paths for the root object, or null
@@ -147,6 +154,6 @@ public class Dashboard implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        welcomeText.setText("Welcome, " + UserDAO.getCurrentUser() + "!");
     }
 }

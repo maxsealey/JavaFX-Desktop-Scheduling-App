@@ -16,6 +16,7 @@ import java.sql.SQLException;
  * */
 public class UserDAO {
     private static ObservableList<User> userList = FXCollections.observableArrayList();
+    private static String currentUser; // this is where I chose to store the username of the user currently signed in
 
     /**
      * Populates list of users from data in database
@@ -58,5 +59,23 @@ public class UserDAO {
             }
         }
         return 0;
+    }
+
+    /**
+     * gets username of currently signed-in user
+     *
+     * @return currentUser
+     * */
+    public static String getCurrentUser() {
+        return currentUser;
+    }
+
+    /**
+     * Sets username of currently signed-in user; called on Login form
+     *
+     * @param currentUser username
+     * */
+    public static void setCurrentUser(String currentUser) {
+        UserDAO.currentUser = currentUser;
     }
 }

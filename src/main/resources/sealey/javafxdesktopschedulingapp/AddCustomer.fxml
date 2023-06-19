@@ -25,7 +25,7 @@
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff80" height="380.0" layoutX="289.0" layoutY="160.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="423.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff80" height="426.0" layoutX="251.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="504.0" />
       <Label layoutX="327.0" layoutY="237.0" text="Name:">
          <font>
             <Font name="Futura Medium" size="15.0" />

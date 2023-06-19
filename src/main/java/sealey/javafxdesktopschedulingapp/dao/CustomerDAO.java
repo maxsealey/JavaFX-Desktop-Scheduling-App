@@ -131,14 +131,6 @@ public class CustomerDAO {
     }
 
     /**
-     * Shift primary keys (id) down 1 when a customer is deleted
-     * */
-    public static void shiftIDsDown(int deletedID){
-
-    }
-
-
-    /**
      * get next available id number
      *
      * @return id + 1
@@ -146,7 +138,11 @@ public class CustomerDAO {
     public static int getNextID(){
         int id = 1;
         for(Customer c : customerList){
-            id = c.getCustomerID();
+            if(id < c.getCustomerID() && !customerList.isEmpty()){
+                id = c.getCustomerID();
+            } else if (customerList.isEmpty()) {
+                return 1;
+            }
         }
         return id + 1;
     }

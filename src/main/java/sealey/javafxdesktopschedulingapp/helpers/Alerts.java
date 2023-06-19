@@ -64,4 +64,36 @@ public class Alerts {
 
         return result.get() == ButtonType.OK;
     }
+
+    /**
+     * Displays alert asking for confirmation that customer should be added
+     *
+     * @return boolean true or false
+     * */
+    public static boolean confirmSave(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Confirm Save");
+        alert.setContentText("Click 'Ok' to add to the database.");
+        alert.setHeaderText("Is all of the data correct?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        return result.get() == ButtonType.OK;
+    }
+
+    /**
+     * Displays alert asking for confirmation that customer should be added
+     *
+     * @return boolean true or false
+     * */
+    public static boolean confirmCancel(){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Confirm Cancel");
+        alert.setContentText("Click 'Ok' to go back to dashboard.");
+        alert.setHeaderText("Are you sure you want to cancel?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        return result.get() == ButtonType.OK;
+    }
 }

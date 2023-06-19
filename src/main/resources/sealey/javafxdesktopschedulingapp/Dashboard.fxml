@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0"
-            style="-fx-background-color: #475053;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sealey.javafxdesktopschedulingapp.controller.Dashboard">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #475053;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sealey.javafxdesktopschedulingapp.controller.Dashboard">
    <children>
-      <Label fx:id="welcomeText" layoutX="357.0" layoutY="134.0" text="Welcome!" textAlignment="CENTER" textFill="#2e94b9">
+      <Label fx:id="welcomeText" layoutX="273.0" layoutY="136.0" text="Welcome!" textAlignment="CENTER" textFill="#2e94b9">
          <font>
             <Font name="Futura Medium" size="62.0" />
          </font>

@@ -3,8 +3,6 @@ package sealey.javafxdesktopschedulingapp.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Timestamp;
-
 /**
  * Description:
  *

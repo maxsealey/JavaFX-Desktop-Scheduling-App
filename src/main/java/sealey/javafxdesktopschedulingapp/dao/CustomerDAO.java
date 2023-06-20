@@ -35,7 +35,7 @@ public class CustomerDAO {
      *
      * @param newList resets entire list of customers
      * */
-    private static void setCustomerList(ObservableList<Customer> newList){
+    public static void setCustomerList(ObservableList<Customer> newList){
         customerList = newList;
     }
 
@@ -86,17 +86,11 @@ public class CustomerDAO {
         return location;
     }
 
-//        public static int insert(String countryName, int countryID) throws SQLException {
-//        String sql = "INSERT INTO COUNTRIES (Country, Country_ID) VALUES(?, ?)";
-//        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
-//
-//        ps.setString(1, countryName);
-//        ps.setInt(2, countryID);
-//
-//        return ps.executeUpdate();
-//    }
     /**
+     * Insert a customer object into the database
      *
+     * @param newCustomer new customer object
+     * @return int 1 or 0
      * */
     public static int insertCustomer(Customer newCustomer) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID, " +
@@ -121,6 +115,9 @@ public class CustomerDAO {
 
     /**
      * Deletes customer from the database
+     *
+     * @param customerID id of customer to delete
+     * @return int 1 or 0
      * */
     public static int deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = ?";
@@ -131,19 +128,32 @@ public class CustomerDAO {
     }
 
     /**
-     * get next available id number
+     * Returns the lowest available id number.
      *
-     * @return id + 1
+     * prev contains the id of the previous customer in iteration
+     * ex. if newID is 4, and the previous id was 1, there is no item at 2 (due to deletion).
+     * In this scenario, it would return 2. if there are no gaps, the newID would be the id
+     * of last item incremented
+     *
+     * @return newID returns 1 if empty list, returns highest
      * */
     public static int getNextID(){
-        int id = 1;
+        // prev contains the id of the previous customer in iteration
+        // ex. if newID is 4, and the previous id was 1, there is no item at 2 (due to deletion). In this
+        // scenario, it would return 2. if there are no gaps, the newID would be the id of last item incremented
+        int newID = 1, prev = 1;
+
+        if(customerList.isEmpty()) return newID;
+
         for(Customer c : customerList){
-            if(id < c.getCustomerID() && !customerList.isEmpty()){
-                id = c.getCustomerID();
-            } else if (customerList.isEmpty()) {
-                return 1;
+            newID = c.getCustomerID();
+
+            if(newID != prev + 1 && newID != 1){
+                return prev + 1;
             }
+
+            prev = c.getCustomerID();
         }
-        return id + 1;
+        return newID + 1;
     }
 }

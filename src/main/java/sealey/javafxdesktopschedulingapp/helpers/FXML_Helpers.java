@@ -5,12 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
 import sealey.javafxdesktopschedulingapp.model.Customer;
+import sealey.javafxdesktopschedulingapp.model.FirstLevDivision;
 
 import java.io.IOException;
 
@@ -67,6 +69,19 @@ public abstract class FXML_Helpers {
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         divCol.setCellValueFactory(new PropertyValueFactory<>("location"));
     }
+
+//    /**
+//     *
+//     * */
+//    public static void setFLDComboBox(ComboBox<FirstLevDivision> flds){
+//    }
+//
+//    /**
+//     *
+//     * */
+//    public static void setCountryComboBox(){
+//
+//    }
 }
 
 

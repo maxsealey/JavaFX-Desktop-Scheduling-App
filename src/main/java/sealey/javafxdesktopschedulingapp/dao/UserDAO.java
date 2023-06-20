@@ -8,6 +8,7 @@ import sealey.javafxdesktopschedulingapp.model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  * Description:
@@ -15,8 +16,35 @@ import java.sql.SQLException;
  * @author Max Sealey
  * */
 public class UserDAO {
-    private static ObservableList<User> userList = FXCollections.observableArrayList();
-    private static String currentUser; // this is where I chose to store the username of the user currently signed in
+    private static final ObservableList<User> userList = FXCollections.observableArrayList();
+    private static User currentUser;
+
+    /**
+     * gets username of currently signed-in user
+     *
+     * @return currentUser
+     * */
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    /**
+     * Sets username of currently signed-in user; called on Login form
+     *
+     * @param currentUser username
+     * */
+    public static void setCurrentUser(User currentUser) {
+        UserDAO.currentUser = currentUser;
+    }
+
+    /**
+     * Returns lists of users; called when validating credentials
+     *
+     * @return userList list of users
+     * */
+    private static ObservableList<User> getUserList() {
+        return userList;
+    }
 
     /**
      * Populates list of users from data in database
@@ -32,15 +60,6 @@ public class UserDAO {
             String password = results.getString("Password");
             userList.add(new User(userid, username, password));
         }
-    }
-
-    /**
-     * Returns lists of users; called when validating credentials
-     *
-     * @return userList list of users
-     * */
-    private static ObservableList<User> getUserList() {
-        return userList;
     }
 
     /**
@@ -62,20 +81,19 @@ public class UserDAO {
     }
 
     /**
-     * gets username of currently signed-in user
+     * Get user id with username
      *
-     * @return currentUser
+     * @param username username
+     * @return id userid or 0 if error/not found (should always be found)
      * */
-    public static String getCurrentUser() {
-        return currentUser;
-    }
-
-    /**
-     * Sets username of currently signed-in user; called on Login form
-     *
-     * @param currentUser username
-     * */
-    public static void setCurrentUser(String currentUser) {
-        UserDAO.currentUser = currentUser;
+    public static int getIDwUsername(String username){
+        try {
+            for(User u : UserDAO.getUserList()){
+                if(Objects.equals(username, u.getUsername())){
+                    return u.getUserID();
+                }
+            }
+        } catch(Exception ignored){}
+        return 0;
     }
 }

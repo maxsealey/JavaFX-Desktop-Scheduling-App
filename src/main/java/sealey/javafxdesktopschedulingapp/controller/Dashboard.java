@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
+import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -154,6 +155,14 @@ public class Dashboard implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        welcomeText.setText("Welcome, " + UserDAO.getCurrentUser() + "!");
+        /*
+         !!! LINE OF CODE BELOW - FOR TESTING & DEVELOPMENT PURPOSES - REMOVE
+
+         During development, I set the startup page to open to dashboard,
+         so the login form wasn't able to set the current user.
+         */
+        UserDAO.setCurrentUser(new User(1, "test", "hidden"));
+
+        welcomeText.setText("Welcome, " + UserDAO.getCurrentUser().getUsername() + "!");
     }
 }

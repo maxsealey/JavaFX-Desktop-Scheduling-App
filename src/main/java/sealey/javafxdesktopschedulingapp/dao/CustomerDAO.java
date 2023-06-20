@@ -85,19 +85,17 @@ public class CustomerDAO {
      * Deletes customer from the database
      *
      * @param customerID id of customer to delete
-     * @return int 1 or 0
-     * */
-    public static int deleteCustomer(int customerID) throws SQLException {
+     */
+    public static void deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = ?";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ps.setInt(1, customerID);
 
-        return ps.executeUpdate();
+        ps.executeUpdate();
     }
 
     /**
      * Returns the lowest available id number.
-     *
      * prev contains the id of the previous customer in iteration
      * ex. if newID is 4, and the previous id was 1, there is no item at 2 (due to deletion).
      * In this scenario, it would return 2. if there are no gaps, the newID would be the id

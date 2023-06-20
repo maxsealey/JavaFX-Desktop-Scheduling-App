@@ -22,7 +22,7 @@
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Button>
-      <Label layoutX="64.0" layoutY="65.0" text="Update Appointment Information" textFill="#2e94b9">
+      <Label fx:id="headerLabel" layoutX="64.0" layoutY="65.0" text="Update Appointment Information" textFill="#2e94b9">
          <font>
             <Font name="Futura Medium" size="32.0" />
          </font>
@@ -58,20 +58,20 @@
          </font>
       </Label>
       <TextField fx:id="typeTextField" layoutX="310.0" layoutY="425.0" prefHeight="25.0" prefWidth="204.0" />
-      <DatePicker fx:id="startDatePicker" layoutX="674.0" layoutY="235.0" prefHeight="25.0" prefWidth="185.0" />
+      <DatePicker fx:id="startDatePicker" layoutX="674.0" layoutY="235.0" onAction="#onActionStartDate" prefHeight="25.0" prefWidth="185.0" />
       <Label layoutX="584.0" layoutY="238.0" text="Start Date:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <DatePicker fx:id="endDatePicker" layoutX="674.0" layoutY="384.0" prefHeight="25.0" prefWidth="185.0" />
+      <DatePicker fx:id="endDatePicker" layoutX="674.0" layoutY="384.0" onAction="#onActionEndDate" prefHeight="25.0" prefWidth="185.0" />
       <Label layoutX="585.0" layoutY="386.0" text="End Date:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <ComboBox fx:id="startTimeCombo" layoutX="674.0" layoutY="274.0" prefHeight="25.0" prefWidth="185.0" />
-      <ComboBox fx:id="endTimeCombo" layoutX="674.0" layoutY="426.0" prefHeight="25.0" prefWidth="185.0" />
+      <ComboBox fx:id="startTimeCombo" layoutX="674.0" layoutY="274.0" onAction="#onActionStartTime" prefHeight="25.0" prefWidth="185.0" />
+      <ComboBox fx:id="endTimeCombo" layoutX="674.0" layoutY="426.0" onAction="#onActionEndTime" prefHeight="25.0" prefWidth="185.0" />
       <Label layoutX="583.0" layoutY="277.0" text="Start Time:">
          <font>
             <Font name="Futura Medium" size="15.0" />

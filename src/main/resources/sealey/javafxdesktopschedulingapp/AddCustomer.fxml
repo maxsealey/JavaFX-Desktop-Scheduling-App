@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #475053;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sealey.javafxdesktopschedulingapp.controller.AddCustomer">
    <children>
-      <Label layoutX="64.0" layoutY="65.0" text="Add a New Customer" textFill="#2e94b9">
+      <Label fx:id="headerLabel" layoutX="64.0" layoutY="65.0" text="Add a New Customer" textFill="#2e94b9">
          <font>
             <Font name="Futura Medium" size="32.0" />
          </font>
@@ -56,13 +56,13 @@
          </font>
       </Label>
       <TextField fx:id="phoneTextField" layoutX="466.0" layoutY="272.0" prefHeight="25.0" prefWidth="204.0" />
-      <ComboBox fx:id="fldComboBox" layoutX="466.0" layoutY="417.0" prefHeight="25.0" prefWidth="204.0" />
+      <ComboBox fx:id="fldComboBox" layoutX="466.0" layoutY="417.0" onAction="#onActionFLD" prefHeight="25.0" prefWidth="204.0" />
       <Label layoutX="324.0" layoutY="419.0" text="First-level Division:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <ComboBox fx:id="countryComboBox" layoutX="466.0" layoutY="469.0" prefHeight="25.0" prefWidth="204.0" />
+      <ComboBox fx:id="countryComboBox" layoutX="466.0" layoutY="469.0" onAction="#onActionCountry" prefHeight="25.0" prefWidth="204.0" />
       <Label layoutX="327.0" layoutY="471.0" text="Country:">
          <font>
             <Font name="Futura Medium" size="15.0" />

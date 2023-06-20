@@ -92,4 +92,21 @@ public class LocationDAO {
         }
         return location;
     }
+
+    /**
+     *
+     * */
+    public static int getDivisionID(String divisionName) throws SQLException {
+        int id = 0;
+        String sql = "SELECT Division_ID FROM client_schedule.first_level_divisions " +
+                "WHERE Division = " + "'" + divisionName + "'";
+
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+        ResultSet results = ps.executeQuery();
+
+        while(results.next()){
+            id = results.getInt("Division_ID");
+        }
+        return id;
+    }
 }

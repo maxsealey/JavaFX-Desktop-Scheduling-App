@@ -119,7 +119,7 @@ public class ViewCustomers implements Initializable
                     CustomerDAO.populateCustomerList();
 
                     Alerts.message("Success", "Customer successfully removed from" +
-                            "the database.", Alert.AlertType.INFORMATION);
+                            " the database.", Alert.AlertType.INFORMATION);
                     return;
                 } else if (!emptyAptList){
                     Alerts.message("Customer has existing appointment(s)",

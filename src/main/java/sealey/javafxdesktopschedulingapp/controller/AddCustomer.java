@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
+import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Country;
@@ -36,10 +37,10 @@ public class AddCustomer implements Initializable
     private Button cancelButton;
 
     @FXML
-    private ComboBox<Country> countryComboBox;
+    private ComboBox<String> countryComboBox;
 
     @FXML
-    private ComboBox<FirstLevDivision> fldComboBox;
+    private ComboBox<String> fldComboBox;
 
     @FXML
     private TextField nameTextField;
@@ -83,9 +84,7 @@ public class AddCustomer implements Initializable
                 try {
                     newCustomer();
                     FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
-                } catch(Exception e){
-                    System.out.println(e);
-                }
+                } catch(Exception ignored){}
             }
         } catch (NoSuchElementException e){
             System.out.println("cancel save");
@@ -93,7 +92,8 @@ public class AddCustomer implements Initializable
     }
 
     /**
-     *
+     * Gets data from fields/boxes, creates new Customer, inserts into db
+     * Called in onActionSave event handler
      * */
     private void newCustomer() throws SQLException {
        int id = Integer.parseInt(IDTextField.getText());
@@ -102,22 +102,13 @@ public class AddCustomer implements Initializable
        String postalCode = postalCodeTextField.getText();
        String phone = phoneTextField.getText();
 
-       int divisionID = 10;
-       String location = "temp" + ", " + "placeholder";
+       int divisionID = LocationDAO.getDivisionID(fldComboBox.getValue());
+       String location = fldComboBox.getValue() + ", " + countryComboBox.getValue();
 
        Customer newCustomer = new Customer(id, name, address, postalCode, phone, divisionID, location);
 
        System.out.println(CustomerDAO.insertCustomer(newCustomer));
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -128,6 +119,15 @@ public class AddCustomer implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        FXML_Helpers.setFLDComboBox(fldComboBox);
+        FXML_Helpers.setCountryComboBox(countryComboBox);
+
+        try {
+            CustomerDAO.populateCustomerList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         IDTextField.setText(String.valueOf(CustomerDAO.getNextID()));
     }
 }

@@ -1,5 +1,6 @@
 package sealey.javafxdesktopschedulingapp.helpers;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
+import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
+import sealey.javafxdesktopschedulingapp.model.Country;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 import sealey.javafxdesktopschedulingapp.model.FirstLevDivision;
 
@@ -70,18 +73,40 @@ public abstract class FXML_Helpers {
         divCol.setCellValueFactory(new PropertyValueFactory<>("location"));
     }
 
-//    /**
-//     *
-//     * */
-//    public static void setFLDComboBox(ComboBox<FirstLevDivision> flds){
-//    }
-//
-//    /**
-//     *
-//     * */
-//    public static void setCountryComboBox(){
-//
-//    }
+    /**
+     * Sets division names in combo box
+     *
+     * @param divisions ComboBox list of strings
+     * */
+    public static void setFLDComboBox(ComboBox<String> divisions){
+        ObservableList<String> divNames = FXCollections.observableArrayList();
+        for(FirstLevDivision fld : LocationDAO.getDivisionList())
+        {
+            divNames.add(fld.getDivisionName());
+        }
+
+
+        divisions.setItems(divNames);
+        divisions.setVisibleRowCount(5);
+        divisions.setPromptText("First-level divisions");
+    }
+
+    /**
+     * Sets country names in combo box
+     *
+     * @param countries ComboBox list of strings
+     * */
+    public static void setCountryComboBox(ComboBox<String> countries){
+        ObservableList<String> countryNames = FXCollections.observableArrayList();
+        for(Country c : LocationDAO.getCountryList())
+        {
+            countryNames.add(c.getCountry());
+        }
+
+        countries.setItems(countryNames);
+        countries.setVisibleRowCount(5);
+        countries.setPromptText("Countries");
+    }
 }
 
 

@@ -113,11 +113,11 @@ public class ViewCustomers implements Initializable
                 // Customer cannot be deleted while they have an existing appointment
                 boolean emptyAptList = customerTable.getSelectionModel().getSelectedItem().getAppointmentList().isEmpty();
 
+                // Delete customer from database and repopulate
                 if(emptyAptList && Alerts.deleteConfirmation()){
-                    // delete customer
-
-
+                    CustomerDAO.deleteCustomer(customerTable.getSelectionModel().getSelectedItem().getCustomerID());
                     CustomerDAO.populateCustomerList();
+
                     Alerts.message("Success", "Customer successfully removed from" +
                             "the database.", Alert.AlertType.INFORMATION);
                     return;

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
@@ -29,30 +30,24 @@ public class AddCustomer implements Initializable
 {
     @FXML
     private TextField IDTextField;
-
     @FXML
     private TextField addressTextField;
-
     @FXML
     private Button cancelButton;
-
     @FXML
     private ComboBox<String> countryComboBox;
-
     @FXML
     private ComboBox<String> fldComboBox;
-
     @FXML
     private TextField nameTextField;
-
     @FXML
     private TextField phoneTextField;
-
     @FXML
     private TextField postalCodeTextField;
-
     @FXML
     private Button saveButton;
+    @FXML
+    private Label headerLabel;
 
     /**
      * Returns user to dashboard without saving
@@ -89,6 +84,16 @@ public class AddCustomer implements Initializable
         } catch (NoSuchElementException e){
             System.out.println("cancel save");
         }
+    }
+
+    @FXML
+    void onActionCountry(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionFLD(ActionEvent event) {
+
     }
 
     /**

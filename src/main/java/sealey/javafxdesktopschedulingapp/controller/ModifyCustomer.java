@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class ModifyCustomer implements Initializable
     private Button cancelButton;
     @FXML
     private Button saveButton;
+    @FXML
+    private Label headerLabel;
 
     /**
      * Returns user to dashboard without saving
@@ -42,6 +45,16 @@ public class ModifyCustomer implements Initializable
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
         FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+    }
+
+    @FXML
+    void onActionCountry(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionFLD(ActionEvent event) {
+
     }
 
     /**

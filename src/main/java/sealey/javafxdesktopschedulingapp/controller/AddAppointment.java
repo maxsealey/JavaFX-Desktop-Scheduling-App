@@ -3,7 +3,7 @@ package sealey.javafxdesktopschedulingapp.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
@@ -18,9 +18,33 @@ import java.util.ResourceBundle;
 public class AddAppointment implements Initializable
 {
     @FXML
+    private TextField apptIDTextField;
+    @FXML
     private Button cancelButton;
     @FXML
+    private TextField cusIDTextField;
+    @FXML
+    private TextArea descTextArea;
+    @FXML
+    private DatePicker endDatePicker;
+    @FXML
+    private ComboBox<?> endTimeCombo;
+    @FXML
+    private Label headerLabel;
+    @FXML
+    private TextField locationTextField;
+    @FXML
     private Button saveButton;
+    @FXML
+    private DatePicker startDatePicker;
+    @FXML
+    private ComboBox<?> startTimeCombo;
+    @FXML
+    private TextField titleTextField;
+    @FXML
+    private TextField typeTextField;
+    @FXML
+    private TextField userIDTextField;
 
     /**
      * Returns user to dashboard without saving
@@ -42,6 +66,26 @@ public class AddAppointment implements Initializable
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
         FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+    }
+
+    @FXML
+    void onActionStartDate(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionStartTime(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionEndDate(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionEndTime(ActionEvent event) {
+
     }
 
     /**

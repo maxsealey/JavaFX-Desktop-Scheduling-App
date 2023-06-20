@@ -9,12 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
 import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -162,6 +164,13 @@ public class Dashboard implements Initializable
          so the login form wasn't able to set the current user.
          */
         UserDAO.setCurrentUser(new User(1, "test", "hidden"));
+
+        try {
+            LocationDAO.populateCountryList();
+            LocationDAO.populateDivisionList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } // Country and Division lists won't change throughout program, so they populate on login
 
         welcomeText.setText("Welcome, " + UserDAO.getCurrentUser().getUsername() + "!");
     }

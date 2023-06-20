@@ -31,15 +31,6 @@ public class CustomerDAO {
     }
 
     /**
-     * Sets new list - EXERCISE CAUTION
-     *
-     * @param newList resets entire list of customers
-     * */
-    public static void setCustomerList(ObservableList<Customer> newList){
-        customerList = newList;
-    }
-
-    /**
      * Populates customer list from database
      * */
     public static void populateCustomerList() throws SQLException {
@@ -57,33 +48,10 @@ public class CustomerDAO {
                 String postal = results.getString("Postal_Code");
                 String phone = results.getString("Phone");
                 int divisionID = results.getInt("Division_ID");
-                String location = getLocation(divisionID);
+                String location = LocationDAO.getLocation(divisionID);
 
                 customerList.add(new Customer(customerID, name, address, postal, phone, divisionID, location));
             }
-    }
-
-    /**
-     * uses division_ID FK from customer table and retrieves division and country names
-     *
-     * @param division_id divisionID that points to customer FLD and Country names
-     * @return location returns division name + country name concatenated
-     * */
-    private static String getLocation(int division_id) throws SQLException {
-        String sql = "SELECT FD.Division, C.Country FROM client_schedule.customers AS CUS " +
-        "RIGHT JOIN client_schedule.first_level_divisions AS FD ON CUS.Division_ID = FD.Division_ID " +
-        "RIGHT JOIN client_schedule.countries AS C ON FD.Country_ID = C.Country_ID " +
-                "WHERE FD.Division_ID = " + division_id;
-
-        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
-        ResultSet results = ps.executeQuery();
-        String location = "";
-
-        while(results.next()){
-            // will always only contain one result unless duplicate primary key error (which would break the program)
-            location = results.getString("Division") + ", " + results.getString("Country");
-        }
-        return location;
     }
 
     /**

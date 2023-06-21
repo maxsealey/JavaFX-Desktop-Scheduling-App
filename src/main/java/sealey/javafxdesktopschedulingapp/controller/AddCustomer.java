@@ -3,10 +3,7 @@ package sealey.javafxdesktopschedulingapp.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
@@ -56,7 +53,7 @@ public class AddCustomer implements Initializable
      * @throws IOException IOException
      * */
     @FXML
-    void onActionCancel(ActionEvent event) throws IOException {
+    private void onActionCancel(ActionEvent event) throws IOException {
         try {
             if(Alerts.confirmCancel()){
                 FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", cancelButton);
@@ -73,13 +70,16 @@ public class AddCustomer implements Initializable
      * @throws IOException IOException
      * */
     @FXML
-    void onActionSave(ActionEvent event) throws IOException {
+    private void onActionSave(ActionEvent event) throws IOException {
         try {
             if(Alerts.confirmSave()){
                 try {
                     newCustomer();
                     FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
-                } catch(Exception ignored){}
+                } catch(Exception e){
+                    Alerts.message("Something went wrong.", "Please make sure all of the fields are correctly filled out. \n\n" +
+                            "The address field can contain up to 100 characters, and the others can contain up to 50.", Alert.AlertType.ERROR);
+                }
             }
         } catch (NoSuchElementException e){
             System.out.println("cancel save");
@@ -87,13 +87,9 @@ public class AddCustomer implements Initializable
     }
 
     @FXML
-    void onActionCountry(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionFLD(ActionEvent event) {
-
+    private void onActionCountry(ActionEvent event) throws SQLException {
+        fldComboBox.getSelectionModel().clearSelection();
+        FXML_Helpers.setFLDComboBox(fldComboBox, countryComboBox.getValue());
     }
 
     /**
@@ -118,21 +114,19 @@ public class AddCustomer implements Initializable
 
 
     /**
-     *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        FXML_Helpers.setFLDComboBox(fldComboBox);
-        FXML_Helpers.setCountryComboBox(countryComboBox);
-
         try {
             CustomerDAO.populateCustomerList();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        FXML_Helpers.setCountryComboBox(countryComboBox);
+        fldComboBox.setPromptText("Divisions");
         IDTextField.setText(String.valueOf(CustomerDAO.getNextID()));
     }
 }

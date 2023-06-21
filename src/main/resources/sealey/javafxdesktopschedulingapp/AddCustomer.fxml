@@ -56,14 +56,14 @@
          </font>
       </Label>
       <TextField fx:id="phoneTextField" layoutX="466.0" layoutY="272.0" prefHeight="25.0" prefWidth="204.0" />
-      <ComboBox fx:id="fldComboBox" layoutX="466.0" layoutY="417.0" onAction="#onActionFLD" prefHeight="25.0" prefWidth="204.0" />
-      <Label layoutX="324.0" layoutY="419.0" text="First-level Division:">
+      <ComboBox fx:id="fldComboBox" layoutX="466.0" layoutY="468.0" prefHeight="25.0" prefWidth="204.0" />
+      <Label layoutX="327.0" layoutY="471.0" text="First-level Division:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <ComboBox fx:id="countryComboBox" layoutX="466.0" layoutY="469.0" onAction="#onActionCountry" prefHeight="25.0" prefWidth="204.0" />
-      <Label layoutX="327.0" layoutY="471.0" text="Country:">
+      <ComboBox fx:id="countryComboBox" layoutX="466.0" layoutY="416.0" onAction="#onActionCountry" prefHeight="25.0" prefWidth="204.0" />
+      <Label layoutX="327.0" layoutY="419.0" text="Country:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>

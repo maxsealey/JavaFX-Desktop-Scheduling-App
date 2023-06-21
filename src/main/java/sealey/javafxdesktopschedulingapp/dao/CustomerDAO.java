@@ -104,9 +104,6 @@ public class CustomerDAO {
      * @return newID returns 1 if empty list, returns highest
      * */
     public static int getNextID(){
-        // prev contains the id of the previous customer in iteration
-        // ex. if newID is 4, and the previous id was 1, there is no item at 2 (due to deletion). In this
-        // scenario, it would return 2. if there are no gaps, the newID would be the id of last item incremented
         int newID = 1, prev = 1;
 
         if(customerList.isEmpty()) return newID;

@@ -41,15 +41,17 @@ public class LocationDAO {
      * Retrieves division data from database, creates objects, adds them to divisionList
      * */
     public static void populateDivisionList() throws SQLException {
-        String sql = "SELECT Division_ID, Division FROM client_schedule.first_level_divisions";
+        String sql = "SELECT Division_ID, Division, Country_ID FROM client_schedule.first_level_divisions";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ResultSet results = ps.executeQuery();
 
+        divisionList.clear();
         while(results.next())
         {
             int divisionID = results.getInt("Division_ID");
             String divisionName = results.getString("Division");
-            divisionList.add(new FirstLevDivision(divisionID, divisionName));
+            int countryID = results.getInt("Country_ID");
+            divisionList.add(new FirstLevDivision(divisionID, divisionName, countryID));
         }
     }
 
@@ -61,6 +63,7 @@ public class LocationDAO {
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ResultSet results = ps.executeQuery();
 
+        countryList.clear();
         while(results.next())
         {
             int countryID = results.getInt("Country_ID");
@@ -94,18 +97,32 @@ public class LocationDAO {
     }
 
     /**
-     *
+     * Finds division id that matches corresponding division name
      * */
     public static int getDivisionID(String divisionName) throws SQLException {
-        int id = 0;
         String sql = "SELECT Division_ID FROM client_schedule.first_level_divisions " +
                 "WHERE Division = " + "'" + divisionName + "'";
+        int id = 0;
 
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ResultSet results = ps.executeQuery();
 
         while(results.next()){
             id = results.getInt("Division_ID");
+        }
+        return id;
+    }
+
+    public static int getMatchCountryID(String countryName) throws SQLException {
+        String sql = "SELECT Country_ID FROM client_schedule.countries " +
+                "WHERE Country = " + "'" + countryName + "'";
+        int id = 0;
+
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+        ResultSet results = ps.executeQuery();
+
+        while(results.next()){
+            id = results.getInt("Country_ID");
         }
         return id;
     }

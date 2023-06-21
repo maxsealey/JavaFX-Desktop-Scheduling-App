@@ -2,11 +2,15 @@ package sealey.javafxdesktopschedulingapp.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
@@ -16,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -25,6 +30,8 @@ import java.util.ResourceBundle;
  * */
 public class ViewCustomers implements Initializable
 {
+    Stage stage;
+    Parent scene;
     @FXML
     private TableView<Customer> customerTable;
     @FXML
@@ -82,7 +89,15 @@ public class ViewCustomers implements Initializable
      * */
     @FXML
     void onActionUpdateCustomer(ActionEvent event) throws IOException {
-        FXML_Helpers.setStage("ModifyCustomer.fxml","Update Customer Information", updateCustomerButton);
+        try {
+            ModifyCustomer.setToUpdate(customerTable.getSelectionModel().getSelectedItem());
+            FXML_Helpers.setStage("ModifyCustomer.fxml","Update Customer", updateCustomerButton);
+        } catch(Exception e)
+        {
+            System.out.println("error updating customer");
+            Alerts.message("Please select an item", "No item was selected. Please select an item you would like" +
+                    " to update and try again.", Alert.AlertType.ERROR);
+        }
     }
 
     /**

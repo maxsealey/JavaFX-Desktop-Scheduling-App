@@ -2,30 +2,32 @@ package sealey.javafxdesktopschedulingapp.helpers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
+import sealey.javafxdesktopschedulingapp.controller.ModifyCustomer;
 import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Country;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 import sealey.javafxdesktopschedulingapp.model.FirstLevDivision;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  * Description:
  *
  * @author Max Sealey
  * */
-public abstract class FXML_Helpers {
+public class FXML_Helpers {
 
     /**
      * Helper function used globally (except for initial main load) to switch to a different scene

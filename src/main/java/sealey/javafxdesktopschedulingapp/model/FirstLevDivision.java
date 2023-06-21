@@ -13,13 +13,15 @@ public class FirstLevDivision {
      * @param divisionID id
      * @param divisionName name
      * */
-    public FirstLevDivision(int divisionID, String divisionName){
+    public FirstLevDivision(int divisionID, String divisionName, int countryID){
         this.divisionID = divisionID;
         this.divisionName = divisionName;
+        this.countryID = countryID;
     }
 
     private int divisionID;
     private String divisionName;
+    private int countryID;
 
     /**
      * @return divisionName name
@@ -47,5 +49,13 @@ public class FirstLevDivision {
      * */
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
+    }
+
+    public int getCountryID() {
+        return countryID;
+    }
+
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
     }
 }

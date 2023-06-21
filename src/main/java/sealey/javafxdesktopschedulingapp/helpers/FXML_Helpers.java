@@ -18,6 +18,7 @@ import sealey.javafxdesktopschedulingapp.model.Customer;
 import sealey.javafxdesktopschedulingapp.model.FirstLevDivision;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Description:
@@ -78,17 +79,18 @@ public abstract class FXML_Helpers {
      *
      * @param divisions ComboBox list of strings
      * */
-    public static void setFLDComboBox(ComboBox<String> divisions){
+    public static void setFLDComboBox(ComboBox<String> divisions, String selectedCountry) throws SQLException {
         ObservableList<String> divNames = FXCollections.observableArrayList();
-        for(FirstLevDivision fld : LocationDAO.getDivisionList())
-        {
-            divNames.add(fld.getDivisionName());
+
+        for(FirstLevDivision f : LocationDAO.getDivisionList()){
+            if(f.getCountryID() == LocationDAO.getMatchCountryID(selectedCountry))
+            {
+                divNames.add(f.getDivisionName());
+            }
         }
 
-
         divisions.setItems(divNames);
-        divisions.setVisibleRowCount(5);
-        divisions.setPromptText("First-level divisions");
+        divisions.setVisibleRowCount(8);
     }
 
     /**
@@ -104,7 +106,7 @@ public abstract class FXML_Helpers {
         }
 
         countries.setItems(countryNames);
-        countries.setVisibleRowCount(5);
+        countries.setVisibleRowCount(3);
         countries.setPromptText("Countries");
     }
 }

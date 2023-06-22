@@ -1,5 +1,6 @@
 package sealey.javafxdesktopschedulingapp.controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,11 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
+import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
+import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
+import sealey.javafxdesktopschedulingapp.model.Contact;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
@@ -120,6 +127,14 @@ public class AppointmentSchedule implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            AppointmentDAO.populateAppointmentList();
+            ContactDAO.populateContactList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+        FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentList(), appointmentTable, aptIDCol, custIDCol,
+                userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 }

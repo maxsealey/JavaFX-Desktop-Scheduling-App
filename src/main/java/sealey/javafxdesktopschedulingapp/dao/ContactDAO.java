@@ -2,6 +2,7 @@ package sealey.javafxdesktopschedulingapp.dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
 import sealey.javafxdesktopschedulingapp.helpers.DBConnection;
 import sealey.javafxdesktopschedulingapp.model.Contact;
 
@@ -50,5 +51,18 @@ public class ContactDAO {
 
             contactList.add(new Contact(contactID, contactName, email));
         }
+    }
+
+    public static String convertIDtoName(int id){
+        try{
+            for(Contact c : contactList){
+                if(c.getContactID() == id){
+                    return c.getContactName();
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Could not find contact.");
+        }
+        return null;
     }
 }

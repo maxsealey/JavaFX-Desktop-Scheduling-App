@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sealey.javafxdesktopschedulingapp.helpers.DBConnection;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
-import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

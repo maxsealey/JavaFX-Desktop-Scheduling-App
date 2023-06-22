@@ -94,5 +94,11 @@
          </font>
       </Label>
       <TextField fx:id="userIDTextField" disable="true" layoutX="450.0" layoutY="543.0" prefHeight="25.0" prefWidth="72.0" />
+      <ComboBox layoutX="320.0" layoutY="472.0" prefHeight="26.0" prefWidth="204.0" />
+      <Label layoutX="249.0" layoutY="475.0" text="Contact:">
+         <font>
+            <Font name="Futura Medium" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

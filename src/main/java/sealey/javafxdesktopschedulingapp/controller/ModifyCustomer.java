@@ -83,8 +83,8 @@ public class ModifyCustomer implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
-                    CustomerDAO.deleteCustomer(Integer.parseInt(IDTextField.getText()));
                     if(newCustomer()){
+                        CustomerDAO.updateCustomer(toUpdate);
                         FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
                     } else {
                         throw new Exception();
@@ -138,9 +138,7 @@ public class ModifyCustomer implements Initializable
             int divisionID = LocationDAO.getDivisionID(fldComboBox.getValue());
             String location = fldComboBox.getValue() + ", " + countryComboBox.getValue();
 
-            Customer newCustomer = new Customer(id, name, address, postalCode, phone, divisionID, location);
-
-            System.out.println(CustomerDAO.insertCustomer(newCustomer));
+            toUpdate = new Customer(id, name, address, postalCode, phone, divisionID, location);
         } catch(Exception e){
             return false;
         }

@@ -95,6 +95,27 @@ public class CustomerDAO {
     }
 
     /**
+     *
+     * */
+    public static int updateCustomer(Customer newCustomer) throws SQLException {
+        String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?, " +
+                "Last_Update = ?, Last_Updated_By = ? WHERE Customer_ID = ?";
+
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+
+        ps.setString(1, newCustomer.getCustomerName());
+        ps.setString(2, newCustomer.getAddress());
+        ps.setString(3, newCustomer.getPostalCode());
+        ps.setString(4, newCustomer.getPhone());
+        ps.setInt(5, newCustomer.getDivisionID());
+        ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+        ps.setString(7, UserDAO.getCurrentUser().getUsername());
+        ps.setInt(8, newCustomer.getCustomerID());
+
+        return ps.executeUpdate();
+    }
+
+    /**
      * Returns the lowest available id number.
      * prev contains the id of the previous customer in iteration
      * ex. if newID is 4, and the previous id was 1, there is no item at 2 (due to deletion).

@@ -97,18 +97,25 @@ public class AddCustomer implements Initializable
      * Called in onActionSave event handler
      * */
     private void newCustomer() throws SQLException {
-       int id = Integer.parseInt(IDTextField.getText());
-       String name = nameTextField.getText();
-       String address = addressTextField.getText();
-       String postalCode = postalCodeTextField.getText();
-       String phone = phoneTextField.getText();
+        try {
+            if(nameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || postalCodeTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || fldComboBox.getValue().isEmpty() || countryComboBox.getValue().isEmpty()){
+                Alerts.message("Something went wrong.", "All fields must be correctly filled out.", Alert.AlertType.ERROR);
+                throw new Exception();
+            }
 
-       int divisionID = LocationDAO.getDivisionID(fldComboBox.getValue());
-       String location = fldComboBox.getValue() + ", " + countryComboBox.getValue();
+            int id = Integer.parseInt(IDTextField.getText());
+            String name = nameTextField.getText();
+            String address = addressTextField.getText();
+            String postalCode = postalCodeTextField.getText();
+            String phone = phoneTextField.getText();
 
-       Customer newCustomer = new Customer(id, name, address, postalCode, phone, divisionID, location);
+            int divisionID = LocationDAO.getDivisionID(fldComboBox.getValue());
+            String location = fldComboBox.getValue() + ", " + countryComboBox.getValue();
 
-       System.out.println(CustomerDAO.insertCustomer(newCustomer));
+            Customer newCustomer = new Customer(id, name, address, postalCode, phone, divisionID, location);
+
+            System.out.println(CustomerDAO.insertCustomer(newCustomer));
+        } catch(Exception ignored){}
     }
 
 

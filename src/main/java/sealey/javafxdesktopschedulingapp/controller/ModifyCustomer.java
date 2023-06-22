@@ -3,11 +3,9 @@ package sealey.javafxdesktopschedulingapp.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
+import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.helpers.Misc_Helpers;
@@ -82,7 +80,20 @@ public class ModifyCustomer implements Initializable
      * */
     @FXML
     void onActionSave(ActionEvent event) throws IOException {
-        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+        try {
+            if(Alerts.confirmSave()){
+                try {
+                    CustomerDAO.deleteCustomer(Integer.parseInt(IDTextField.getText()));
+                    newCustomer();
+                    FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+                } catch(Exception e){
+                    Alerts.message("Something went wrong.", "Please make sure all of the fields are correctly filled out. \n\n" +
+                            "The address field can contain up to 100 characters, and the others can contain up to 50.", Alert.AlertType.ERROR);
+                }
+            }
+        } catch (NoSuchElementException e){
+            System.out.println("cancel save");
+        }
     }
 
     @FXML
@@ -90,6 +101,7 @@ public class ModifyCustomer implements Initializable
         fldComboBox.getSelectionModel().clearSelection();
         FXML_Helpers.setFLDComboBox(fldComboBox, countryComboBox.getValue());
     }
+
 
     private void setCustomer(Customer c) {
         IDTextField.setText((String.valueOf(c.getCustomerID())));
@@ -100,6 +112,32 @@ public class ModifyCustomer implements Initializable
 
         fldComboBox.setValue(Misc_Helpers.splitLocation(c.getLocation()).get(0));
         countryComboBox.setValue(Misc_Helpers.splitLocation(c.getLocation()).get(1));
+    }
+
+    /**
+     * Gets data from fields/boxes, creates new Customer, inserts into db
+     * Called in onActionSave event handler
+     * */
+    private void newCustomer() throws SQLException {
+        try {
+            if(nameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || postalCodeTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || fldComboBox.getValue().isEmpty() || countryComboBox.getValue().isEmpty()){
+                Alerts.message("Something went wrong.", "All fields must be correctly filled out.", Alert.AlertType.ERROR);
+                throw new Exception();
+            }
+
+            int id = Integer.parseInt(IDTextField.getText());
+            String name = nameTextField.getText();
+            String address = addressTextField.getText();
+            String postalCode = postalCodeTextField.getText();
+            String phone = phoneTextField.getText();
+
+            int divisionID = LocationDAO.getDivisionID(fldComboBox.getValue());
+            String location = fldComboBox.getValue() + ", " + countryComboBox.getValue();
+
+            Customer newCustomer = new Customer(id, name, address, postalCode, phone, divisionID, location);
+
+            System.out.println(CustomerDAO.insertCustomer(newCustomer));
+        } catch(Exception ignored){}
     }
 
     /**
@@ -116,6 +154,5 @@ public class ModifyCustomer implements Initializable
         }
         setCustomer(toUpdate);
         FXML_Helpers.setCountryComboBox(countryComboBox);
-        fldComboBox.setPromptText("Divisions");
     }
 }

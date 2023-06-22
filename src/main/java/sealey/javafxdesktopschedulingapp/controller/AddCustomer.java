@@ -74,14 +74,19 @@ public class AddCustomer implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
-                    newCustomer();
-                    FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+                    CustomerDAO.deleteCustomer(Integer.parseInt(IDTextField.getText()));
+                    if(newCustomer()){
+                        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+                    } else {
+                        throw new Exception();
+                    }
+
                 } catch(Exception e){
                     Alerts.message("Something went wrong.", "Please make sure all of the fields are correctly filled out. \n\n" +
                             "The address field can contain up to 100 characters, and the others can contain up to 50.", Alert.AlertType.ERROR);
                 }
             }
-        } catch (NoSuchElementException e){
+        } catch (Exception e){
             System.out.println("cancel save");
         }
     }
@@ -96,9 +101,10 @@ public class AddCustomer implements Initializable
      * Gets data from fields/boxes, creates new Customer, inserts into db
      * Called in onActionSave event handler
      * */
-    private void newCustomer() throws SQLException {
+    private boolean newCustomer() throws SQLException {
         try {
             if(nameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || postalCodeTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || fldComboBox.getValue().isEmpty() || countryComboBox.getValue().isEmpty()){
+                //Alerts.message("Something went wrong.", "All fields must be correctly filled out.", Alert.AlertType.ERROR);
                 throw new Exception();
             }
 
@@ -114,9 +120,11 @@ public class AddCustomer implements Initializable
             Customer newCustomer = new Customer(id, name, address, postalCode, phone, divisionID, location);
 
             System.out.println(CustomerDAO.insertCustomer(newCustomer));
-        } catch(Exception ignored){}
+        } catch(Exception e){
+            return false;
+        }
+        return true;
     }
-
 
 
     /**

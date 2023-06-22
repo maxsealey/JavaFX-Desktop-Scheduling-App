@@ -1,5 +1,6 @@
 package sealey.javafxdesktopschedulingapp.helpers;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,14 +13,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
 import sealey.javafxdesktopschedulingapp.controller.ModifyCustomer;
+import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
 import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
-import sealey.javafxdesktopschedulingapp.model.Appointment;
-import sealey.javafxdesktopschedulingapp.model.Country;
-import sealey.javafxdesktopschedulingapp.model.Customer;
-import sealey.javafxdesktopschedulingapp.model.FirstLevDivision;
+import sealey.javafxdesktopschedulingapp.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -111,6 +111,30 @@ public class FXML_Helpers {
         countries.setVisibleRowCount(3);
         countries.setPromptText("Countries");
     }
+
+    public static void setAppointmentTable(ObservableList<Appointment> appointmentList, TableView<Appointment> appointmentTable,
+                                           TableColumn<Appointment, Integer> appointmentID, TableColumn<Appointment, Integer> customerID,
+                                           TableColumn<Appointment, Integer> userID, TableColumn<Appointment, String> contactName,
+                                           TableColumn<Appointment, String> title, TableColumn<Appointment, String> description,
+                                           TableColumn<Appointment, String> location, TableColumn<Appointment, String> type,
+                                           TableColumn<Appointment, LocalDateTime> start, TableColumn<Appointment, LocalDateTime> end)
+    {
+        appointmentTable.setItems(appointmentList);
+
+        appointmentID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        customerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        userID.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        contactName.setCellValueFactory(new PropertyValueFactory<>("contactID"));
+        title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        location.setCellValueFactory(new PropertyValueFactory<>("location"));
+        type.setCellValueFactory(new PropertyValueFactory<>("type"));
+        start.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        end.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+
+        contactName.setCellValueFactory(contact-> new SimpleStringProperty(ContactDAO.convertIDtoName(contact.getValue().getContactID())));
+    }
 }
+
 
 

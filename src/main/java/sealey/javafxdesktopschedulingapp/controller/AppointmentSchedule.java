@@ -1,13 +1,25 @@
 package sealey.javafxdesktopschedulingapp.controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
+import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
+import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
+import sealey.javafxdesktopschedulingapp.model.Contact;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -18,11 +30,52 @@ import java.util.ResourceBundle;
 public class AppointmentSchedule implements Initializable
 {
     @FXML
+    private TableView<Appointment> appointmentTable;
+
+    @FXML
+    private TableColumn<Appointment, Integer> aptIDCol;
+
+    @FXML
     private Button backButton;
+
+    @FXML
+    private TableColumn<Appointment, String> contactCol;
+
+    @FXML
+    private TableColumn<Appointment, Integer> custIDCol;
+
+    @FXML
+    private TableColumn<Appointment, String> descCol;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> endCol;
+
+    @FXML
+    private TableColumn<Appointment, String> locationCol;
+
     @FXML
     private Button newApptButton;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> startCol;
+
+    @FXML
+    private TableColumn<Appointment, String> titleCol;
+
+    @FXML
+    private TableColumn<Appointment, String> typeCol;
+
     @FXML
     private Button updateButton;
+
+    @FXML
+    private TableColumn<Appointment, Integer> userIDCol;
+
+    @FXML
+    private RadioButton viewByMonthRadio;
+
+    @FXML
+    private RadioButton viewByWeekRadio;
 
     /**
      * Returns user to dashboard
@@ -57,6 +110,16 @@ public class AppointmentSchedule implements Initializable
         FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateButton);
     }
 
+    @FXML
+    void onActionWeek(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionMonth(ActionEvent event) {
+
+    }
+
     /**
      *
      * @param url location used to resolve relative paths for the root object, or null
@@ -64,6 +127,14 @@ public class AppointmentSchedule implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            AppointmentDAO.populateAppointmentList();
+            ContactDAO.populateContactList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+        FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentList(), appointmentTable, aptIDCol, custIDCol,
+                userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 }

@@ -4,10 +4,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
@@ -18,11 +23,52 @@ import java.util.ResourceBundle;
 public class AppointmentSchedule implements Initializable
 {
     @FXML
+    private TableView<Appointment> appointmentTable;
+
+    @FXML
+    private TableColumn<Appointment, Integer> aptIDCol;
+
+    @FXML
     private Button backButton;
+
+    @FXML
+    private TableColumn<Appointment, String> contactCol;
+
+    @FXML
+    private TableColumn<Appointment, Integer> custIDCol;
+
+    @FXML
+    private TableColumn<Appointment, String> descCol;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> endCol;
+
+    @FXML
+    private TableColumn<Appointment, String> locationCol;
+
     @FXML
     private Button newApptButton;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> startCol;
+
+    @FXML
+    private TableColumn<Appointment, String> titleCol;
+
+    @FXML
+    private TableColumn<Appointment, String> typeCol;
+
     @FXML
     private Button updateButton;
+
+    @FXML
+    private TableColumn<Appointment, Integer> userIDCol;
+
+    @FXML
+    private RadioButton viewByMonthRadio;
+
+    @FXML
+    private RadioButton viewByWeekRadio;
 
     /**
      * Returns user to dashboard
@@ -55,6 +101,16 @@ public class AppointmentSchedule implements Initializable
     @FXML
     void onActionUpdate(ActionEvent event) throws IOException {
         FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateButton);
+    }
+
+    @FXML
+    void onActionWeek(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionMonth(ActionEvent event) {
+
     }
 
     /**

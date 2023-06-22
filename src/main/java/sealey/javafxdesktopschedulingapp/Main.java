@@ -39,7 +39,7 @@ public class Main extends Application {
      * */
     public static void main(String[] args) {
         //For testing french labels:
-        Locale.setDefault(new Locale("fr"));
+        //Locale.setDefault(new Locale("fr"));
 
         DBConnection.openConnection();
         launch(args);

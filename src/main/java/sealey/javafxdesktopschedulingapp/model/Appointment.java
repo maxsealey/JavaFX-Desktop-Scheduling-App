@@ -1,5 +1,7 @@
 package sealey.javafxdesktopschedulingapp.model;
 
+import java.time.LocalDateTime;
+
 /**
  * Description:
  *
@@ -20,7 +22,7 @@ public class Appointment {
      * @param endDateTime end time and date
      */
     public Appointment(int appointmentID, int customerID, int userID, int contactID, String title, String description, String location, String type,
-                       String startDateTime, String endDateTime)
+                       LocalDateTime startDateTime, LocalDateTime endDateTime)
     {
 
         this.appointmentID = appointmentID;
@@ -43,8 +45,8 @@ public class Appointment {
     private String description;
     private String location;
     private String type;
-    private String startDateTime;
-    private String endDateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
     public int getAppointmentID() {
         return appointmentID;
@@ -155,28 +157,28 @@ public class Appointment {
     /**
      * @return startDateTime start time and date
      * */
-    public String getStartDateTime() {
+    public LocalDateTime getStartDateTime() {
         return startDateTime;
     }
 
     /**
      * @param startDateTime start time and date
      * */
-    public void setStartDateTime(String startDateTime) {
+    public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
 
     /**
      * @return endDateTime end time and date
      * */
-    public String getEndDateTime() {
+    public LocalDateTime getEndDateTime() {
         return endDateTime;
     }
 
     /**
      * @param endDateTime end time and date
      * */
-    public void setEndDateTime(String endDateTime) {
+    public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
 }

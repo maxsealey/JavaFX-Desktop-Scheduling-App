@@ -100,5 +100,10 @@
       </Label>
       <ComboBox fx:id="customerComboBox" layoutX="348.0" layoutY="508.0" onAction="#onActionCustomerCombo" prefHeight="26.0" prefWidth="175.0" />
       <ComboBox fx:id="userComboBox" layoutX="348.0" layoutY="544.0" onAction="#onActionUserCombo" prefHeight="26.0" prefWidth="175.0" />
+      <Label fx:id="timeZoneLabel" layoutX="586.0" layoutY="575.0" prefHeight="34.0" prefWidth="316.0" text="Time Zone:">
+         <font>
+            <Font name="Futura Medium" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

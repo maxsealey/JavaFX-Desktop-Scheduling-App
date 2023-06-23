@@ -5,6 +5,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -30,12 +31,15 @@
                 <Font name="Futura Medium" size="15.0" />
             </font>
         </Button>
-        <RadioButton fx:id="viewByWeekRadio" layoutX="580.0" layoutY="107.0" mnemonicParsing="false" onAction="#onActionWeek" text="View by Week" textFill="#2e94b9">
+        <RadioButton fx:id="viewByWeekRadio" layoutX="631.0" layoutY="108.0" mnemonicParsing="false" onAction="#onActionWeek" text="View by Week" textFill="#2e94b9">
             <font>
                 <Font name="Futura Medium" size="14.0" />
             </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="viewToggleGroup" />
+         </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="viewByMonthRadio" layoutX="737.0" layoutY="97.0" mnemonicParsing="false" onAction="#onActionMonth" prefHeight="40.0" prefWidth="139.0" text="View by Month" textFill="#2e94b9">
+        <RadioButton fx:id="viewByMonthRadio" layoutX="777.0" layoutY="98.0" mnemonicParsing="false" onAction="#onActionMonth" prefHeight="40.0" prefWidth="139.0" text="View by Month" textFill="#2e94b9" toggleGroup="$viewToggleGroup">
             <font>
                 <Font name="Futura Medium" size="14.0" />
             </font>
@@ -54,5 +58,10 @@
                 <TableColumn fx:id="userIDCol" prefWidth="51.0" text="User ID" />
             </columns>
         </TableView>
+      <RadioButton fx:id="viewAllRadio" layoutX="520.0" layoutY="108.0" mnemonicParsing="false" onAction="#onActionAll" selected="true" text="View All" textFill="#2e94b9" toggleGroup="$viewToggleGroup">
+         <font>
+            <Font name="Futura Medium" size="14.0" />
+         </font>
+      </RadioButton>
     </children>
 </AnchorPane>

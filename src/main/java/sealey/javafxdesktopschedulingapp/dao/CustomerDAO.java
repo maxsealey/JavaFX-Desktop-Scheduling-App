@@ -3,6 +3,7 @@ package sealey.javafxdesktopschedulingapp.dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sealey.javafxdesktopschedulingapp.helpers.DBConnection;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 import sealey.javafxdesktopschedulingapp.model.User;
 
@@ -94,6 +95,7 @@ public class CustomerDAO {
         ps.setInt(1, customerID);
 
         ps.executeUpdate();
+
     }
 
     /**
@@ -115,6 +117,17 @@ public class CustomerDAO {
         ps.setInt(8, newCustomer.getCustomerID());
 
         return ps.executeUpdate();
+    }
+
+    public static void populateCustomerAppointmentList() throws SQLException {
+        AppointmentDAO.populateAppointmentList();
+        for(Appointment a : AppointmentDAO.getAppointmentList()){
+            for(Customer c : CustomerDAO.getCustomerList()){
+                if(c.getCustomerID() == a.getCustomerID()){
+                    c.addAppointment(a);
+                }
+            }
+        }
     }
 
     /**

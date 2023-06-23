@@ -159,6 +159,7 @@ public class ViewCustomers implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             CustomerDAO.populateCustomerList();
+            CustomerDAO.populateCustomerAppointmentList();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

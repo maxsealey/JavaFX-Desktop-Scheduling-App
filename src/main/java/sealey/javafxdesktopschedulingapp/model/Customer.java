@@ -43,8 +43,8 @@ public class Customer {
         return appointmentList;
     }
 
-    public void setAppointmentList(ObservableList<Appointment> newList) {
-        appointmentList = newList;
+    public void addAppointment(Appointment a){
+        appointmentList.add(a);
     }
 
     /**

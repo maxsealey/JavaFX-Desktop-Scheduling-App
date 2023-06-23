@@ -10,6 +10,7 @@ import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
 import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.dao.UserDAO;
+import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Contact;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
@@ -53,6 +55,9 @@ public class AppointmentSchedule implements Initializable
 
     @FXML
     private Button newApptButton;
+
+    @FXML
+    private Button deleteButton;
 
     @FXML
     private TableColumn<Appointment, LocalDateTime> startCol;
@@ -112,6 +117,29 @@ public class AppointmentSchedule implements Initializable
     @FXML
     void onActionUpdate(ActionEvent event) throws IOException {
         FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateButton);
+    }
+
+    @FXML
+    void onActionDelete(ActionEvent event){
+        try {
+            if(appointmentTable.getSelectionModel().isEmpty()){
+                Alerts.message("Could not delete.", "Please select an item.", Alert.AlertType.ERROR);
+                throw new NoSuchElementException();
+            } else {
+                if(Alerts.deleteConfirmation()){
+                    AppointmentDAO.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem().getAppointmentID());
+                    AppointmentDAO.populateAppointmentList();
+                    Alerts.message("Success", "Customer successfully removed from" +
+                            " the database.", Alert.AlertType.INFORMATION);
+                    return;
+                }
+            }
+        } catch(NoSuchElementException e){
+            System.out.println("no item selected");
+        } catch (SQLException e) {
+            System.out.println("Error repopulating table from db");
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import sealey.javafxdesktopschedulingapp.helpers.DBConnection;
 import sealey.javafxdesktopschedulingapp.model.Contact;
+import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 /**
  * Description:

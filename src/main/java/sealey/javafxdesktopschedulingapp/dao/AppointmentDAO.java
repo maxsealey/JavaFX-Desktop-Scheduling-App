@@ -61,8 +61,10 @@ public class AppointmentDAO {
         ps.setString(6, newAppointment.getDescription());
         ps.setString(7, newAppointment.getLocation());
         ps.setString(8, newAppointment.getType());
+
         ps.setTimestamp(9, Timestamp.valueOf(newAppointment.getStartDateTime()));
         ps.setTimestamp(10, Timestamp.valueOf(newAppointment.getEndDateTime()));
+
         ps.setTimestamp(11, Timestamp.valueOf(LocalDateTime.now()));
         ps.setString(12, UserDAO.getCurrentUser().getUsername());
         ps.setTimestamp(13, Timestamp.valueOf(LocalDateTime.now()));

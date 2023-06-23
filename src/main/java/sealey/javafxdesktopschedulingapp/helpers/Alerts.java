@@ -87,4 +87,26 @@ public class Alerts {
 
         return result.get() == ButtonType.OK;
     }
+
+    /**
+     * Error message displayed when there is an attempt to place appointment outside business hours.
+     * */
+    public static void businessHoursAlert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText("Could not place the appointment.");
+        alert.setContentText("Make sure that the start and end times are within business hours (8am - 10pm EST), " +
+                "and that the appointment start time is before the end time.");
+        alert.showAndWait();
+    }
+
+    /**
+     * Error message displayed when there is an attempt to place appointment that's time conflicts with another appointment.
+     * */
+    public static void overlappingAppointmentsAlert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Could not make the appointment.");
+        alert.setHeaderText("This appointment conflicts with another placed appointment.");
+        alert.setContentText("Please enter valid times and try again.");
+        alert.showAndWait();
+    }
 }

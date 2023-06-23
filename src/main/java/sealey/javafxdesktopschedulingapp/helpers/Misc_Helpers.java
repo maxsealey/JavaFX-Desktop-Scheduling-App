@@ -11,11 +11,11 @@ import javafx.collections.ObservableList;
 public class Misc_Helpers {
 
     /**
+     * Takes a string in the form of a location (e.g. Arkansas, US), and splits it be the comma,
+     * returning an Observable list with 2 items: Arkansas, US
      *
-     * */
-
-    /**
-     *
+     * @param sub string to be divided
+     * @return list ObservableList with 2 elements
      * */
     public static ObservableList<String> splitLocation(String sub){
         String comma = String.valueOf(',');
@@ -27,4 +27,14 @@ public class Misc_Helpers {
 
         return list;
     }
+
+    public static int splitID(String comboBoxInput){
+        String space = String.valueOf(' ');
+        int dividerIndex = comboBoxInput.indexOf(space);
+
+        return Integer.parseInt(comboBoxInput.substring(0,dividerIndex));
+    }
+
+
+
 }

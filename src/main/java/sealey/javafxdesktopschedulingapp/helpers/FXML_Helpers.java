@@ -22,6 +22,7 @@ import sealey.javafxdesktopschedulingapp.model.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -79,80 +80,28 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets division names in combo box
+     * Sets cells in table of appointments.
+     * -------------------------------------------------
+     * LAMBDA EXPRESSION USAGE:
+     * -------------------------------------------------
+     * Used a lambda expression in this method to take the value in the
+     * contact ComboBox (an int, representing the contact ID), and convert it into
+     * the contact name. This made it much easier to populate the Customer cells and
+     * improved readability.
      *
-     * @param divisions ComboBox list of strings
+     * @param appointmentList the list of appointments to be put into cells
+     * @param appointmentTable the table to be filled out
+     * @param appointmentID unique id assigned to each appointment
+     * @param customerID unique id assigned to each customer
+     * @param userID unique id assigned to each user
+     * @param contactName name of each contact
+     * @param title the title of the appointment
+     * @param description the appointment description
+     * @param location the location of the appointment
+     * @param type the type of appointment
+     * @param start the start date and time of the apppointment
+     * @param end the end date and time of the appointment
      * */
-    public static void setFLDComboBox(ComboBox<String> divisions, String selectedCountry) throws SQLException {
-        ObservableList<String> divNames = FXCollections.observableArrayList();
-
-        for(FirstLevDivision f : LocationDAO.getDivisionList()){
-            if(f.getCountryID() == LocationDAO.getMatchCountryID(selectedCountry))
-            {
-                divNames.add(f.getDivisionName());
-            }
-        }
-
-        divisions.setItems(divNames);
-        divisions.setVisibleRowCount(8);
-    }
-
-    /**
-     * Sets country names in combo box
-     *
-     * @param countries ComboBox list of strings
-     * */
-    public static void setCountryComboBox(ComboBox<String> countries){
-        ObservableList<String> countryNames = FXCollections.observableArrayList();
-        for(Country c : LocationDAO.getCountryList())
-        {
-            countryNames.add(c.getCountry());
-        }
-
-        countries.setItems(countryNames);
-        countries.setVisibleRowCount(3);
-        countries.setPromptText("Countries");
-    }
-
-    public static void setContactComboBox(ComboBox<String> contacts){
-        ObservableList<String> contactNames = FXCollections.observableArrayList();
-
-        for(Contact c : ContactDAO.getContactList()){
-            contactNames.add(c.getContactName());
-        }
-
-        contacts.setItems(contactNames);
-        contacts.setVisibleRowCount(5);
-        contacts.setPromptText("Contacts");
-    }
-
-    public static void setCustomerComboBox(ComboBox<String> customers) throws SQLException {
-        ObservableList<String> customerNames = FXCollections.observableArrayList();
-
-        CustomerDAO.populateCustomerList();
-        for(Customer c : CustomerDAO.getCustomerList()){
-            customerNames.add(c.getCustomerName());
-        }
-
-        customers.setItems(customerNames);
-        customers.setVisibleRowCount(5);
-        customers.setPromptText("Customers");
-    }
-
-    public static void setUserComboBox(ComboBox<String> users) throws SQLException {
-        ObservableList<String> usernames = FXCollections.observableArrayList();
-
-        UserDAO.populateUserList();
-
-        for(User u : UserDAO.getUserList()){
-            usernames.add(u.getUsername());
-        }
-
-        users.setItems(usernames);
-        users.setVisibleRowCount(5);
-        users.setPromptText("Users");
-    }
-
     public static void setAppointmentTable(ObservableList<Appointment> appointmentList, TableView<Appointment> appointmentTable,
                                            TableColumn<Appointment, Integer> appointmentID, TableColumn<Appointment, Integer> customerID,
                                            TableColumn<Appointment, Integer> userID, TableColumn<Appointment, String> contactName,
@@ -175,8 +124,97 @@ public class FXML_Helpers {
 
         contactName.setCellValueFactory(contact-> new SimpleStringProperty(ContactDAO.convertIDtoName(contact.getValue().getContactID())));
     }
-}
 
+    /**
+     * Sets division names in combo box (AddCustomer and ModifyCustomer)
+     *
+     * @param divisions ComboBox list of strings
+     * */
+    public static void setFLDComboBox(ComboBox<String> divisions, String selectedCountry) throws SQLException {
+        ObservableList<String> divNames = FXCollections.observableArrayList();
+
+        for(FirstLevDivision f : LocationDAO.getDivisionList()){
+            if(f.getCountryID() == LocationDAO.getMatchCountryID(selectedCountry))
+            {
+                divNames.add(f.getDivisionName());
+            }
+        }
+
+        divisions.setItems(divNames);
+        divisions.setVisibleRowCount(8);
+    }
+
+    /**
+     * Sets country names in combo box (AddCustomer and ModifyCustomer)
+     *
+     * @param countries ComboBox list of strings
+     * */
+    public static void setCountryComboBox(ComboBox<String> countries){
+        ObservableList<String> countryNames = FXCollections.observableArrayList();
+        for(Country c : LocationDAO.getCountryList())
+        {
+            countryNames.add(c.getCountry());
+        }
+
+        countries.setItems(countryNames);
+        countries.setVisibleRowCount(3);
+        countries.setPromptText("Countries");
+    }
+
+    /**
+     * Sets contact ID and contact name into combobox containing list of contacts
+     *
+     * @param contacts the combobox control
+     * */
+    public static void setContactComboBox(ComboBox<String> contacts) throws SQLException {
+        ObservableList<String> contactNames = FXCollections.observableArrayList();
+
+        ContactDAO.populateContactList();
+        for(Contact c : ContactDAO.getContactList()){
+            contactNames.add(c.getContactID() + " " + c.getContactName());
+        }
+
+        contacts.setItems(contactNames);
+        contacts.setVisibleRowCount(5);
+        contacts.setPromptText("Contacts");
+    }
+
+    /**
+     * Sets customer ID and name into combobox containing list of customers
+     *
+     * @param customers the combobox control
+     * */
+    public static void setCustomerComboBox(ComboBox<String> customers) throws SQLException {
+        ObservableList<String> customerNames = FXCollections.observableArrayList();
+
+        CustomerDAO.populateCustomerList();
+        for(Customer c : CustomerDAO.getCustomerList()){
+            customerNames.add(c.getCustomerID() + " " + c.getCustomerName());
+        }
+
+        customers.setItems(customerNames);
+        customers.setVisibleRowCount(5);
+        customers.setPromptText("Customers");
+    }
+
+    /**
+     * Sets user ID and username into combobox containing list of users
+     *
+     * @param users the combobox control
+     * */
+    public static void setUserComboBox(ComboBox<String> users) throws SQLException {
+        ObservableList<String> usernames = FXCollections.observableArrayList();
+
+        UserDAO.populateUserList();
+        for(User u : UserDAO.getUserList()){
+            usernames.add(u.getUserID() + " " + u.getUsername());
+        }
+
+        users.setItems(usernames);
+        users.setVisibleRowCount(5);
+        users.setPromptText("Users");
+    }
+}
 
 
 

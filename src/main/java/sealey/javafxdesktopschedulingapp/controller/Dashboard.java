@@ -45,12 +45,6 @@ public class Dashboard implements Initializable
     private Button sortCustomersButton;
 
     @FXML
-    private Button updateApptButton;
-
-    @FXML
-    private Button updateCustomerButton;
-
-    @FXML
     private Button viewScheduleButton;
 
     @FXML
@@ -100,28 +94,6 @@ public class Dashboard implements Initializable
     @FXML
     void onActionSortCustomers(ActionEvent event) throws IOException {
         FXML_Helpers.setStage("ViewCustomers.fxml","All Customers", sortCustomersButton);
-    }
-
-    /**
-     * Takes user to ModifyAppointment page
-     *
-     * @param event Change scene button event
-     * @throws IOException IOException
-     * */
-    @FXML
-    void onActionUpdateAppt(ActionEvent event) throws IOException {
-        FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateApptButton);
-    }
-
-    /**
-     * Takes user to ModifyCustomer page
-     *
-     * @param event Change scene button event
-     * @throws IOException IOException
-     * */
-    @FXML
-    void onActionUpdateCustomer(ActionEvent event) throws IOException {
-        FXML_Helpers.setStage("ModifyCustomer.fxml","Update Customer Information", updateCustomerButton);
     }
 
     /**

@@ -44,6 +44,7 @@ public class AppointmentDAO {
             LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
 
             appointmentList.add(new Appointment(appointmentID, customerID, userID, contactID, title, desc, location, type, start, end));
+            CustomerDAO.populateCustomerList();
         }
     }
 

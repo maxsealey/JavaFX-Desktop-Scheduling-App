@@ -42,18 +42,19 @@ public class UserDAO {
      *
      * @return userList list of users
      * */
-    private static ObservableList<User> getUserList() {
+    public static ObservableList<User> getUserList() {
         return userList;
     }
 
     /**
      * Populates list of users from data in database
      * */
-    private static void populateUserList() throws SQLException {
+    public static void populateUserList() throws SQLException {
         String sql = "SELECT User_ID, User_Name, Password FROM client_schedule.users";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ResultSet results = ps.executeQuery();
 
+        userList.clear();
         while(results.next()){
             int userid = results.getInt("User_ID");
             String username = results.getString("User_Name");

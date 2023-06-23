@@ -12,37 +12,27 @@
             <Font name="Futura Medium" size="62.0" />
          </font>
       </Label>
-      <Button fx:id="newApptButton" layoutX="210.0" layoutY="292.0" mnemonicParsing="false" onAction="#onActionNewAppointment" prefHeight="69.0" prefWidth="269.0" text="New Appointment &#10;(existing customers)" textAlignment="CENTER">
+      <Button fx:id="newApptButton" layoutX="206.0" layoutY="274.0" mnemonicParsing="false" onAction="#onActionNewAppointment" prefHeight="69.0" prefWidth="269.0" text="New Appointment &#10;(existing customers)" textAlignment="CENTER">
          <font>
             <Font name="Futura Medium" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="newCustomerButton" layoutX="515.0" layoutY="292.0" mnemonicParsing="false" onAction="#onActionNewCustomer" prefHeight="69.0" prefWidth="269.0" text="New Customer" textAlignment="CENTER">
+      <Button fx:id="newCustomerButton" layoutX="523.0" layoutY="274.0" mnemonicParsing="false" onAction="#onActionNewCustomer" prefHeight="69.0" prefWidth="269.0" text="New Customer" textAlignment="CENTER">
          <font>
             <Font name="Futura Medium" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="updateCustomerButton" layoutX="515.0" layoutY="477.0" mnemonicParsing="false" onAction="#onActionUpdateCustomer" prefHeight="69.0" prefWidth="269.0" text="Update Customer Record" textAlignment="CENTER">
+      <Button fx:id="viewScheduleButton" layoutX="206.0" layoutY="388.0" mnemonicParsing="false" onAction="#onActionViewSchedule" prefHeight="69.0" prefWidth="269.0" text="View Appointment Schedule" textAlignment="CENTER">
          <font>
             <Font name="Futura Medium" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="viewScheduleButton" layoutX="210.0" layoutY="385.0" mnemonicParsing="false" onAction="#onActionViewSchedule" prefHeight="69.0" prefWidth="269.0" text="View Appointment Schedule" textAlignment="CENTER">
+      <Button fx:id="generateReportsButton" layoutX="366.0" layoutY="500.0" mnemonicParsing="false" onAction="#onActionGenerateReport" prefHeight="69.0" prefWidth="269.0" text="Generate Reports" textAlignment="CENTER">
          <font>
             <Font name="Futura Medium" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="generateReportsButton" layoutX="366.0" layoutY="569.0" mnemonicParsing="false" onAction="#onActionGenerateReport" prefHeight="69.0" prefWidth="269.0" text="Generate Reports" textAlignment="CENTER">
-         <font>
-            <Font name="Futura Medium" size="17.0" />
-         </font>
-      </Button>
-      <Button fx:id="sortCustomersButton" layoutX="515.0" layoutY="385.0" mnemonicParsing="false" onAction="#onActionSortCustomers" prefHeight="69.0" prefWidth="269.0" text="Sort Customer Records" textAlignment="CENTER">
-         <font>
-            <Font name="Futura Medium" size="17.0" />
-         </font>
-      </Button>
-      <Button fx:id="updateApptButton" layoutX="210.0" layoutY="477.0" mnemonicParsing="false" onAction="#onActionUpdateAppt" prefHeight="69.0" prefWidth="269.0" text="Update Appointment" textAlignment="CENTER">
+      <Button fx:id="sortCustomersButton" layoutX="523.0" layoutY="388.0" mnemonicParsing="false" onAction="#onActionSortCustomers" prefHeight="69.0" prefWidth="269.0" text="Sort Customer Records" textAlignment="CENTER">
          <font>
             <Font name="Futura Medium" size="17.0" />
          </font>

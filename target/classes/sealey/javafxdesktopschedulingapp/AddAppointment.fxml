@@ -87,18 +87,18 @@
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="cusIDTextField" disable="true" layoutX="450.0" layoutY="509.0" prefHeight="25.0" prefWidth="72.0" />
-      <Label layoutX="247.0" layoutY="538.0" prefHeight="34.0" prefWidth="197.0" text="User ID:">
+      <Label layoutX="247.0" layoutY="541.0" prefHeight="34.0" prefWidth="197.0" text="User ID:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="userIDTextField" disable="true" layoutX="450.0" layoutY="543.0" prefHeight="25.0" prefWidth="72.0" />
-      <ComboBox layoutX="320.0" layoutY="472.0" prefHeight="26.0" prefWidth="204.0" />
+      <ComboBox fx:id="contactComboBox" layoutX="349.0" layoutY="472.0" onAction="#onActionContactCombo" prefHeight="26.0" prefWidth="175.0" />
       <Label layoutX="249.0" layoutY="475.0" text="Contact:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
+      <ComboBox fx:id="customerComboBox" layoutX="348.0" layoutY="508.0" onAction="#onActionCustomerCombo" prefHeight="26.0" prefWidth="175.0" />
+      <ComboBox fx:id="userComboBox" layoutX="348.0" layoutY="544.0" onAction="#onActionUserCombo" prefHeight="26.0" prefWidth="175.0" />
    </children>
 </AnchorPane>

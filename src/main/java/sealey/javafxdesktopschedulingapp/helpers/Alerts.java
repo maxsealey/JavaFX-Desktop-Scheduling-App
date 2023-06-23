@@ -41,15 +41,6 @@ public class Alerts {
     }
 
     /**
-     * Calls message() and creates simple alert
-     *
-     * @param content message to be displayed
-     */
-    public static void simpleMessage(String content) {
-        message("Something went wrong.", content, Alert.AlertType.ERROR);
-    }
-
-    /**
      * Displays alert asking for confirmation that item should be deleted, returns true if Ok button clicked, false otherwise
      *
      * @return boolean true or false
@@ -58,7 +49,7 @@ public class Alerts {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Confirm Deletion");
         alert.setContentText("Click 'Ok' to proceed.");
-        alert.setHeaderText("Are you sure you want to delete this customer?");
+        alert.setHeaderText("Are you sure you want to delete?");
 
         Optional<ButtonType> result = alert.showAndWait();
 

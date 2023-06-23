@@ -4,18 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
-import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
-import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
-import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
+import sealey.javafxdesktopschedulingapp.dao.*;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.Misc_Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.Time_Helpers;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Customer;
+import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalTime;
+import java.sql.Timestamp;
+import java.time.*;
 import java.util.ResourceBundle;
 
 /**
@@ -68,6 +70,9 @@ public class AddAppointment implements Initializable
 
     @FXML
     private TextField typeTextField;
+
+    @FXML
+    private Label timeZoneLabel;
 
 
     /**
@@ -150,9 +155,31 @@ public class AddAppointment implements Initializable
                 throw new Exception();
             }
 
-            //take data and insert into db
+            int appointmentID = Integer.parseInt(apptIDTextField.getText());
 
+            int customerID = Misc_Helpers.splitID(customerComboBox.getValue());
+            int userID = Misc_Helpers.splitID(userComboBox.getValue());
+            int contactID = Misc_Helpers.splitID(contactComboBox.getValue());
 
+            String title = titleTextField.getText();
+            String desc = descTextArea.getText();
+            String loc = locationTextField.getText();
+            String type = typeTextField.getText();
+
+            LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
+            LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
+
+            ZonedDateTime utcStartZDT = Time_Helpers.localToUTC(startDateTime);
+            ZonedDateTime utcEndZDT = Time_Helpers.localToUTC(endDateTime);
+
+            // local to utc - input startDate, startTime
+            try {
+                Appointment newAppointment = new Appointment(appointmentID, customerID, userID, contactID, title,
+                        desc, loc, type, utcStartZDT.toLocalDateTime(), utcEndZDT.toLocalDateTime());
+                AppointmentDAO.insertAppointment(newAppointment);
+            } catch(Exception e){
+                Alerts.businessHoursAlert();
+            }
         } catch(Exception e){
             return false;
         }
@@ -168,15 +195,17 @@ public class AddAppointment implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             AppointmentDAO.populateAppointmentList();
-
-            FXML_Helpers.setUserComboBox(userComboBox);
             FXML_Helpers.setCustomerComboBox(customerComboBox);
+            FXML_Helpers.setUserComboBox(userComboBox);
+            FXML_Helpers.setContactComboBox(contactComboBox);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        FXML_Helpers.setContactComboBox(contactComboBox);
-        apptIDTextField.setText(String.valueOf(AppointmentDAO.getNextID()));
+        Time_Helpers.setTimesInComboBoxes(startTimeCombo, "Start Times");
+        Time_Helpers.setTimesInComboBoxes(endTimeCombo, "End Times");
 
+        apptIDTextField.setText(String.valueOf(AppointmentDAO.getNextID()));
+        timeZoneLabel.setText("Time Zone: " + ZoneId.systemDefault());
     }
 }

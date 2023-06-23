@@ -87,7 +87,7 @@ public class UserDAO {
      * @param username username
      * @return id userid or 0 if error/not found (should always be found)
      * */
-    public static int getIDwUsername(String username){
+    public static int convertUsernameToID(String username){
         try {
             for(User u : UserDAO.getUserList()){
                 if(Objects.equals(username, u.getUsername())){

@@ -4,14 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
 import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
+import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Contact;
@@ -77,6 +75,12 @@ public class AppointmentSchedule implements Initializable
     @FXML
     private RadioButton viewByWeekRadio;
 
+    @FXML
+    private RadioButton viewAllRadio;
+
+    @FXML
+    private ToggleGroup viewToggleGroup;
+
     /**
      * Returns user to dashboard
      *
@@ -120,6 +124,11 @@ public class AppointmentSchedule implements Initializable
 
     }
 
+    @FXML
+    void onActionAll(ActionEvent event) {
+
+    }
+
     /**
      *
      * @param url location used to resolve relative paths for the root object, or null
@@ -130,6 +139,8 @@ public class AppointmentSchedule implements Initializable
         try {
             AppointmentDAO.populateAppointmentList();
             ContactDAO.populateContactList();
+            CustomerDAO.populateCustomerList();
+            UserDAO.populateUserList();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

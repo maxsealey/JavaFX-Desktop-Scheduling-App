@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
 import sealey.javafxdesktopschedulingapp.controller.ModifyCustomer;
 import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
+import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
+import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.model.*;
 
 import java.io.IOException;
@@ -110,6 +112,45 @@ public class FXML_Helpers {
         countries.setItems(countryNames);
         countries.setVisibleRowCount(3);
         countries.setPromptText("Countries");
+    }
+
+    public static void setContactComboBox(ComboBox<String> contacts){
+        ObservableList<String> contactNames = FXCollections.observableArrayList();
+
+        for(Contact c : ContactDAO.getContactList()){
+            contactNames.add(c.getContactName());
+        }
+
+        contacts.setItems(contactNames);
+        contacts.setVisibleRowCount(5);
+        contacts.setPromptText("Contacts");
+    }
+
+    public static void setCustomerComboBox(ComboBox<String> customers) throws SQLException {
+        ObservableList<String> customerNames = FXCollections.observableArrayList();
+
+        CustomerDAO.populateCustomerList();
+        for(Customer c : CustomerDAO.getCustomerList()){
+            customerNames.add(c.getCustomerName());
+        }
+
+        customers.setItems(customerNames);
+        customers.setVisibleRowCount(5);
+        customers.setPromptText("Customers");
+    }
+
+    public static void setUserComboBox(ComboBox<String> users) throws SQLException {
+        ObservableList<String> usernames = FXCollections.observableArrayList();
+
+        UserDAO.populateUserList();
+
+        for(User u : UserDAO.getUserList()){
+            usernames.add(u.getUsername());
+        }
+
+        users.setItems(usernames);
+        users.setVisibleRowCount(5);
+        users.setPromptText("Users");
     }
 
     public static void setAppointmentTable(ObservableList<Appointment> appointmentList, TableView<Appointment> appointmentTable,

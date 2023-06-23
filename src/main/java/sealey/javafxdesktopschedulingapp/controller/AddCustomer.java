@@ -74,7 +74,6 @@ public class AddCustomer implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
-                    CustomerDAO.deleteCustomer(Integer.parseInt(IDTextField.getText()));
                     if(newCustomer()){
                         FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
                     } else {

@@ -110,29 +110,61 @@ public class AppointmentDAO {
         return ps.executeUpdate();
     }
 
-    /**
-     * Returns the lowest available id number.
-     * prev contains the id of the previous customer in iteration
-     * ex. if newID is 4, and the previous id was 1, there is no item at 2 (due to deletion).
-     * In this scenario, it would return 2. if there are no gaps, the newID would be the id
-     * of last item incremented
-     *
-     * @return newID returns 1 if empty list, returns highest
-     * */
-    public static int getNextID(){
-        int newID = 1, prev = 1;
+    public static ObservableList<Appointment> getAppointmentsThisMonth() throws SQLException {
+        ObservableList<Appointment> appointmentsThisMonth = FXCollections.observableArrayList();
+        String sql = "SELECT Appointment_ID, Customer_ID, User_ID, Contact_ID, Title, Description" +
+                ", Location, Type, Start, End FROM client_schedule.appointments WHERE MONTH(Start) = MONTH(CURDATE())";
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+        ResultSet results = ps.executeQuery();
 
-        if(appointmentList.isEmpty()) return newID;
+        while(results.next())
+        {
+            int appointmentID = results.getInt("Appointment_ID");
+            int customerID = results.getInt("Customer_ID");
+            int userID = results.getInt("User_ID");
+            int contactID = results.getInt("Contact_ID");
+            String title = results.getString("Title");
+            String desc = results.getString("Description");
+            String location = results.getString("Location");
+            String type = results.getString("Type");
+            LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
 
-        for(Appointment a : appointmentList){
-            newID = a.getAppointmentID();
+            start = LocalDateTime.from(Time_Helpers.utcToLocal(start));
+            end = LocalDateTime.from(Time_Helpers.utcToLocal(end));
 
-            if(newID != prev + 1 && newID != 1){
-                return prev + 1;
-            }
-
-            prev = a.getAppointmentID();
+            appointmentsThisMonth.add(new Appointment(appointmentID, customerID, userID, contactID, title, desc, location, type, start, end));
         }
-        return newID + 1;
+
+        return appointmentsThisMonth;
+    }
+
+    public static ObservableList<Appointment> getAppointmentsThisWeek() throws SQLException {
+        AppointmentDAO.populateAppointmentList();
+        ObservableList<Appointment> appointmentsThisWeek = FXCollections.observableArrayList();
+        String sql = "SELECT Appointment_ID, Customer_ID, User_ID, Contact_ID, Title, Description" +
+                ", Location, Type, Start, End FROM client_schedule.appointments WHERE WEEK(Start) = WEEK(CURDATE())";
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+        ResultSet results = ps.executeQuery();
+
+        while(results.next())
+        {
+            int appointmentID = results.getInt("Appointment_ID");
+            int customerID = results.getInt("Customer_ID");
+            int userID = results.getInt("User_ID");
+            int contactID = results.getInt("Contact_ID");
+            String title = results.getString("Title");
+            String desc = results.getString("Description");
+            String location = results.getString("Location");
+            String type = results.getString("Type");
+            LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
+            LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
+
+            start = LocalDateTime.from(Time_Helpers.utcToLocal(start));
+            end = LocalDateTime.from(Time_Helpers.utcToLocal(end));
+
+            appointmentsThisWeek.add(new Appointment(appointmentID, customerID, userID, contactID, title, desc, location, type, start, end));
+        }
+        return appointmentsThisWeek;
     }
 }

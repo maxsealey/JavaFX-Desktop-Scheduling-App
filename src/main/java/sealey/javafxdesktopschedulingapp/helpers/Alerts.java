@@ -127,7 +127,7 @@ public class Alerts {
             if((a.getStartDateTime().isEqual(currentTime) && a.getStartDateTime().isBefore(currentTime.plusMinutes(15)))
                     || (a.getStartDateTime().isAfter(currentTime) && a.getStartDateTime().isBefore(currentTime.plusMinutes(15)))){
                 message("Upcoming appointment", "There is an upcoming appointment in the next 15 minutes. \n" +
-                        "Appointment_ID: " + a.getAppointmentID() + "A", Alert.AlertType.INFORMATION);
+                        "Appointment_ID: " + a.getAppointmentID() + "Type: " + a.getType(), Alert.AlertType.INFORMATION);
                 appointment = true;
             }
         }

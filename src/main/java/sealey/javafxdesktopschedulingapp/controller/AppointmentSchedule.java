@@ -133,6 +133,10 @@ public class AppointmentSchedule implements Initializable
                     Alerts.cancelledAppointment(appointmentTable.getSelectionModel().getSelectedItem());
                     AppointmentDAO.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem().getAppointmentID());
                     AppointmentDAO.populateAppointmentList();
+                    onActionMonth(event);
+                    onActionWeek(event);
+                    onActionAll(event);
+                    viewAllRadio.setSelected(true);
                     return;
                 }
             }
@@ -145,18 +149,21 @@ public class AppointmentSchedule implements Initializable
     }
 
     @FXML
-    void onActionWeek(ActionEvent event) {
-
+    void onActionWeek(ActionEvent event) throws SQLException {
+        FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentsThisWeek(), appointmentTable, aptIDCol, custIDCol,
+                userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 
     @FXML
-    void onActionMonth(ActionEvent event) {
-
+    void onActionMonth(ActionEvent event) throws SQLException {
+        FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentsThisMonth(), appointmentTable, aptIDCol, custIDCol,
+                userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 
     @FXML
-    void onActionAll(ActionEvent event) {
-
+    void onActionAll(ActionEvent event) throws SQLException {
+        FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentList(), appointmentTable, aptIDCol, custIDCol,
+                userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 
     /**

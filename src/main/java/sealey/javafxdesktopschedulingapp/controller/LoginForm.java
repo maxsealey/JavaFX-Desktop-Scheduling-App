@@ -73,6 +73,7 @@ public class LoginForm implements Initializable
             if(UserDAO.validateCredentials(username, password) > 0){
                 UserDAO.setCurrentUser(new User(UserDAO.convertUsernameToID(username), username, "hidden")); // informs rest of the program who is signed in
                 FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
+                Alerts.loginAlert();
             } else {
                 System.out.println("wrong username or password");
                 Alerts.invalidCredentials();

@@ -8,9 +8,8 @@ import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
-import sealey.javafxdesktopschedulingapp.model.Country;
+import sealey.javafxdesktopschedulingapp.helpers.Misc_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Customer;
-import sealey.javafxdesktopschedulingapp.model.FirstLevDivision;
 
 import java.io.IOException;
 import java.net.URL;
@@ -140,6 +139,6 @@ public class AddCustomer implements Initializable
 
         FXML_Helpers.setCountryComboBox(countryComboBox);
         fldComboBox.setPromptText("Divisions");
-        IDTextField.setText(String.valueOf(CustomerDAO.getNextID()));
+        IDTextField.setText(String.valueOf(Misc_Helpers.getNextCustomerID()));
     }
 }

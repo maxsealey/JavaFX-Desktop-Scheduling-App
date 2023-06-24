@@ -216,7 +216,7 @@ public class AddAppointment implements Initializable
         Time_Helpers.setTimesInComboBoxes(startTimeCombo, "Start", 0);
         Time_Helpers.setTimesInComboBoxes(endTimeCombo, "End", 0);
 
-        apptIDTextField.setText(String.valueOf(AppointmentDAO.getNextID()));
+        apptIDTextField.setText(String.valueOf(Misc_Helpers.getNextAppointmentID()));
         timeZoneLabel.setText("Time Zone: " + ZoneId.systemDefault());
     }
 }

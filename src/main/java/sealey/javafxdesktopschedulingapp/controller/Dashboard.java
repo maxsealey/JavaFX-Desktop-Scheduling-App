@@ -144,7 +144,5 @@ public class Dashboard implements Initializable
         } // Country and Division lists won't change throughout program, so they populate on login
 
         welcomeText.setText("Welcome, " + UserDAO.getCurrentUser().getUsername() + "!");
-
-        Alerts.loginAlert();
     }
 }

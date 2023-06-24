@@ -124,14 +124,6 @@ public class Dashboard implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-     /*
-     !!! LINE OF CODE BELOW - FOR TESTING & DEVELOPMENT PURPOSES - REMOVE
-
-     During development, I set the startup page to open to dashboard,
-     so the login form wasn't able to set the current user.
-     */
-        UserDAO.setCurrentUser(new User(1, "test", "hidden"));
         try {
             LocationDAO.populateCountryList();
             LocationDAO.populateDivisionList();

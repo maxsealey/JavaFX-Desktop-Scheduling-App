@@ -83,7 +83,7 @@ public class ModifyCustomer implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
-                    if(newCustomer()){
+                    if(modifyCustomer()){
                         CustomerDAO.updateCustomer(toUpdate);
                         FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
                     } else {
@@ -122,7 +122,7 @@ public class ModifyCustomer implements Initializable
      * Gets data from fields/boxes, creates new Customer, inserts into db
      * Called in onActionSave event handler
      * */
-    private boolean newCustomer() throws SQLException {
+    private boolean modifyCustomer() throws SQLException {
         try {
             if(nameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || postalCodeTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || fldComboBox.getValue().isEmpty() || countryComboBox.getValue().isEmpty()){
                 //Alerts.message("Something went wrong.", "All fields must be correctly filled out.", Alert.AlertType.ERROR);

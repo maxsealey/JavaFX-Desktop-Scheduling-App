@@ -1,11 +1,9 @@
 package sealey.javafxdesktopschedulingapp.controller;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
 import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
@@ -13,7 +11,6 @@ import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
-import sealey.javafxdesktopschedulingapp.model.Contact;
 
 import java.io.IOException;
 import java.net.URL;
@@ -104,7 +101,7 @@ public class AppointmentSchedule implements Initializable
      * @throws IOException IOException
      * */
     @FXML
-    void onActionNewAppt(ActionEvent event) throws IOException {
+    void onActionNewAppointment(ActionEvent event) throws IOException {
         FXML_Helpers.setStage("AddAppointment.fxml", "Add New Appointment", newApptButton);
     }
 
@@ -116,7 +113,13 @@ public class AppointmentSchedule implements Initializable
      * */
     @FXML
     void onActionUpdate(ActionEvent event) throws IOException {
-        FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateButton);
+        try {
+            ModifyAppointment.setToUpdate(appointmentTable.getSelectionModel().getSelectedItem());
+            FXML_Helpers.setStage("ModifyAppointment.fxml","Update Appointment", updateButton);
+        } catch(Exception e){
+            Alerts.message("Please select an item", "No item was selected. Please select an item you would like" +
+                    " to update and try again.", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -127,10 +130,9 @@ public class AppointmentSchedule implements Initializable
                 throw new NoSuchElementException();
             } else {
                 if(Alerts.deleteConfirmation()){
+                    Alerts.cancelledAppointment(appointmentTable.getSelectionModel().getSelectedItem());
                     AppointmentDAO.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem().getAppointmentID());
                     AppointmentDAO.populateAppointmentList();
-                    Alerts.message("Success", "Customer successfully removed from" +
-                            " the database.", Alert.AlertType.INFORMATION);
                     return;
                 }
             }

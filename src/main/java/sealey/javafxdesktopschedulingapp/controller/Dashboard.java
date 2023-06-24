@@ -9,9 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
-import sealey.javafxdesktopschedulingapp.dao.UserDAO;
+import sealey.javafxdesktopschedulingapp.dao.*;
+import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
+import sealey.javafxdesktopschedulingapp.model.Customer;
 import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
@@ -134,10 +135,16 @@ public class Dashboard implements Initializable
         try {
             LocationDAO.populateCountryList();
             LocationDAO.populateDivisionList();
+            AppointmentDAO.populateAppointmentList();
+            UserDAO.populateUserList();
+            CustomerDAO.populateCustomerList();
+            ContactDAO.populateContactList();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } // Country and Division lists won't change throughout program, so they populate on login
 
         welcomeText.setText("Welcome, " + UserDAO.getCurrentUser().getUsername() + "!");
+
+        Alerts.loginAlert();
     }
 }

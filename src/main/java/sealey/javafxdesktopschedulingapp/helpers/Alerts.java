@@ -2,7 +2,10 @@ package sealey.javafxdesktopschedulingapp.helpers;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -104,9 +107,33 @@ public class Alerts {
      * */
     public static void overlappingAppointmentsAlert(){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Could not make the appointment.");
         alert.setHeaderText("This appointment conflicts with another placed appointment.");
         alert.setContentText("Please enter valid times and try again.");
         alert.showAndWait();
+    }
+
+    public static void cancelledAppointment(Appointment cancelled){
+        Alert alert = new Alert((Alert.AlertType.INFORMATION));
+        alert.setHeaderText("Appointment successfully cancelled.");
+        alert.setContentText("Appointment ID: " + cancelled.getAppointmentID() + "\n" + "Appointment Type: " + cancelled.getType());
+        alert.showAndWait();
+    }
+
+    public static void loginAlert(){
+        LocalDateTime currentTime = LocalDateTime.now();
+        boolean appointment = false;
+
+        for(Appointment a : AppointmentDAO.getAppointmentList()){
+            if((a.getStartDateTime().isEqual(currentTime) && a.getStartDateTime().isBefore(currentTime.plusMinutes(15)))
+                    || (a.getStartDateTime().isAfter(currentTime) && a.getStartDateTime().isBefore(currentTime.plusMinutes(15)))){
+                message("Upcoming appointment", "There is an upcoming appointment in the next 15 minutes. \n" +
+                        "Appointment_ID: " + a.getAppointmentID() + "A", Alert.AlertType.INFORMATION);
+                appointment = true;
+            }
+        }
+
+        if(!appointment){
+            message("No upcoming appointments.", "There are no appointments in the next 15 minutes.", Alert.AlertType.INFORMATION);
+        }
     }
 }

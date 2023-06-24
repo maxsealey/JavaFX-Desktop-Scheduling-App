@@ -4,8 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 
+import java.sql.SQLException;
 import java.time.*;
-import java.util.TimeZone;
 
 public class Time_Helpers {
     /**
@@ -38,7 +38,7 @@ public class Time_Helpers {
      * @param localTimes ComboBox to contain the times
      * @param startOrEnd String which input will either be 'StartOrEnd'
      * */
-    public static void setTimesInComboBoxes(ComboBox<LocalTime> localTimes, String startOrEnd){
+    public static void setTimesInComboBoxes(ComboBox<LocalTime> localTimes, String startOrEnd, int addOrUpdate){
         ObservableList<LocalTime> times = FXCollections.observableArrayList();
 
         // should simplify using lambda
@@ -50,7 +50,28 @@ public class Time_Helpers {
 
         localTimes.setItems(times);
         localTimes.setVisibleRowCount(5);
-        localTimes.setPromptText(startOrEnd);
+        if(addOrUpdate == 0){
+            localTimes.setPromptText(startOrEnd);
+        }
+    }
 
+    /**
+     *
+     * */
+    public static boolean timeValidityCheck(LocalDateTime localStart, LocalDateTime localEnd) throws SQLException {
+        ZonedDateTime startEstZDT = localToEST(localStart);
+        ZonedDateTime endEstZDT = localToEST(localEnd);
+
+        LocalTime startTime = startEstZDT.toLocalTime();
+        LocalTime endTime = endEstZDT.toLocalTime();
+
+        LocalTime open = LocalTime.of(8,0);
+        LocalTime close = LocalTime.of(22,0);
+
+        if(startEstZDT.isAfter(endEstZDT) || startEstZDT.isEqual(endEstZDT)){
+            return false;
+        }
+
+        return !startTime.isAfter(close) && !endTime.isAfter(close) && !startTime.isBefore(open) && !endTime.isBefore(open);
     }
 }

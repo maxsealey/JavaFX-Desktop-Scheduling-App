@@ -10,13 +10,10 @@ import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.helpers.Misc_Helpers;
 import sealey.javafxdesktopschedulingapp.helpers.Time_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
-import sealey.javafxdesktopschedulingapp.model.Customer;
-import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
 
@@ -97,6 +94,16 @@ public class AddAppointment implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
+                    try {
+                        if(!Time_Helpers.timeValidityCheck(LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue()),
+                                LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue()))){
+                            throw new Exception();
+                        }
+                    } catch(Exception e){
+                        Alerts.businessHoursAlert();
+                        return;
+                    }
+
                     if(newAppointment()){
                         FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
                     } else {
@@ -169,10 +176,14 @@ public class AddAppointment implements Initializable
             LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
             LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
 
+//            if(!Misc_Helpers.appointmentOverlap(startDateTime, endDateTime)){
+//                Alerts.overlappingAppointmentsAlert();
+//                throw new Exception();
+//            }
+
             ZonedDateTime utcStartZDT = Time_Helpers.localToUTC(startDateTime);
             ZonedDateTime utcEndZDT = Time_Helpers.localToUTC(endDateTime);
 
-            // local to utc - input startDate, startTime
             try {
                 Appointment newAppointment = new Appointment(appointmentID, customerID, userID, contactID, title,
                         desc, loc, type, utcStartZDT.toLocalDateTime(), utcEndZDT.toLocalDateTime());
@@ -202,8 +213,8 @@ public class AddAppointment implements Initializable
             throw new RuntimeException(e);
         }
 
-        Time_Helpers.setTimesInComboBoxes(startTimeCombo, "Start Times");
-        Time_Helpers.setTimesInComboBoxes(endTimeCombo, "End Times");
+        Time_Helpers.setTimesInComboBoxes(startTimeCombo, "Start", 0);
+        Time_Helpers.setTimesInComboBoxes(endTimeCombo, "End", 0);
 
         apptIDTextField.setText(String.valueOf(AppointmentDAO.getNextID()));
         timeZoneLabel.setText("Time Zone: " + ZoneId.systemDefault());

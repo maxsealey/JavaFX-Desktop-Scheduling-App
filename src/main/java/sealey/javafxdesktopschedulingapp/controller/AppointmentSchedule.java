@@ -130,10 +130,9 @@ public class AppointmentSchedule implements Initializable
                 throw new NoSuchElementException();
             } else {
                 if(Alerts.deleteConfirmation()){
+                    Alerts.cancelledAppointment(appointmentTable.getSelectionModel().getSelectedItem());
                     AppointmentDAO.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem().getAppointmentID());
                     AppointmentDAO.populateAppointmentList();
-                    Alerts.message("Success", "Appointment successfully removed from" +
-                            " the database.", Alert.AlertType.INFORMATION);
                     return;
                 }
             }

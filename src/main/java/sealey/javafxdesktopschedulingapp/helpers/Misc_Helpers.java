@@ -2,6 +2,15 @@ package sealey.javafxdesktopschedulingapp.helpers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
+import sealey.javafxdesktopschedulingapp.model.Appointment;
+import sealey.javafxdesktopschedulingapp.model.Contact;
+import sealey.javafxdesktopschedulingapp.model.Customer;
+
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 /**
  * Description:
@@ -35,6 +44,15 @@ public class Misc_Helpers {
         return Integer.parseInt(comboBoxInput.substring(0,dividerIndex));
     }
 
-
+    /**
+     * returns false if no
+     * */
+//    public static boolean appointmentOverlap(Customer reqCustomer, Contact reqContact, LocalDateTime reqStart, LocalDateTime reqEnd) throws SQLException {
+//        AppointmentDAO.populateAppointmentList();
+//        ObservableList<Appointment> appointments = AppointmentDAO.getAppointmentList();
+//
+//
+//
+//    }
 
 }

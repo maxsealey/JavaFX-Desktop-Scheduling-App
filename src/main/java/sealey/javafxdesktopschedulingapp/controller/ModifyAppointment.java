@@ -1,7 +1,5 @@
 package sealey.javafxdesktopschedulingapp.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -119,6 +117,15 @@ public class ModifyAppointment implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
+                    try {
+                        if(!Time_Helpers.timeValidityCheck(toUpdate.getStartDateTime(), toUpdate.getEndDateTime())){
+                            throw new Exception();
+                        }
+                    } catch(Exception e){
+                        Alerts.businessHoursAlert();
+                        return;
+                    }
+
                     if(modifyAppointment()){
                         AppointmentDAO.updateAppointment(toUpdate);
                         FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
@@ -230,6 +237,11 @@ public class ModifyAppointment implements Initializable
             LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
             LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
 
+//            if(!Misc_Helpers.appointmentOverlap(startDateTime, endDateTime)){
+//                Alerts.overlappingAppointmentsAlert();
+//                throw new Exception();
+//            }
+
             ZonedDateTime utcStartZDT = Time_Helpers.localToUTC(startDateTime);
             ZonedDateTime utcEndZDT = Time_Helpers.localToUTC(endDateTime);
 
@@ -257,6 +269,9 @@ public class ModifyAppointment implements Initializable
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        Time_Helpers.setTimesInComboBoxes(startTimeCombo, "Start", 1);
+        Time_Helpers.setTimesInComboBoxes(endTimeCombo, "End", 1);
 
         setAppointment(toUpdate);
         timeZoneLabel.setText("Time Zone: " + ZoneId.systemDefault());

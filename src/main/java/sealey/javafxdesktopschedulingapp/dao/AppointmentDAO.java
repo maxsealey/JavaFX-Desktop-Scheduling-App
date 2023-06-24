@@ -3,6 +3,7 @@ package sealey.javafxdesktopschedulingapp.dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sealey.javafxdesktopschedulingapp.helpers.DBConnection;
+import sealey.javafxdesktopschedulingapp.helpers.Time_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
 
 import java.sql.PreparedStatement;
@@ -43,6 +44,9 @@ public class AppointmentDAO {
             LocalDateTime start = results.getTimestamp("Start").toLocalDateTime();
             LocalDateTime end = results.getTimestamp("End").toLocalDateTime();
 
+            start = LocalDateTime.from(Time_Helpers.utcToLocal(start));
+            end = LocalDateTime.from(Time_Helpers.utcToLocal(end));
+
             appointmentList.add(new Appointment(appointmentID, customerID, userID, contactID, title, desc, location, type, start, end));
             CustomerDAO.populateCustomerList();
         }
@@ -80,6 +84,30 @@ public class AppointmentDAO {
         ps.setInt(1, appointmentID);
 
         ps.executeUpdate();
+    }
+
+    public static int updateAppointment(Appointment appointment) throws SQLException {
+        String sql = "UPDATE APPOINTMENTS SET Customer_ID = ?, User_ID = ?, Contact_ID = ?, Title = ?, Description = ?" +
+                ", Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ? WHERE Appointment_ID = ?";
+
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+
+        ps.setInt(1, appointment.getCustomerID());
+        ps.setInt(2, appointment.getUserID());
+        ps.setInt(3, appointment.getContactID());
+        ps.setString(4, appointment.getTitle());
+        ps.setString(5, appointment.getDescription());
+        ps.setString(6, appointment.getLocation());
+        ps.setString(7, appointment.getType());
+
+        ps.setTimestamp(8, Timestamp.valueOf(appointment.getStartDateTime()));
+        ps.setTimestamp(9, Timestamp.valueOf(appointment.getEndDateTime()));
+
+        ps.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
+        ps.setString(11, UserDAO.getCurrentUser().getUsername());
+        ps.setInt(12, appointment.getAppointmentID());
+
+        return ps.executeUpdate();
     }
 
     /**

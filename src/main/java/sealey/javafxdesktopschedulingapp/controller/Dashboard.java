@@ -50,8 +50,6 @@ public class Dashboard implements Initializable
     @FXML
     private Label welcomeText;
 
-    private static String currentUser;
-
     /**
      * Takes user to GenerateReports page
      *
@@ -118,10 +116,6 @@ public class Dashboard implements Initializable
         FXML_Helpers.setStage("LoginForm.fxml","GVS", logoutButton);
     }
 
-    public static String getCurrentUser(){
-        return currentUser;
-    }
-
     /**
      *
      * @param url location used to resolve relative paths for the root object, or null
@@ -129,14 +123,14 @@ public class Dashboard implements Initializable
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*
-         !!! LINE OF CODE BELOW - FOR TESTING & DEVELOPMENT PURPOSES - REMOVE
 
-         During development, I set the startup page to open to dashboard,
-         so the login form wasn't able to set the current user.
-         */
+     /*
+     !!! LINE OF CODE BELOW - FOR TESTING & DEVELOPMENT PURPOSES - REMOVE
+
+     During development, I set the startup page to open to dashboard,
+     so the login form wasn't able to set the current user.
+     */
         UserDAO.setCurrentUser(new User(1, "test", "hidden"));
-
         try {
             LocationDAO.populateCountryList();
             LocationDAO.populateDivisionList();

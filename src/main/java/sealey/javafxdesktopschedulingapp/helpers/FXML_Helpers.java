@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -82,7 +83,7 @@ public class FXML_Helpers {
     /**
      * Sets cells in table of appointments.
      * -------------------------------------------------
-     * LAMBDA EXPRESSION USAGE:
+     * LAMBDA EXPRESSION USAGE #1:
      * -------------------------------------------------
      * Used a lambda expression in this method to take the value in the
      * contact ComboBox (an int, representing the contact ID), and convert it into

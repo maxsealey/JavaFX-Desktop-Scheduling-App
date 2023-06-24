@@ -98,14 +98,3 @@ public class Misc_Helpers {
     }
 }
 
-    /**
-     * returns false if no
-     * */
-//    public static boolean appointmentOverlap(Customer reqCustomer, Contact reqContact, LocalDateTime reqStart, LocalDateTime reqEnd) throws SQLException {
-//        AppointmentDAO.populateAppointmentList();
-//        ObservableList<Appointment> appointments = AppointmentDAO.getAppointmentList();
-//
-//
-//
-//    }
-

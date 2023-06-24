@@ -80,7 +80,7 @@ public class AddAppointment implements Initializable
      * */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
-        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", cancelButton);
+        FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", cancelButton);
     }
 
     /**
@@ -104,8 +104,21 @@ public class AddAppointment implements Initializable
                         return;
                     }
 
+                    try {
+                        LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
+                        LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
+
+                        if(!Time_Helpers.checkCustomerOverlap(Misc_Helpers.splitID(customerComboBox.getValue()), startDateTime, endDateTime))
+                        {
+                            throw new Exception();
+                        }
+                    } catch(Exception e){
+                        Alerts.overlappingAppointmentsAlert();
+                        return;
+                    }
+
                     if(newAppointment()){
-                        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+                        FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", saveButton);
                     } else {
                         throw new Exception();
                     }
@@ -175,11 +188,6 @@ public class AddAppointment implements Initializable
 
             LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
             LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
-
-//            if(!Misc_Helpers.appointmentOverlap(startDateTime, endDateTime)){
-//                Alerts.overlappingAppointmentsAlert();
-//                throw new Exception();
-//            }
 
             ZonedDateTime utcStartZDT = Time_Helpers.localToUTC(startDateTime);
             ZonedDateTime utcEndZDT = Time_Helpers.localToUTC(endDateTime);

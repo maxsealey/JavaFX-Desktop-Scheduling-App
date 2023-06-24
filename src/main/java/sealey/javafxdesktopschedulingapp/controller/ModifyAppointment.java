@@ -99,7 +99,7 @@ public class ModifyAppointment implements Initializable
     void onActionCancel(ActionEvent event) throws IOException {
         try {
             if(Alerts.confirmCancel()){
-                FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", cancelButton);
+                FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", cancelButton);
             }
         } catch(NoSuchElementException e) {
             System.out.println("cancel cancel");
@@ -108,6 +108,9 @@ public class ModifyAppointment implements Initializable
 
     /**
      * Saves customer data, returns user to dashboard
+     *
+     * LAMBDA EXPRESSION USAGE: Used a lambda to remove an appointment from the appointment list if the id is the same
+     * as the one that I'm updating. This allows my overlap checker to work for ModifyAppointment.
      *
      * @param event Save button event
      * @throws IOException IOException
@@ -118,7 +121,8 @@ public class ModifyAppointment implements Initializable
             if(Alerts.confirmSave()){
                 try {
                     try {
-                        if(!Time_Helpers.timeValidityCheck(toUpdate.getStartDateTime(), toUpdate.getEndDateTime())){
+                        if(!Time_Helpers.timeValidityCheck(LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue()),
+                                LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue()))){
                             throw new Exception();
                         }
                     } catch(Exception e){
@@ -126,9 +130,25 @@ public class ModifyAppointment implements Initializable
                         return;
                     }
 
+                    try {
+                        LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
+                        LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
+
+                        AppointmentDAO.getAppointmentList().removeIf(a -> a.getAppointmentID() == Integer.parseInt(apptIDTextField.getText()));
+
+                        if(!Time_Helpers.checkCustomerOverlap(Misc_Helpers.splitID(customerComboBox.getValue()), startDateTime, endDateTime))
+                        {
+                            throw new Exception();
+                        }
+                    } catch(Exception e){
+                        Alerts.overlappingAppointmentsAlert();
+                        return;
+                    }
+
                     if(modifyAppointment()){
                         AppointmentDAO.updateAppointment(toUpdate);
-                        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+                        FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", saveButton);
+                        return;
                     } else {
                         throw new Exception();
                     }
@@ -236,11 +256,6 @@ public class ModifyAppointment implements Initializable
 
             LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
             LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
-
-//            if(!Misc_Helpers.appointmentOverlap(startDateTime, endDateTime)){
-//                Alerts.overlappingAppointmentsAlert();
-//                throw new Exception();
-//            }
 
             ZonedDateTime utcStartZDT = Time_Helpers.localToUTC(startDateTime);
             ZonedDateTime utcEndZDT = Time_Helpers.localToUTC(endDateTime);

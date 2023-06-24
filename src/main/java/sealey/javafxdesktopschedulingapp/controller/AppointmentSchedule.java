@@ -177,6 +177,7 @@ public class AppointmentSchedule implements Initializable
             AppointmentDAO.populateAppointmentList();
             ContactDAO.populateContactList();
             CustomerDAO.populateCustomerList();
+            CustomerDAO.populateCustomerAppointmentList();
             UserDAO.populateUserList();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -2,34 +2,24 @@ package sealey.javafxdesktopschedulingapp.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.*;
-import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
-import sealey.javafxdesktopschedulingapp.model.Customer;
-import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: This class is the controller for the Dashboard scene, which is set when user successfully logs in.
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class Dashboard implements Initializable
 {
-    Stage stage;
-    Parent scene;
     @FXML
     private Button generateReportsButton;
 
@@ -118,6 +108,7 @@ public class Dashboard implements Initializable
     }
 
     /**
+     * Runs on initialization, runs DAO methods to get data from the database.
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
@@ -133,7 +124,7 @@ public class Dashboard implements Initializable
             ContactDAO.populateContactList();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } // Country and Division lists won't change throughout program, so they populate on login
+        }
 
         welcomeText.setText("Welcome, " + UserDAO.getCurrentUser().getUsername() + "!");
     }

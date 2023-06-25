@@ -12,18 +12,33 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Description: This class contains static methods to interact with the database on appointment data
+ *
+ * @author maxsealey Sealey
+ * */
 public class AppointmentDAO {
     private static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
-
+    /**
+     * @return appointmentList getter
+     * */
     public static ObservableList<Appointment> getAppointmentList() {
         return appointmentList;
     }
 
+    /**
+     * @param appointmentList setter (unused)
+     * */
     public static void setAppointmentList(ObservableList<Appointment> appointmentList) {
         AppointmentDAO.appointmentList = appointmentList;
     }
 
+    /**
+     * Populates local static appointmentList with data retrieved from the database
+     *
+     * @throws SQLException sql protection
+     * */
     public static void populateAppointmentList() throws SQLException {
         String sql = "SELECT Appointment_ID, Customer_ID, User_ID, Contact_ID, Title, Description" +
                 ", Location, Type, Start, End FROM client_schedule.appointments;";
@@ -52,6 +67,13 @@ public class AppointmentDAO {
         }
     }
 
+    /**
+     * Inserts a new appointment into the database
+     *
+     * @param newAppointment appointment to insert
+     * @return int ps.executeUpdate()
+     * @throws SQLException sql protection
+     * */
     public static int insertAppointment(Appointment newAppointment) throws SQLException {
         String sql = "INSERT INTO APPOINTMENTS (Appointment_ID, Customer_ID, User_ID, Contact_ID, Title, Description" +
                 ", Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By) " +
@@ -78,6 +100,13 @@ public class AppointmentDAO {
         return ps.executeUpdate();
     }
 
+    /**
+     * Deletes appointment from the database
+     *
+     * @param appointmentID to be deleted
+     * @return int ps.executeUpdate()
+     * @throws SQLException sql protection
+     * */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         String sql = "DELETE FROM APPOINTMENTS WHERE Appointment_ID = ?";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
@@ -86,6 +115,13 @@ public class AppointmentDAO {
         ps.executeUpdate();
     }
 
+    /**
+     * Updates pre-existing appointment in the database
+     *
+     * @param appointment to be updated
+     * @return int ps.executeUpdate()
+     * @throws SQLException sql protection
+     * */
     public static int updateAppointment(Appointment appointment) throws SQLException {
         String sql = "UPDATE APPOINTMENTS SET Customer_ID = ?, User_ID = ?, Contact_ID = ?, Title = ?, Description = ?" +
                 ", Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ? WHERE Appointment_ID = ?";
@@ -110,6 +146,12 @@ public class AppointmentDAO {
         return ps.executeUpdate();
     }
 
+    /**
+     * Retrieves data for all appointments this month
+     *
+     * @return appointmentsThisMonth list of retrieved appointments
+     * @throws SQLException sql protection
+     * */
     public static ObservableList<Appointment> getAppointmentsThisMonth() throws SQLException {
         ObservableList<Appointment> appointmentsThisMonth = FXCollections.observableArrayList();
         String sql = "SELECT Appointment_ID, Customer_ID, User_ID, Contact_ID, Title, Description" +
@@ -139,6 +181,12 @@ public class AppointmentDAO {
         return appointmentsThisMonth;
     }
 
+    /**
+     * Retrieves data for all appointments this week
+     *
+     * @return appointmentsThisWeek list of retrieved appointments
+     * @throws SQLException sql protection
+     * */
     public static ObservableList<Appointment> getAppointmentsThisWeek() throws SQLException {
         AppointmentDAO.populateAppointmentList();
         ObservableList<Appointment> appointmentsThisWeek = FXCollections.observableArrayList();

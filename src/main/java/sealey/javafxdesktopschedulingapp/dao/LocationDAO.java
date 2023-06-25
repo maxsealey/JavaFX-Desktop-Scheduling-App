@@ -11,9 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Description:
+ * Description: This class contains static methods to interact with the database on country and first-level division data
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class LocationDAO {
     private static ObservableList<FirstLevDivision> divisionList = FXCollections.observableArrayList();
@@ -39,6 +39,8 @@ public class LocationDAO {
 
     /**
      * Retrieves division data from database, creates objects, adds them to divisionList
+     *
+     * @throws SQLException sql protection
      * */
     public static void populateDivisionList() throws SQLException {
         String sql = "SELECT Division_ID, Division, Country_ID FROM client_schedule.first_level_divisions";
@@ -57,6 +59,8 @@ public class LocationDAO {
 
     /**
      * Retrieves country data from database, creates objects, adds them to countryList
+     *
+     * @throws SQLException sql protection
      * */
     public static void populateCountryList() throws SQLException {
         String sql = "SELECT Country_ID, Country FROM client_schedule.countries";
@@ -78,6 +82,7 @@ public class LocationDAO {
      *
      * @param division_id divisionID that points to customer FLD and Country names
      * @return location returns division name + country name concatenated
+     * @throws SQLException sql protection
      * */
     public static String getLocation(int division_id) throws SQLException {
         String sql = "SELECT FD.Division, C.Country FROM client_schedule.customers AS CUS " +
@@ -98,6 +103,10 @@ public class LocationDAO {
 
     /**
      * Finds division id that matches corresponding division name
+     *
+     * @param divisionName to get the id of
+     * @return id matching id
+     * @throws SQLException sql protection
      * */
     public static int getDivisionID(String divisionName) throws SQLException {
         String sql = "SELECT Division_ID FROM client_schedule.first_level_divisions " +
@@ -113,6 +122,13 @@ public class LocationDAO {
         return id;
     }
 
+    /**
+     * Finds country id that matches corresponding country name
+     *
+     * @param countryName to get the id of
+     * @return id matching id
+     * @throws SQLException sql protection
+     * */
     public static int getMatchCountryID(String countryName) throws SQLException {
         String sql = "SELECT Country_ID FROM client_schedule.countries " +
                 "WHERE Country = " + "'" + countryName + "'";

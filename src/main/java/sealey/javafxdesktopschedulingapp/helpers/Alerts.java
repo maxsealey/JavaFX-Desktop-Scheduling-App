@@ -11,9 +11,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: Contains alert helper functions
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class Alerts {
     /**
@@ -83,7 +83,7 @@ public class Alerts {
     public static boolean confirmCancel(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Confirm Cancel");
-        alert.setContentText("Click 'Ok' to go back to dashboard.");
+        alert.setContentText("Click 'Ok' to go back.");
         alert.setHeaderText("Are you sure you want to cancel?");
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -112,6 +112,11 @@ public class Alerts {
         alert.showAndWait();
     }
 
+    /**
+     * Alert that is displayed when appointment is successfully cancelled
+     *
+     * @param cancelled Appointment object, contains id and type
+     * */
     public static void cancelledAppointment(Appointment cancelled){
         Alert alert = new Alert((Alert.AlertType.INFORMATION));
         alert.setHeaderText("Appointment successfully cancelled.");
@@ -119,6 +124,9 @@ public class Alerts {
         alert.showAndWait();
     }
 
+    /**
+     * Displays upon log in and tells user whether they have an appointment scheduled in the next 15 minutes
+     * */
     public static void loginAlert(){
         LocalDateTime currentTime = LocalDateTime.now();
         boolean appointment = false;

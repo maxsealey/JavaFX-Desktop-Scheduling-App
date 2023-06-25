@@ -18,35 +18,41 @@ import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: This class is the controller for the AddCustomer page
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class AddCustomer implements Initializable
 {
     @FXML
     private TextField IDTextField;
+
     @FXML
     private TextField addressTextField;
+
     @FXML
     private Button cancelButton;
+
     @FXML
     private ComboBox<String> countryComboBox;
+
     @FXML
     private ComboBox<String> fldComboBox;
+
     @FXML
     private TextField nameTextField;
+
     @FXML
     private TextField phoneTextField;
+
     @FXML
     private TextField postalCodeTextField;
+
     @FXML
     private Button saveButton;
-    @FXML
-    private Label headerLabel;
 
     /**
-     * Returns user to dashboard without saving
+     * Returns user to customer page without saving
      *
      * @param event Cancel button event
      * @throws IOException IOException
@@ -55,7 +61,7 @@ public class AddCustomer implements Initializable
     private void onActionCancel(ActionEvent event) throws IOException {
         try {
             if(Alerts.confirmCancel()){
-                FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", cancelButton);
+                FXML_Helpers.setStage("ViewCustomers.fxml", "All Customers", cancelButton);
             }
         } catch(NoSuchElementException e) {
             System.out.println("cancel cancel");
@@ -63,7 +69,7 @@ public class AddCustomer implements Initializable
     }
 
     /**
-     * Saves customer data, returns user to dashboard
+     * Saves customer data, returns user to customer page
      *
      * @param event Save button event
      * @throws IOException IOException
@@ -74,7 +80,7 @@ public class AddCustomer implements Initializable
             if(Alerts.confirmSave()){
                 try {
                     if(newCustomer()){
-                        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+                        FXML_Helpers.setStage("ViewCustomers.fxml", "All Customers", saveButton);
                     } else {
                         throw new Exception();
                     }
@@ -89,6 +95,12 @@ public class AddCustomer implements Initializable
         }
     }
 
+    /**
+     * When Country combo box changes, reverts division combo box
+     *
+     * @param event Country ComboBox
+     * @throws SQLException
+     * */
     @FXML
     private void onActionCountry(ActionEvent event) throws SQLException {
         fldComboBox.getSelectionModel().clearSelection();
@@ -97,7 +109,9 @@ public class AddCustomer implements Initializable
 
     /**
      * Gets data from fields/boxes, creates new Customer, inserts into db
-     * Called in onActionSave event handler
+     *
+     * @return boolean 1 if successful, 0 if not
+     * @throws SQLException
      * */
     private boolean newCustomer() throws SQLException {
         try {
@@ -126,6 +140,8 @@ public class AddCustomer implements Initializable
 
 
     /**
+     * Runs on initialization, repopulates customer list and sets ComboBoxes
+     *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
      * */

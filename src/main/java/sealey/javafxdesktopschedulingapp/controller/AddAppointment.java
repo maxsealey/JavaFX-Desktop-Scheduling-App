@@ -18,9 +18,9 @@ import java.time.*;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: This class is the controller for the page for adding appointments (AddAppointment.fxml)
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class AddAppointment implements Initializable
 {
@@ -38,9 +38,6 @@ public class AddAppointment implements Initializable
 
     @FXML
     private ComboBox<LocalTime> endTimeCombo;
-
-    @FXML
-    private Label headerLabel;
 
     @FXML
     private TextField locationTextField;
@@ -73,7 +70,7 @@ public class AddAppointment implements Initializable
 
 
     /**
-     * Returns user to dashboard without saving
+     * Returns user to the schedule screen without saving
      *
      * @param event Cancel button event
      * @throws IOException IOException
@@ -84,7 +81,8 @@ public class AddAppointment implements Initializable
     }
 
     /**
-     * Saves customer data, returns user to dashboard
+     * Saves customer data, returns user to schedule page. Also calls the methods that check that appointment times
+     * for each customer do not overlap, and that they are within business hours (in EST).
      *
      * @param event Save button event
      * @throws IOException IOException
@@ -94,7 +92,7 @@ public class AddAppointment implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
-                    try {
+                    try { // checks whether time is within business hours
                         if(!Time_Helpers.timeValidityCheck(LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue()),
                                 LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue()))){
                             throw new Exception();
@@ -104,7 +102,7 @@ public class AddAppointment implements Initializable
                         return;
                     }
 
-                    try {
+                    try { // checks whether the appointment would overlap with a customer's other appointments
                         LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
                         LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
 
@@ -117,6 +115,7 @@ public class AddAppointment implements Initializable
                         return;
                     }
 
+                    // if inserting a new appointment is successful, sends user to appointment schedule
                     if(newAppointment()){
                         FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", saveButton);
                     } else {
@@ -131,41 +130,12 @@ public class AddAppointment implements Initializable
         }
     }
 
-    @FXML
-    void onActionStartDate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionStartTime(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionEndDate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionEndTime(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionContactCombo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionCustomerCombo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionUserCombo(ActionEvent event) {
-
-    }
-
+    /**
+     * Inserts appointment into database or throws exception (if fields are empty).
+     *
+     * @return boolean true if insertion successful, false if not
+     * @throws SQLException database insertion protection
+     * */
     private boolean newAppointment() throws SQLException {
         try {
             if(titleTextField.getText().isEmpty() || descTextArea.getText().isEmpty() || locationTextField.getText().isEmpty()
@@ -176,7 +146,6 @@ public class AddAppointment implements Initializable
             }
 
             int appointmentID = Integer.parseInt(apptIDTextField.getText());
-
             int customerID = Misc_Helpers.splitID(customerComboBox.getValue());
             int userID = Misc_Helpers.splitID(userComboBox.getValue());
             int contactID = Misc_Helpers.splitID(contactComboBox.getValue());
@@ -196,9 +165,7 @@ public class AddAppointment implements Initializable
                 Appointment newAppointment = new Appointment(appointmentID, customerID, userID, contactID, title,
                         desc, loc, type, utcStartZDT.toLocalDateTime(), utcEndZDT.toLocalDateTime());
                 AppointmentDAO.insertAppointment(newAppointment);
-            } catch(Exception e){
-                Alerts.businessHoursAlert();
-            }
+            } catch(Exception ignored){}
         } catch(Exception e){
             return false;
         }
@@ -206,6 +173,7 @@ public class AddAppointment implements Initializable
     }
 
     /**
+     * Runs on scene initialization
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

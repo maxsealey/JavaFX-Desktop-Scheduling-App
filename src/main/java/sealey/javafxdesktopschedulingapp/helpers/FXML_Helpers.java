@@ -3,7 +3,6 @@ package sealey.javafxdesktopschedulingapp.helpers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,26 +11,22 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
-import sealey.javafxdesktopschedulingapp.controller.ModifyCustomer;
 import sealey.javafxdesktopschedulingapp.dao.*;
 import sealey.javafxdesktopschedulingapp.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
-import java.util.Objects;
 
 /**
- * Description:
+ * Description: This class contains helper functions to increase amount of reusable code
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class FXML_Helpers {
 
     /**
-     * Helper function used globally (except for initial main load) to switch to a different scene
+     * Helper function used globally to switch to a different scene
      *
      * @param fxmlFile fxml file containing scene to be switched to
      * @param windowTitle title of the scene
@@ -120,13 +115,15 @@ public class FXML_Helpers {
         start.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
         end.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
 
-        contactName.setCellValueFactory(contact-> new SimpleStringProperty(ContactDAO.convertIDtoName(contact.getValue().getContactID())));
+        contactName.setCellValueFactory(contact-> new SimpleStringProperty(Misc_Helpers.convertIDtoName(contact.getValue().getContactID())));
     }
 
     /**
      * Sets division names in combo box (AddCustomer and ModifyCustomer)
      *
      * @param divisions ComboBox list of strings
+     * @param selectedCountry country to use to filter down to first-level divisions
+     * @throws SQLException sql protection
      * */
     public static void setFLDComboBox(ComboBox<String> divisions, String selectedCountry) throws SQLException {
         ObservableList<String> divNames = FXCollections.observableArrayList();
@@ -143,7 +140,7 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets country names in combo box (AddCustomer and ModifyCustomer)
+     * Sets country names in ComboBox (AddCustomer and ModifyCustomer)
      *
      * @param countries ComboBox list of strings
      * */
@@ -160,9 +157,10 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets contact ID and contact name into combobox containing list of contacts
+     * Sets contact ID and contact name into ComboBox containing list of contacts (AddAppointment, ModifyAppointment, GenerateReports)
      *
-     * @param contacts the combobox control
+     * @param contacts the ComboBox control
+     * @throws SQLException sql protection
      * */
     public static void setContactComboBox(ComboBox<String> contacts) throws SQLException {
         ObservableList<String> contactNames = FXCollections.observableArrayList();
@@ -178,9 +176,10 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets customer ID and name into combobox containing list of customers
+     * Sets customer ID and name into ComboBox containing list of customers (AddAppointment, ModifyAppointment, GenerateReports)
      *
-     * @param customers the combobox control
+     * @param customers the ComboBox control
+     * @throws SQLException sql protection
      * */
     public static void setCustomerComboBox(ComboBox<String> customers) throws SQLException {
         ObservableList<String> customerNames = FXCollections.observableArrayList();
@@ -196,9 +195,10 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets user ID and username into combobox containing list of users
+     * Sets user ID and username into ComboBox containing list of users (AddAppointment, ModifyAppointment)
      *
-     * @param users the combobox control
+     * @param users the ComboBox control
+     * @throws SQLException sql protection
      * */
     public static void setUserComboBox(ComboBox<String> users) throws SQLException {
         ObservableList<String> usernames = FXCollections.observableArrayList();
@@ -214,9 +214,10 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets list of types into ComboBox
+     * Sets list of types into ComboBox (GenerateReports)
      *
      * @param types the ComboBox control
+     * @throws SQLException sql protection
      * */
     public static void setTypesComboBox(ComboBox<String> types) throws SQLException {
         ReportsDAO.populateTypeList();
@@ -224,6 +225,19 @@ public class FXML_Helpers {
         types.setVisibleRowCount(5);
     }
 
+    /**
+     * Sets appointment table on GenerateReport page
+     *
+     * @param appointments list of filtered appointments
+     * @param appointmentTable TableView
+     * @param appointmentIDCol appointment id column
+     * @param titleCol title column
+     * @param descCol description column
+     * @param typeCol type column
+     * @param startCol start time and date column
+     * @param endCol end time and date column
+     * @param customerIDCol customer id column
+     * */
     public static void setAppointmentReportTable(ObservableList<Appointment> appointments, TableView<Appointment> appointmentTable,
                                                  TableColumn<Appointment, Integer> appointmentIDCol, TableColumn<Appointment, String> titleCol,
                                                  TableColumn<Appointment, String> descCol, TableColumn<Appointment, String> typeCol,

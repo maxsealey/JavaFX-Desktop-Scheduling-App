@@ -13,30 +13,32 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- * Description:
+ * Description: This class contains static methods to interact with the database on contact data
  *
- * @author Max Sealey
+ * @author maxsealey Max Sealey
  * */
 public class ContactDAO {
     //static list of all contacts in the db
     private static ObservableList<Contact> contactList = FXCollections.observableArrayList();
 
     /**
-     *
+     * @return contactList getter
      * */
     public static ObservableList<Contact> getContactList() {
         return contactList;
     }
 
     /**
-     *
+     * @param contactList setter (unused)
      * */
     public static void setContactList(ObservableList<Contact> contactList) {
         ContactDAO.contactList = contactList;
     }
 
     /**
+     * Populates local static contactList with data retrieved from the database
      *
+     * @throws SQLException sql protection
      * */
     public static void populateContactList() throws SQLException {
         String sql = "SELECT Contact_ID, Contact_Name, Email FROM client_schedule.contacts";
@@ -53,18 +55,5 @@ public class ContactDAO {
 
             contactList.add(new Contact(contactID, contactName, email));
         }
-    }
-
-    public static String convertIDtoName(int id){
-        try{
-            for(Contact c : contactList){
-                if(c.getContactID() == id){
-                    return c.getContactName();
-                }
-            }
-        }catch(Exception e){
-            System.out.println("Could not find contact.");
-        }
-        return null;
     }
 }

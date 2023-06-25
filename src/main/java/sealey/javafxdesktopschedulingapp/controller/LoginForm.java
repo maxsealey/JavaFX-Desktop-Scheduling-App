@@ -3,12 +3,10 @@ package sealey.javafxdesktopschedulingapp.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
@@ -25,12 +23,10 @@ import java.util.ResourceBundle;
 /**
  * Description: Controller for the initial log-in scene.
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class LoginForm implements Initializable
 {
-    Stage stage;
-    Parent scene;
     @FXML
     private Button exitButton;
     @FXML
@@ -49,6 +45,8 @@ public class LoginForm implements Initializable
 
     /**
      * Closes and exits the program
+     *
+     * @param event event
      * */
     @FXML
     private void onActionExit(ActionEvent event) {
@@ -60,7 +58,8 @@ public class LoginForm implements Initializable
     }
 
     /**
-     * Upon verification takes user to dashboard
+     * Upon verification takes user to dashboard and assigns static User object for program access
+     * Also logs attempt to login_activity.txt
      *
      * @param event Back button event
      * @throws IOException IOException
@@ -103,8 +102,8 @@ public class LoginForm implements Initializable
             System.out.println("Missing bundle error: " + e);
         }
     }
-
     /**
+     * Runs on initialization, sets locale, zoneid, and sets labels
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 /**
- * Description:
+ * Description: This class contains static methods to interact with the database on user data
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class UserDAO {
     private static final ObservableList<User> userList = FXCollections.observableArrayList();

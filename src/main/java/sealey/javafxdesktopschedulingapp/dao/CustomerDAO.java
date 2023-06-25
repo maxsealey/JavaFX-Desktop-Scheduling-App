@@ -13,9 +13,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- * Description:
+ * Description: This class contains static methods to interact with the database on customer data
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class CustomerDAO {
 
@@ -23,8 +23,6 @@ public class CustomerDAO {
     private static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     /**
-     * Returns customer list
-     *
      * @return customerList list
      */
     public static ObservableList<Customer> getCustomerList() {
@@ -33,6 +31,8 @@ public class CustomerDAO {
 
     /**
      * Populates customer list from database
+     *
+     * @throws SQLException sql protection
      */
     public static void populateCustomerList() throws SQLException {
         String sql = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID FROM client_schedule.customers";
@@ -59,6 +59,7 @@ public class CustomerDAO {
      *
      * @param newCustomer new customer object
      * @return int 1 or 0
+     * @throws SQLException sql protection
      */
     public static int insertCustomer(Customer newCustomer) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID, " +
@@ -85,6 +86,7 @@ public class CustomerDAO {
      * Deletes customer from the database
      *
      * @param customerID id of customer to delete
+     * @throws SQLException sql protection
      */
     public static void deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = ?";
@@ -96,7 +98,11 @@ public class CustomerDAO {
     }
 
     /**
+     * Updates customer in the database
      *
+     * @param newCustomer modified customer object
+     * @return int ps.executeUpdate()
+     * @throws SQLException sql protection
      */
     public static int updateCustomer(Customer newCustomer) throws SQLException {
         String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?, " +
@@ -116,6 +122,11 @@ public class CustomerDAO {
         return ps.executeUpdate();
     }
 
+    /**
+     * Populates customer appointment list - redundant, need to remove
+     *
+     * @throws SQLException sql protection
+     * */
     public static void populateCustomerAppointmentList() throws SQLException {
         AppointmentDAO.populateAppointmentList();
         for (Appointment a : AppointmentDAO.getAppointmentList()) {

@@ -3,13 +3,15 @@ package sealey.javafxdesktopschedulingapp.model;
 import java.time.LocalDateTime;
 
 /**
- * Description:
+ * Description: Model class containing appointment data
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class Appointment {
 
     /**
+     * Appointment object constructor
+     *
      * @param appointmentID appointment id
      * @param customerID customer id
      * @param userID user id

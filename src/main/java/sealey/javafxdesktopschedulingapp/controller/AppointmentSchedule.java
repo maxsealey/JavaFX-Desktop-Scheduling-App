@@ -20,9 +20,9 @@ import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: This class is the controller for the appointment schedule page.
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class AppointmentSchedule implements Initializable
 {
@@ -122,6 +122,11 @@ public class AppointmentSchedule implements Initializable
         }
     }
 
+    /**
+     * If an item is selected and delete confirmed through alert, removes appointment from the database.
+     *
+     * @param event event for delete button
+     * */
     @FXML
     void onActionDelete(ActionEvent event){
         try {
@@ -148,18 +153,36 @@ public class AppointmentSchedule implements Initializable
         }
     }
 
+    /**
+     * When 'View by week' radio button is selected, changes appointment table data.
+     *
+     * @param event
+     * @throws SQLException
+     * */
     @FXML
     void onActionWeek(ActionEvent event) throws SQLException {
         FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentsThisWeek(), appointmentTable, aptIDCol, custIDCol,
                 userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 
+    /**
+     * When 'View by month' radio button is selected, changes appointment table data.
+     *
+     * @param event
+     * @throws SQLException
+     * */
     @FXML
     void onActionMonth(ActionEvent event) throws SQLException {
         FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentsThisMonth(), appointmentTable, aptIDCol, custIDCol,
                 userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 
+    /**
+     * When 'View all' radio button is selected, changes appointment table data.
+     *
+     * @param event
+     * @throws SQLException
+     * */
     @FXML
     void onActionAll(ActionEvent event) throws SQLException {
         FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentList(), appointmentTable, aptIDCol, custIDCol,
@@ -167,6 +190,7 @@ public class AppointmentSchedule implements Initializable
     }
 
     /**
+     * Runs on initialization, refreshes lists and sets table with list of all appointments.
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

@@ -3,6 +3,7 @@ package sealey.javafxdesktopschedulingapp.helpers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
+import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Contact;
@@ -10,14 +11,12 @@ import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.time.*;
 
 /**
- * Description:
+ * Description: Contains some helper functions used in program to reduce clutter and increase readability
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class Misc_Helpers {
 
@@ -39,6 +38,12 @@ public class Misc_Helpers {
         return list;
     }
 
+    /**
+     * Gets ComboBox value (e.g. 3 Geoffrey James) and splits it to get the customer/contact/user id
+     *
+     * @param comboBoxInput ComboBox value
+     * @return int id
+     * */
     public static int splitID(String comboBoxInput){
         String space = String.valueOf(' ');
         int dividerIndex = comboBoxInput.indexOf(space);
@@ -99,7 +104,11 @@ public class Misc_Helpers {
     }
 
     /**
+     * Records both successful and failed login attempts in login_activity.txt
      *
+     * @param username attempted username input
+     * @param successOrFail true if successful login, false if not
+     * @throws IOException IOException
      * */
     public static void loginActivity(String username, boolean successOrFail) throws IOException {
         ZonedDateTime timestamp = ZonedDateTime.now();
@@ -120,6 +129,12 @@ public class Misc_Helpers {
         output.close();
     }
 
+    /**
+     * Filters appointments based on contact to generate report in TableView
+     *
+     * @param contactID selected contact
+     * @return temp filtered list of appointments assigned to contact
+     * */
     public static ObservableList<Appointment> filteredAppointmentsForReport(int contactID){
         ObservableList<Appointment> temp = FXCollections.observableArrayList();
 
@@ -130,6 +145,25 @@ public class Misc_Helpers {
             }
         }
         return temp;
+    }
+
+    /**
+     * Converts a contact id to a name
+     *
+     * @param id to convert
+     * @return contactName converted
+     * */
+    public static String convertIDtoName(int id){
+        try{
+            for(Contact c : ContactDAO.getContactList()){
+                if(c.getContactID() == id){
+                    return c.getContactName();
+                }
+            }
+        }catch(Exception e){
+            System.out.println("Could not find contact.");
+        }
+        return null;
     }
 }
 

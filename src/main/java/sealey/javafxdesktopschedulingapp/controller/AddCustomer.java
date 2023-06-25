@@ -42,8 +42,6 @@ public class AddCustomer implements Initializable
     private TextField postalCodeTextField;
     @FXML
     private Button saveButton;
-    @FXML
-    private Label headerLabel;
 
     /**
      * Returns user to dashboard without saving

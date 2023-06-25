@@ -3,7 +3,6 @@ package sealey.javafxdesktopschedulingapp.helpers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,16 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
-import sealey.javafxdesktopschedulingapp.controller.ModifyCustomer;
 import sealey.javafxdesktopschedulingapp.dao.*;
 import sealey.javafxdesktopschedulingapp.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
-import java.util.Objects;
 
 /**
  * Description:

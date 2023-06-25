@@ -20,7 +20,7 @@
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="headerLabel" layoutX="60.0" layoutY="60.0" text="Update Customer Information" textFill="#2e94b9">
+      <Label layoutX="60.0" layoutY="60.0" text="Update Customer Information" textFill="#2e94b9">
          <font>
             <Font name="Futura Medium" size="32.0" />
          </font>

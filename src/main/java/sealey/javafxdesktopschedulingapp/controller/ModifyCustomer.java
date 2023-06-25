@@ -42,14 +42,8 @@ public class ModifyCustomer implements Initializable
     private TextField postalCodeTextField;
     @FXML
     private Button saveButton;
-    @FXML
-    private Label headerLabel;
 
     private static Customer toUpdate;
-
-    public static Customer getToUpdate() {
-        return toUpdate;
-    }
 
     public static void setToUpdate(Customer toUpdate) {
         ModifyCustomer.toUpdate = toUpdate;

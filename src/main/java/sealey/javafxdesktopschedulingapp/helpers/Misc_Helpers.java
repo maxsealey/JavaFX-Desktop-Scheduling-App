@@ -5,13 +5,10 @@ import javafx.collections.ObservableList;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
-import sealey.javafxdesktopschedulingapp.model.Contact;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.time.*;
 
 /**

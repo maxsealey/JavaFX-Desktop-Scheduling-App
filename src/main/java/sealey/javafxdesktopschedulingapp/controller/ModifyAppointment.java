@@ -47,9 +47,6 @@ public class ModifyAppointment implements Initializable
     private ComboBox<LocalTime> endTimeCombo;
 
     @FXML
-    private Label headerLabel;
-
-    @FXML
     private TextField locationTextField;
 
     @FXML
@@ -79,10 +76,6 @@ public class ModifyAppointment implements Initializable
     private Label timeZoneLabel;
 
     private static Appointment toUpdate;
-
-    public static Appointment getToUpdate() {
-        return toUpdate;
-    }
 
     public static void setToUpdate(Appointment toUpdate) {
         ModifyAppointment.toUpdate = toUpdate;
@@ -120,7 +113,7 @@ public class ModifyAppointment implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
-                    try {
+                    try { // checks whether time is within business hours
                         if(!Time_Helpers.timeValidityCheck(LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue()),
                                 LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue()))){
                             throw new Exception();
@@ -161,41 +154,6 @@ public class ModifyAppointment implements Initializable
         } catch (Exception e){
             System.out.println("cancel save");
         }
-    }
-
-    @FXML
-    void onActionStartDate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionStartTime(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionEndDate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionEndTime(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionContactCombo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionCustomerCombo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionUserCombo(ActionEvent event) {
-
     }
 
     private void setAppointment(Appointment a) {

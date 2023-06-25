@@ -40,9 +40,6 @@ public class AddAppointment implements Initializable
     private ComboBox<LocalTime> endTimeCombo;
 
     @FXML
-    private Label headerLabel;
-
-    @FXML
     private TextField locationTextField;
 
     @FXML
@@ -94,7 +91,7 @@ public class AddAppointment implements Initializable
         try {
             if(Alerts.confirmSave()){
                 try {
-                    try {
+                    try { // checks whether time is within business hours
                         if(!Time_Helpers.timeValidityCheck(LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue()),
                                 LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue()))){
                             throw new Exception();
@@ -131,41 +128,6 @@ public class AddAppointment implements Initializable
         }
     }
 
-    @FXML
-    void onActionStartDate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionStartTime(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionEndDate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionEndTime(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionContactCombo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionCustomerCombo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onActionUserCombo(ActionEvent event) {
-
-    }
-
     private boolean newAppointment() throws SQLException {
         try {
             if(titleTextField.getText().isEmpty() || descTextArea.getText().isEmpty() || locationTextField.getText().isEmpty()
@@ -176,7 +138,6 @@ public class AddAppointment implements Initializable
             }
 
             int appointmentID = Integer.parseInt(apptIDTextField.getText());
-
             int customerID = Misc_Helpers.splitID(customerComboBox.getValue());
             int userID = Misc_Helpers.splitID(userComboBox.getValue());
             int contactID = Misc_Helpers.splitID(contactComboBox.getValue());

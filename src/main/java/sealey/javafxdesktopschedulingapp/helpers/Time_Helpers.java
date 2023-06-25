@@ -4,10 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
-import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
-import sealey.javafxdesktopschedulingapp.model.Contact;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 
 import java.sql.SQLException;

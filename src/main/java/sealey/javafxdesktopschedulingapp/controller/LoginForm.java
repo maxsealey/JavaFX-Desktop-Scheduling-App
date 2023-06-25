@@ -3,12 +3,10 @@ package sealey.javafxdesktopschedulingapp.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
@@ -29,8 +27,6 @@ import java.util.ResourceBundle;
  * */
 public class LoginForm implements Initializable
 {
-    Stage stage;
-    Parent scene;
     @FXML
     private Button exitButton;
     @FXML
@@ -103,7 +99,6 @@ public class LoginForm implements Initializable
             System.out.println("Missing bundle error: " + e);
         }
     }
-
     /**
      *
      * @param url location used to resolve relative paths for the root object, or null

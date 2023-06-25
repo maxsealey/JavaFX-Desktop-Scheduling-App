@@ -2,23 +2,15 @@ package sealey.javafxdesktopschedulingapp.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.*;
-import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
-import sealey.javafxdesktopschedulingapp.model.Customer;
-import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -28,8 +20,6 @@ import java.util.ResourceBundle;
  * */
 public class Dashboard implements Initializable
 {
-    Stage stage;
-    Parent scene;
     @FXML
     private Button generateReportsButton;
 

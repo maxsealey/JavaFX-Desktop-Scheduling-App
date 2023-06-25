@@ -83,7 +83,7 @@ public class Alerts {
     public static boolean confirmCancel(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Confirm Cancel");
-        alert.setContentText("Click 'Ok' to go back to dashboard.");
+        alert.setContentText("Click 'Ok' to go back.");
         alert.setHeaderText("Are you sure you want to cancel?");
 
         Optional<ButtonType> result = alert.showAndWait();

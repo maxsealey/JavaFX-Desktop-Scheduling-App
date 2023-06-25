@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
-import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
 import sealey.javafxdesktopschedulingapp.dao.ReportsDAO;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.helpers.Misc_Helpers;

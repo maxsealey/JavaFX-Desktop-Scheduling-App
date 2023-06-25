@@ -58,13 +58,13 @@
          </font>
       </Label>
       <TextField fx:id="typeTextField" layoutX="320.0" layoutY="435.0" prefHeight="25.0" prefWidth="204.0" />
-      <DatePicker fx:id="startDatePicker" layoutX="684.0" layoutY="245.0" onAction="#onActionStartDate" prefHeight="25.0" prefWidth="185.0" />
+      <DatePicker fx:id="startDatePicker" editable="false" layoutX="684.0" layoutY="245.0" onAction="#onActionStartDate" prefHeight="25.0" prefWidth="185.0" />
       <Label layoutX="594.0" layoutY="248.0" text="Start Date:">
          <font>
             <Font name="Futura Medium" size="15.0" />
          </font>
       </Label>
-      <DatePicker fx:id="endDatePicker" layoutX="684.0" layoutY="394.0" onAction="#onActionEndDate" prefHeight="25.0" prefWidth="185.0" />
+      <DatePicker fx:id="endDatePicker" editable="false" layoutX="684.0" layoutY="394.0" onAction="#onActionEndDate" prefHeight="25.0" prefWidth="185.0" />
       <Label layoutX="595.0" layoutY="396.0" text="End Date:">
          <font>
             <Font name="Futura Medium" size="15.0" />

@@ -119,6 +119,18 @@ public class Misc_Helpers {
         output.write(record);
         output.close();
     }
+
+    public static ObservableList<Appointment> filteredAppointmentsForReport(int contactID){
+        ObservableList<Appointment> temp = FXCollections.observableArrayList();
+
+        for(Appointment a : AppointmentDAO.getAppointmentList())
+        {
+            if(a.getContactID() == contactID){
+                temp.add(a);
+            }
+        }
+        return temp;
+    }
 }
 
 

@@ -82,3 +82,6 @@ Date: 2023-06-25 Time: 08:32:52.449221 America/Los_Angeles
 Successful Login Attempt:: Username: test
 Date: 2023-06-25 Time: 08:34:08.109802 America/Los_Angeles
 
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 08:42:32.154491 America/Los_Angeles
+

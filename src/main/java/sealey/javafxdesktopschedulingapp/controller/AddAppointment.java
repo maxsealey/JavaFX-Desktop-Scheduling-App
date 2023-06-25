@@ -142,7 +142,7 @@ public class AddAppointment implements Initializable
                     || typeTextField.getText().isEmpty() || contactComboBox.getValue().isEmpty() || customerComboBox.getValue().isEmpty()
                     || userComboBox.getValue().isEmpty() || startDatePicker.getValue() == null || endDatePicker.getValue() == null
                     || startTimeCombo.getValue() == null || endTimeCombo.getValue() == null){
-                throw new Exception();
+                throw new Exception(); // checks for empty control values
             }
 
             int appointmentID = Integer.parseInt(apptIDTextField.getText());
@@ -155,9 +155,11 @@ public class AddAppointment implements Initializable
             String loc = locationTextField.getText();
             String type = typeTextField.getText();
 
+            // Gets the LDTs in Local Time
             LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
             LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
 
+            // Converts LDTs to UTC
             ZonedDateTime utcStartZDT = Time_Helpers.localToUTC(startDateTime);
             ZonedDateTime utcEndZDT = Time_Helpers.localToUTC(endDateTime);
 
@@ -173,7 +175,7 @@ public class AddAppointment implements Initializable
     }
 
     /**
-     * Runs on scene initialization
+     * Runs on scene initialization, sets all ComboBox lists and the Time Zone label
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

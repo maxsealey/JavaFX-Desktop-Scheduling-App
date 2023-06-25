@@ -18,14 +18,14 @@ import java.time.*;
 import java.util.Objects;
 
 /**
- * Description: Contains some helper functions used in program to reduce clutter and increase readability
+ * Description: Contains some helper functions used throughout program to reduce clutter and increase readability
  *
  * @author maxsealey Sealey
  * */
 public class Misc_Helpers {
 
     /**
-     * Takes a string in the form of a location (e.g. Arkansas, US), and splits it be the comma,
+     * Takes a string in the form of a location (e.g. Arkansas, US), and splits it by the comma to get a list of the two strings
      * returning an Observable list with 2 items: Arkansas, US
      *
      * @param sub string to be divided
@@ -62,6 +62,8 @@ public class Misc_Helpers {
      * In this scenario, it would return 2. if there are no gaps, the newID would be the id
      * of last item incremented
      *
+     * Needs to be fixed: if deleted id is 1, does not fill the spot.
+     *
      * @return newID returns 1 if empty list, returns highest
      * @throws SQLException
      * */
@@ -88,6 +90,8 @@ public class Misc_Helpers {
      * ex. if newID is 4, and the previous id was 1, there is no item at 2 (due to deletion).
      * In this scenario, it would return 2. if there are no gaps, the newID would be the id
      * of last item incremented
+     *
+     * Needs to be fixed: if deleted id is 1, does not fill the spot.
      *
      * @return newID returns 1 if empty list, returns highest
      * @throws SQLException

@@ -8,8 +8,8 @@
 
 - Version: 1.0.1
 - Created by Max Sealey (2023) for WGU course C195: Software II - Advanced Java Concepts
-- I can be reached at gsealey - @ - wgu - .edu (remove spaces and dashes)
-- Submitted June 24th, 2023
+- I can be reached at gsealey@wgu.edu
+- Submitted June 25th, 2023
 
 Technical Specifications:
 
@@ -23,5 +23,5 @@ Technical Specifications:
 <br/><br/>
 - This program can be run through IntelliJ. When presented with the LoginScreen, the user will enter a username and password. If the credentials match, the user will be taken to the dashboard. From there the user can add, modify, and/or delete customers and appointments. The above technical specifications should be used for best results.
 <br/><br/>
-- In addition to the two required reports, I added one to display the number of appointments that each customer has currently on the books.
+- In addition to the two required reports, I added one to display the number of appointments that each customer has in any given month of the year.
 <br/><br/>

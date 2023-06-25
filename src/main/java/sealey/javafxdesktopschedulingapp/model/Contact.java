@@ -25,6 +25,8 @@ public class Contact {
     private String email;
 
     /**
+     * ID getter
+     *
      * @return contactID id
      * */
     public int getContactID() {
@@ -32,6 +34,8 @@ public class Contact {
     }
 
     /**
+     * ID setter (unused)
+     *
      * @param contactID id
      * */
     public void setContactID(int contactID) {
@@ -39,6 +43,8 @@ public class Contact {
     }
 
     /**
+     * Name getter
+     *
      * @return contactName name
      * */
     public String getContactName() {
@@ -46,6 +52,8 @@ public class Contact {
     }
 
     /**
+     * Name setter (unused)
+     *
      * @param contactName name
      * */
     public void setContactName(String contactName) {
@@ -53,6 +61,8 @@ public class Contact {
     }
 
     /**
+     * Email getter (unused)
+     *
      * @return email email address
      * */
     public String getEmail() {
@@ -60,6 +70,8 @@ public class Contact {
     }
 
     /**
+     * Email setter (unused)
+     *
      * @param email email address
      * */
     public void setEmail(String email) {

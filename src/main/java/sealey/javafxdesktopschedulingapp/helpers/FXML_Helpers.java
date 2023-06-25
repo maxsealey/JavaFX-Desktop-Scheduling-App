@@ -26,7 +26,8 @@ import java.time.LocalDateTime;
 public class FXML_Helpers {
 
     /**
-     * Helper function used globally to switch to a different scene
+     * Helper function used globally to switch to a different scene. Pass in data specific to each
+     * stage of the program. Useful as this is a common action
      *
      * @param fxmlFile fxml file containing scene to be switched to
      * @param windowTitle title of the scene
@@ -36,7 +37,6 @@ public class FXML_Helpers {
     public static void setStage(String fxmlFile, String windowTitle, Node node) throws IOException {
         Stage stage = (Stage) node.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxmlFile));
-
         Object root = fxmlLoader.load();
         Scene scene = new Scene((Parent) root);
 
@@ -46,7 +46,7 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets cells in table of customers
+     * Sets cells in table of customers (ViewCustomer)
      *
      * @param customers
      * @param table
@@ -149,7 +149,8 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets division names in combo box (AddCustomer and ModifyCustomer)
+     * Sets division names in combo box (AddCustomer and ModifyCustomer). If a country is selected,
+     * creates and returns a temporary list of FLDs that have the same Country ID. Then sets in FLD ComboBox
      *
      * @param divisions ComboBox list of strings
      * @param selectedCountry country to use to filter down to first-level divisions
@@ -170,7 +171,7 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets country names in ComboBox (AddCustomer and ModifyCustomer)
+     * Sets country names in ComboBox (AddCustomer and ModifyCustomer). Gets all countries.
      *
      * @param countries ComboBox list of strings
      * @throws SQLException
@@ -242,10 +243,10 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets list of types into ComboBox (GenerateReports)
+     * Sets list of unique type options into ComboBox (GenerateReports)
      *
      * @param types the ComboBox control
-     * @throws SQLException sql protection
+     * @throws SQLException
      * */
     public static void setTypesComboBox(ComboBox<String> types) throws SQLException {
         types.setItems(ReportsDAO.getTypeList());
@@ -253,7 +254,7 @@ public class FXML_Helpers {
     }
 
     /**
-     * Sets the list of months in the ComboBox on the Generate Reports page
+     * Sets the list of month options in the ComboBox on the Generate Reports page
      *
      * @param months ComboBox control
      * */

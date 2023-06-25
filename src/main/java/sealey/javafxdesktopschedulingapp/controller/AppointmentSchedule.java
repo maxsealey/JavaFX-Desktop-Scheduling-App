@@ -132,14 +132,14 @@ public class AppointmentSchedule implements Initializable
                 throw new NoSuchElementException();
             } else {
                 if(Alerts.deleteConfirmation()){
-                    Alerts.cancelledAppointment(appointmentTable.getSelectionModel().getSelectedItem());
+                    Alerts.cancelledAppointment(appointmentTable.getSelectionModel().getSelectedItem()); // displays delete confirmation, appointment id, and appointment typr
                     AppointmentDAO.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem().getAppointmentID());
                     viewAllRadio.setSelected(true); // sets radio button back to default
                     onActionAll(event);
                 }
             }
-        } catch(NoSuchElementException e){
-            System.out.println("no item selected");
+        } catch(NoSuchElementException ignored){
+
         } catch (SQLException e) {
             System.out.println("Error repopulating table from db");
             throw new RuntimeException(e);

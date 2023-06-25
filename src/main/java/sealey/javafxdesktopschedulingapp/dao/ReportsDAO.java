@@ -16,25 +16,6 @@ import java.sql.SQLException;
 public class ReportsDAO {
 
     /**
-     * Counts total appointments with specified type
-     *
-     * @param type to check
-     * @return count number of appointments
-     * @throws SQLException
-     * */
-    public static int getTotalOfType(String type) throws SQLException {
-        int count = -1;
-        String sql = "SELECT COUNT(Type) AS count FROM client_schedule.appointments WHERE Type = " + type;
-        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
-        ResultSet results = ps.executeQuery();
-
-        while(results.next()){
-            count = results.getInt("count");
-        }
-        return count;
-    }
-
-    /**
      * Gets list of distinct types from database and returns
      *
      * @return list of types
@@ -53,14 +34,44 @@ public class ReportsDAO {
         return list;
     }
 
-    public static int getTotalForMonth(int month) throws SQLException {
+    /**
+     * Gets total number of appointments where type and month overlap
+     *
+     * @param type
+     * @param month
+     * @return count
+     * @throws SQLException
+     * */
+    public static int getTotalByTypeMonth(String type, int month) throws SQLException {
         int count = -1;
-        String sql = "SELECT COUNT(Appointment_ID) AS monthCount FROM client_schedule.appointments WHERE MONTH(Start) = " + month;
+        String sql = "SELECT COUNT(Appointment_ID) AS count FROM client_schedule.appointments WHERE MONTH(Start) = " + month + " AND " +
+                "Type = \"" + type + "\"";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ResultSet results = ps.executeQuery();
 
         while(results.next()){
-            count = results.getInt("monthCount");
+            count = results.getInt("count");
+        }
+        return count;
+    }
+
+    /**
+     * Gets total number of appointments each customer has per month
+     *
+     * @param customerID
+     * @param month
+     * @return count
+     * @throws SQLException
+     * */
+    public static int getTotalByCustomerMonth(int customerID, int month) throws SQLException {
+        int count = -1;
+        String sql = "SELECT COUNT(Appointment_ID) AS count FROM client_schedule.appointments WHERE MONTH(Start) = " + month + " AND " +
+                "Customer_ID = " + customerID;
+        PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
+        ResultSet results = ps.executeQuery();
+
+        while(results.next()){
+            count = results.getInt("count");
         }
         return count;
     }

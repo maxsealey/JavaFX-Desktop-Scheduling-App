@@ -16,7 +16,6 @@ import java.util.Objects;
  * @author maxsealey Sealey
  * */
 public class UserDAO {
-    private static final ObservableList<User> userList = FXCollections.observableArrayList();
     private static User currentUser;
 
     /**
@@ -41,26 +40,22 @@ public class UserDAO {
      * Returns lists of users; called when validating credentials
      *
      * @return userList list of users
+     * @throws SQLException
      * */
-    public static ObservableList<User> getUserList() {
-        return userList;
-    }
+    public static ObservableList<User> getUserList() throws SQLException {
+        ObservableList<User> list = FXCollections.observableArrayList();
 
-    /**
-     * Populates list of users from data in database
-     * */
-    public static void populateUserList() throws SQLException {
         String sql = "SELECT User_ID, User_Name, Password FROM client_schedule.users";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ResultSet results = ps.executeQuery();
 
-        userList.clear();
         while(results.next()){
             int userid = results.getInt("User_ID");
             String username = results.getString("User_Name");
             String password = results.getString("Password");
-            userList.add(new User(userid, username, password));
+            list.add(new User(userid, username, password));
         }
+        return list;
     }
 
     /**
@@ -69,32 +64,15 @@ public class UserDAO {
      * @param username username
      * @param password password
      * @return int 0 or user id
+     * @throws SQLException
      * */
     public static int validateCredentials(String username, String password) throws SQLException {
-        populateUserList();
 
         for(User a : getUserList()) {
             if(a.getUsername().equals(username) && a.getPassword().equals(password)){
                 return a.getUserID();
             }
         }
-        return 0;
-    }
-
-    /**
-     * Get user id with username
-     *
-     * @param username username
-     * @return id userid or 0 if error/not found (should always be found)
-     * */
-    public static int convertUsernameToID(String username){
-        try {
-            for(User u : UserDAO.getUserList()){
-                if(Objects.equals(username, u.getUsername())){
-                    return u.getUserID();
-                }
-            }
-        } catch(Exception ignored){}
         return 0;
     }
 }

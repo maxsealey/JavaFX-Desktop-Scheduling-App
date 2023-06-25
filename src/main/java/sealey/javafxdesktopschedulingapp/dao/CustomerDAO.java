@@ -18,28 +18,15 @@ import java.time.LocalDateTime;
  * @author maxsealey Sealey
  * */
 public class CustomerDAO {
-
-    // static list of all customers currently in the database
-    private static ObservableList<Customer> customerList = FXCollections.observableArrayList();
-
     /**
-     * @return customerList list
+     * @return customerList gets list of customers from database and returns
      */
-    public static ObservableList<Customer> getCustomerList() {
-        return customerList;
-    }
+    public static ObservableList<Customer> getCustomerList() throws SQLException {
+        ObservableList<Customer> list = FXCollections.observableArrayList();
 
-    /**
-     * Populates customer list from database
-     *
-     * @throws SQLException sql protection
-     */
-    public static void populateCustomerList() throws SQLException {
         String sql = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID FROM client_schedule.customers";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
         ResultSet results = ps.executeQuery();
-
-        customerList.clear();
 
         while (results.next()) {
             int customerID = results.getInt("Customer_ID");
@@ -50,18 +37,18 @@ public class CustomerDAO {
             int divisionID = results.getInt("Division_ID");
             String location = LocationDAO.getLocation(divisionID);
 
-            customerList.add(new Customer(customerID, name, address, postal, phone, divisionID, location));
+            list.add(new Customer(customerID, name, address, postal, phone, divisionID, location));
         }
+        return list;
     }
 
     /**
      * Insert a customer object into the database
      *
      * @param newCustomer new customer object
-     * @return int 1 or 0
-     * @throws SQLException sql protection
+     * @throws SQLException
      */
-    public static int insertCustomer(Customer newCustomer) throws SQLException {
+    public static void insertCustomer(Customer newCustomer) throws SQLException {
         String sql = "INSERT INTO CUSTOMERS (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID, " +
                 "Create_Date, Created_By, Last_Update, Last_Updated_By) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -79,14 +66,14 @@ public class CustomerDAO {
         ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
         ps.setString(10, UserDAO.getCurrentUser().getUsername());
 
-        return ps.executeUpdate();
+        ps.executeUpdate();
     }
 
     /**
      * Deletes customer from the database
      *
      * @param customerID id of customer to delete
-     * @throws SQLException sql protection
+     * @throws SQLException
      */
     public static void deleteCustomer(int customerID) throws SQLException {
         String sql = "DELETE FROM CUSTOMERS WHERE Customer_ID = ?";
@@ -101,10 +88,9 @@ public class CustomerDAO {
      * Updates customer in the database
      *
      * @param newCustomer modified customer object
-     * @return int ps.executeUpdate()
      * @throws SQLException sql protection
      */
-    public static int updateCustomer(Customer newCustomer) throws SQLException {
+    public static void updateCustomer(Customer newCustomer) throws SQLException {
         String sql = "UPDATE CUSTOMERS SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?, " +
                 "Last_Update = ?, Last_Updated_By = ? WHERE Customer_ID = ?";
 
@@ -119,22 +105,22 @@ public class CustomerDAO {
         ps.setString(7, UserDAO.getCurrentUser().getUsername());
         ps.setInt(8, newCustomer.getCustomerID());
 
-        return ps.executeUpdate();
+        ps.executeUpdate();
     }
 
     /**
-     * Populates customer appointment list - redundant, need to remove
+     * Returns true if customer has no associated appointments, false if they do
      *
-     * @throws SQLException sql protection
+     * @param customerID id of customer to check
+     * @return boolean
+     * @throws SQLException
      * */
-    public static void populateCustomerAppointmentList() throws SQLException {
-        AppointmentDAO.populateAppointmentList();
-        for (Appointment a : AppointmentDAO.getAppointmentList()) {
-            for (Customer c : CustomerDAO.getCustomerList()) {
-                if (c.getCustomerID() == a.getCustomerID()) {
-                    c.addAppointment(a);
-                }
+    public static boolean appointmentListIsEmpty(int customerID) throws SQLException {
+        for(Appointment a : AppointmentDAO.getAppointmentList()){
+            if(a.getCustomerID() == customerID){
+                return false;
             }
         }
+        return true;
     }
 }

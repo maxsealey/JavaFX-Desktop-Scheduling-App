@@ -57,13 +57,19 @@ public class GenerateReports implements Initializable
     private TextField totalAppointmentsByNameTextField;
 
     @FXML
-    private TextField totalAppointmentsByTypeTextField;
+    private TextField totalAppointmentsByTypeMonthTextField;
 
     @FXML
     private TableColumn<Appointment, String> typeCol;
 
     @FXML
     private ComboBox<String> typeComboBox;
+
+    @FXML
+    private ComboBox<String> monthComboBox;
+
+    @FXML
+    private ComboBox<String> monthComboBox2;
 
     /**
      * Sends user back to dashboard
@@ -77,44 +83,72 @@ public class GenerateReports implements Initializable
     }
 
     /**
-     * Counts how many appointments selected customer has, displays in TextField
-     *
-     * @param event ComboBox
-     * */
-    @FXML
-    void onActionCustomerNameComboBox(ActionEvent event) {
-        int count = 0;
-
-        for(Appointment a : AppointmentDAO.getAppointmentList()){
-            if(a.getCustomerID() == Misc_Helpers.splitID(customerNameComboBox.getValue())){
-                count ++;
-            }
-        }
-
-        totalAppointmentsByNameTextField.setText("Total: " + String.valueOf(count));
-    }
-
-    /**
      * When ComboBox containing lists of customers changes, refreshes table to filter by contact
      *
      * @param event ComboBox
+     * @throws SQLException
      * */
     @FXML
-    void onActionScheduleComboBox(ActionEvent event) {
+    void onActionScheduleComboBox(ActionEvent event) throws SQLException {
         int contactID = Misc_Helpers.splitID(contactNameComboBox.getValue());
         FXML_Helpers.setAppointmentReportTable(Misc_Helpers.filteredAppointmentsForReport(contactID), scheduleTable, appointmentIDCol, titleCol,
                 descCol, typeCol, startCol, endCol, customerIDCol);
     }
 
     /**
-     * Counts how many appointments of each type there are and displays to TextField
+     * Gets and sets number of appointments of each type for in each month
      *
      * @param event ComboBox
+     * @throws SQLException
      * */
     @FXML
     void onActionTypeComboBox(ActionEvent event) throws SQLException {
-        int count = ReportsDAO.getTotalOfType(typeComboBox.getValue());
-        totalAppointmentsByTypeTextField.setText("Total: " + String.valueOf(count));
+        try {
+            int count = ReportsDAO.getTotalByTypeMonth(typeComboBox.getValue(), Misc_Helpers.splitID(monthComboBox.getValue()));
+            totalAppointmentsByTypeMonthTextField.setText("Total: " + count);
+        } catch(NullPointerException ignored){}
+    }
+
+    /**
+     * Gets and sets number of appointments of each type for in each month
+     *
+     * @param event ComboBox
+     * @throws SQLException
+     * */
+    @FXML
+    void onActionMonthComboBox(ActionEvent event) throws SQLException {
+        try {
+            int count = ReportsDAO.getTotalByTypeMonth(typeComboBox.getValue(), Misc_Helpers.splitID(monthComboBox.getValue()));
+            totalAppointmentsByTypeMonthTextField.setText("Total: " + count);
+        } catch(NullPointerException ignored){}
+    }
+
+    /**
+     * Gets and sets number of appointments customer has in each month
+     *
+     * @param event ComboBox
+     * @throws SQLException
+     * */
+    @FXML
+    void onActionCustomerNameComboBox(ActionEvent event) throws SQLException {
+        try {
+            int count = ReportsDAO.getTotalByCustomerMonth(Misc_Helpers.splitID(customerNameComboBox.getValue()), Misc_Helpers.splitID(monthComboBox2.getValue()));
+            totalAppointmentsByNameTextField.setText("Total: " + count);
+        } catch(NullPointerException ignored){}
+    }
+
+    /**
+     * Gets and sets number of appointments customer has in each month
+     *
+     * @param event ComboBox
+     * @throws SQLException
+     * */
+    @FXML
+    void onActionMonth2ComboBox(ActionEvent event) throws SQLException {
+        try {
+            int count = ReportsDAO.getTotalByCustomerMonth(Misc_Helpers.splitID(customerNameComboBox.getValue()), Misc_Helpers.splitID(monthComboBox2.getValue()));
+            totalAppointmentsByNameTextField.setText("Total: " + count);
+        } catch(NullPointerException ignored){}
     }
 
     /**
@@ -129,6 +163,8 @@ public class GenerateReports implements Initializable
             FXML_Helpers.setContactComboBox(contactNameComboBox);
             FXML_Helpers.setTypesComboBox(typeComboBox);
             FXML_Helpers.setCustomerComboBox(customerNameComboBox);
+            FXML_Helpers.setMonthsComboBox(monthComboBox);
+            FXML_Helpers.setMonthsComboBox(monthComboBox2);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

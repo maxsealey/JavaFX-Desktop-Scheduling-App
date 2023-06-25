@@ -1,0 +1,87 @@
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 04:45:20.664463 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:04:49.477112 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:19:44.471184 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:23:52.426321 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:27:35.239856 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:34:30.749106 America/Los_Angeles
+
+Successful Login Attempt:: Username: admin
+Date: 2023-06-25 Time: 05:37:17.671366 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:43:58.137860 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:51:00.445087 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 05:59:45.608320 America/Los_Angeles
+
+Successful Login Attempt:: Username: admin
+Date: 2023-06-25 Time: 06:01:28.146110 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 06:08:44.025736 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 06:13:17.076166 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 06:15:28.071040 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 06:18:13.223081 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 06:22:07.008554 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 06:27:26.563668 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 06:33:05.324162 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 07:05:20.601465 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 07:10:55.893678 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 07:21:43.764791 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 07:48:41.249813 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 07:49:55.215702 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 07:53:35.650649 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 07:56:06.719408 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 08:31:32.392670 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 08:32:52.449221 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 08:34:08.109802 America/Los_Angeles
+
+Successful Login Attempt:: Username: test
+Date: 2023-06-25 Time: 08:42:32.154491 America/Los_Angeles
+

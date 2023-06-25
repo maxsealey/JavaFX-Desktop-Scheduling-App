@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: This class is the controller for the Modify Customer page
  *
  * @author maxsealey Sealey
  * */
@@ -154,7 +154,7 @@ public class ModifyCustomer implements Initializable
             String postalCode = postalCodeTextField.getText();
             String phone = phoneTextField.getText();
 
-            int divisionID = LocationDAO.getDivisionID(fldComboBox.getValue());
+            int divisionID = LocationDAO.getMatchDivisionID(fldComboBox.getValue());
             String location = fldComboBox.getValue() + ", " + countryComboBox.getValue();
 
             toUpdate = new Customer(id, name, address, postalCode, phone, divisionID, location);
@@ -165,24 +165,17 @@ public class ModifyCustomer implements Initializable
     }
 
     /**
-     * Runs on scene initialization, sets controls
+     * Runs on scene initialization, sets controls and local toUpdate object
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            CustomerDAO.populateCustomerList();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
         setCustomer(toUpdate);
-        FXML_Helpers.setCountryComboBox(countryComboBox);
-
         try {
             FXML_Helpers.setFLDComboBox(fldComboBox, countryComboBox.getValue());
+            FXML_Helpers.setCountryComboBox(countryComboBox);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

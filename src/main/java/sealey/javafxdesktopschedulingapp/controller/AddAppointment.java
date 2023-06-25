@@ -106,7 +106,7 @@ public class AddAppointment implements Initializable
                         LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
                         LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
 
-                        if(!Time_Helpers.checkCustomerOverlap(Misc_Helpers.splitID(customerComboBox.getValue()), startDateTime, endDateTime))
+                        if(!Time_Helpers.checkCustomerOverlap(AppointmentDAO.getAppointmentList(), Misc_Helpers.splitID(customerComboBox.getValue()), startDateTime, endDateTime))
                         {
                             throw new Exception();
                         }
@@ -181,10 +181,11 @@ public class AddAppointment implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            AppointmentDAO.populateAppointmentList();
             FXML_Helpers.setCustomerComboBox(customerComboBox);
             FXML_Helpers.setUserComboBox(userComboBox);
             FXML_Helpers.setContactComboBox(contactComboBox);
+
+            apptIDTextField.setText(String.valueOf(Misc_Helpers.getNextAppointmentID()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -192,7 +193,6 @@ public class AddAppointment implements Initializable
         Time_Helpers.setTimesInComboBoxes(startTimeCombo, "Start", 0);
         Time_Helpers.setTimesInComboBoxes(endTimeCombo, "End", 0);
 
-        apptIDTextField.setText(String.valueOf(Misc_Helpers.getNextAppointmentID()));
         timeZoneLabel.setText("Time Zone: " + ZoneId.systemDefault());
     }
 }

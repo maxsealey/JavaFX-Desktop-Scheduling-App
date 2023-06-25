@@ -116,7 +116,6 @@ public class AddCustomer implements Initializable
     private boolean newCustomer() throws SQLException {
         try {
             if(nameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || postalCodeTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || fldComboBox.getValue().isEmpty() || countryComboBox.getValue().isEmpty()){
-                //Alerts.message("Something went wrong.", "All fields must be correctly filled out.", Alert.AlertType.ERROR);
                 throw new Exception();
             }
 
@@ -126,12 +125,12 @@ public class AddCustomer implements Initializable
             String postalCode = postalCodeTextField.getText();
             String phone = phoneTextField.getText();
 
-            int divisionID = LocationDAO.getDivisionID(fldComboBox.getValue());
+            int divisionID = LocationDAO.getMatchDivisionID(fldComboBox.getValue());
             String location = fldComboBox.getValue() + ", " + countryComboBox.getValue();
 
             Customer newCustomer = new Customer(id, name, address, postalCode, phone, divisionID, location);
 
-            System.out.println(CustomerDAO.insertCustomer(newCustomer));
+            CustomerDAO.insertCustomer(newCustomer);
         } catch(Exception e){
             return false;
         }
@@ -140,7 +139,7 @@ public class AddCustomer implements Initializable
 
 
     /**
-     * Runs on initialization, repopulates customer list and sets ComboBoxes
+     * Runs on initialization, sets ID text and ComboBoxes
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
@@ -148,13 +147,10 @@ public class AddCustomer implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            CustomerDAO.populateCustomerList();
+            IDTextField.setText(String.valueOf(Misc_Helpers.getNextCustomerID()));
+            FXML_Helpers.setCountryComboBox(countryComboBox);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        FXML_Helpers.setCountryComboBox(countryComboBox);
-        fldComboBox.setPromptText("Divisions");
-        IDTextField.setText(String.valueOf(Misc_Helpers.getNextCustomerID()));
     }
 }

@@ -1,5 +1,6 @@
 package sealey.javafxdesktopschedulingapp.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -133,10 +134,12 @@ public class ModifyAppointment implements Initializable
                         LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
                         LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
 
-                        // LAMBDA, necessary to check overlapping times - see above
-                        AppointmentDAO.getAppointmentList().removeIf(a -> a.getAppointmentID() == Integer.parseInt(apptIDTextField.getText()));
+                        ObservableList<Appointment> checkOverlapList = AppointmentDAO.getAppointmentList();
 
-                        if(!Time_Helpers.checkCustomerOverlap(Misc_Helpers.splitID(customerComboBox.getValue()), startDateTime, endDateTime))
+                        // LAMBDA, necessary to check overlapping times - see above
+                        checkOverlapList.removeIf(a -> a.getAppointmentID() == Integer.parseInt(apptIDTextField.getText()));
+
+                        if(!Time_Helpers.checkCustomerOverlap(checkOverlapList, Misc_Helpers.splitID(customerComboBox.getValue()), startDateTime, endDateTime))
                         {
                             throw new Exception();
                         }
@@ -148,7 +151,6 @@ public class ModifyAppointment implements Initializable
                     if(modifyAppointment()){
                         AppointmentDAO.updateAppointment(toUpdate);
                         FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", saveButton);
-                        return;
                     } else {
                         throw new Exception();
                     }
@@ -167,8 +169,9 @@ public class ModifyAppointment implements Initializable
      * Runs on initialization - sets values into all controls
      *
      * @param a appointment object containing old values
+     * @throws SQLException
      * */
-    private void setAppointment(Appointment a) {
+    private void setAppointment(Appointment a) throws SQLException {
         apptIDTextField.setText(String.valueOf(a.getAppointmentID()));
         titleTextField.setText(a.getTitle());
         descTextArea.setText(a.getDescription());
@@ -208,14 +211,14 @@ public class ModifyAppointment implements Initializable
      * Updates appointment in database or throws exception (if fields are empty).
      *
      * @return boolean true if update successful, false if not
-     * @throws SQLException database insertion protection
      * */
-    private boolean modifyAppointment() throws SQLException {
+    private boolean modifyAppointment() {
         try {
             if(titleTextField.getText().isEmpty() || descTextArea.getText().isEmpty() || locationTextField.getText().isEmpty()
                     || typeTextField.getText().isEmpty() || contactComboBox.getValue().isEmpty() || customerComboBox.getValue().isEmpty()
                     || userComboBox.getValue().isEmpty() || startDatePicker.getValue() == null || endDatePicker.getValue() == null
                     || startTimeCombo.getValue() == null || endTimeCombo.getValue() == null){
+                Alerts.message("Something went wrong.", "Please make sure all of the fields are correctly filled out.", Alert.AlertType.ERROR);
                 throw new Exception();
             }
 
@@ -254,10 +257,11 @@ public class ModifyAppointment implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            AppointmentDAO.populateAppointmentList();
             FXML_Helpers.setCustomerComboBox(customerComboBox);
             FXML_Helpers.setUserComboBox(userComboBox);
             FXML_Helpers.setContactComboBox(contactComboBox);
+
+            setAppointment(toUpdate);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -265,7 +269,6 @@ public class ModifyAppointment implements Initializable
         Time_Helpers.setTimesInComboBoxes(startTimeCombo, "Start", 1);
         Time_Helpers.setTimesInComboBoxes(endTimeCombo, "End", 1);
 
-        setAppointment(toUpdate);
         timeZoneLabel.setText("Time Zone: " + ZoneId.systemDefault());
     }
 }

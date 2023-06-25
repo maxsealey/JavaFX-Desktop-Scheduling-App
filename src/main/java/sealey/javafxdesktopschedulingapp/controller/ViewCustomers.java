@@ -123,29 +123,25 @@ public class ViewCustomers implements Initializable
      * */
     @FXML
     void onActionDeleteCustomer(ActionEvent event) throws IOException {
-        boolean success = false;
-
         try {
             if(customerTable.getSelectionModel().isEmpty()){
                 Alerts.message("Could not delete.", "Please select an item.", Alert.AlertType.ERROR);
                 throw new NoSuchElementException();
             } else {
                 // Customer cannot be deleted while they have an existing appointment
-                boolean emptyAptList = customerTable.getSelectionModel().getSelectedItem().getAppointmentList().isEmpty();
+                boolean emptyAptList = CustomerDAO.appointmentListIsEmpty(customerTable.getSelectionModel().getSelectedItem().getCustomerID());
 
                 // Delete customer from database and repopulate
                 if(emptyAptList && Alerts.deleteConfirmation()){
                     CustomerDAO.deleteCustomer(customerTable.getSelectionModel().getSelectedItem().getCustomerID());
-                    CustomerDAO.populateCustomerList();
 
                     Alerts.message("Success", "Customer successfully removed from" +
                             " the database.", Alert.AlertType.INFORMATION);
-                    return;
+                    FXML_Helpers.setCustomerTable(CustomerDAO.getCustomerList(), customerTable, idCol, nameCol, addressCol, postalCol, phoneCol, divCol);
                 } else if (!emptyAptList){
                     Alerts.message("Customer has existing appointment(s)",
                             "We were unable to delete the customer because they have an existing" +
                                     " appointment. Please remove the appointment(s) and try again.", Alert.AlertType.ERROR);
-                    return;
                 }
             }
         } catch(NoSuchElementException e) {
@@ -158,7 +154,7 @@ public class ViewCustomers implements Initializable
     }
 
     /**
-     * Runs on initialization, populates customer lists, customer-appointment lists, sets customer table
+     * Runs on initialization, sets customer table
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
@@ -166,11 +162,9 @@ public class ViewCustomers implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            CustomerDAO.populateCustomerList();
-            CustomerDAO.populateCustomerAppointmentList();
+            FXML_Helpers.setCustomerTable(CustomerDAO.getCustomerList(), customerTable, idCol, nameCol, addressCol, postalCol, phoneCol, divCol);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        FXML_Helpers.setCustomerTable(CustomerDAO.getCustomerList(), customerTable, idCol, nameCol, addressCol, postalCol, phoneCol, divCol);
     }
 }

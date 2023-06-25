@@ -5,9 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
-import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
-import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
-import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
@@ -125,7 +122,7 @@ public class AppointmentSchedule implements Initializable
     /**
      * If an item is selected and delete confirmed through alert, removes appointment from the database.
      *
-     * @param event event for delete button
+     * @param event event
      * */
     @FXML
     void onActionDelete(ActionEvent event){
@@ -137,12 +134,8 @@ public class AppointmentSchedule implements Initializable
                 if(Alerts.deleteConfirmation()){
                     Alerts.cancelledAppointment(appointmentTable.getSelectionModel().getSelectedItem());
                     AppointmentDAO.deleteAppointment(appointmentTable.getSelectionModel().getSelectedItem().getAppointmentID());
-                    AppointmentDAO.populateAppointmentList();
-                    onActionMonth(event);
-                    onActionWeek(event);
+                    viewAllRadio.setSelected(true); // sets radio button back to default
                     onActionAll(event);
-                    viewAllRadio.setSelected(true);
-                    return;
                 }
             }
         } catch(NoSuchElementException e){
@@ -198,16 +191,10 @@ public class AppointmentSchedule implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            AppointmentDAO.populateAppointmentList();
-            ContactDAO.populateContactList();
-            CustomerDAO.populateCustomerList();
-            CustomerDAO.populateCustomerAppointmentList();
-            UserDAO.populateUserList();
+            FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentList(), appointmentTable, aptIDCol, custIDCol,
+                    userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        FXML_Helpers.setAppointmentTable(AppointmentDAO.getAppointmentList(), appointmentTable, aptIDCol, custIDCol,
-                userIDCol, contactCol, titleCol, descCol, locationCol, typeCol, startCol, endCol);
     }
 }

@@ -20,37 +20,51 @@ import java.util.ResourceBundle;
 /**
  * Description:
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class ModifyCustomer implements Initializable
 {
     @FXML
     private TextField IDTextField;
+
     @FXML
     private TextField addressTextField;
+
     @FXML
     private Button cancelButton;
+
     @FXML
     private ComboBox<String> countryComboBox;
+
     @FXML
     private ComboBox<String> fldComboBox;
+
     @FXML
     private TextField nameTextField;
+
     @FXML
     private TextField phoneTextField;
+
     @FXML
     private TextField postalCodeTextField;
+
     @FXML
     private Button saveButton;
 
     private static Customer toUpdate;
 
+    /**
+     * Sets the static Customer object to contain data that will be assigned to
+     * controls, and eventually updated
+     *
+     * @param toUpdate sets toUpdate object
+     * */
     public static void setToUpdate(Customer toUpdate) {
         ModifyCustomer.toUpdate = toUpdate;
     }
 
     /**
-     * Returns user to dashboard without saving
+     * Returns user to customer page without saving
      *
      * @param event Cancel button event
      * @throws IOException IOException
@@ -59,7 +73,7 @@ public class ModifyCustomer implements Initializable
     void onActionCancel(ActionEvent event) throws IOException {
         try {
             if(Alerts.confirmCancel()){
-                FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", cancelButton);
+                FXML_Helpers.setStage("ViewCustomers.fxml", "All Customers", cancelButton);
             }
         } catch(NoSuchElementException e) {
             System.out.println("cancel cancel");
@@ -67,7 +81,7 @@ public class ModifyCustomer implements Initializable
     }
 
     /**
-     * Saves customer data, returns user to dashboard
+     * Saves customer data, returns user to customer page
      *
      * @param event Save button event
      * @throws IOException IOException
@@ -79,7 +93,7 @@ public class ModifyCustomer implements Initializable
                 try {
                     if(modifyCustomer()){
                         CustomerDAO.updateCustomer(toUpdate);
-                        FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", saveButton);
+                        FXML_Helpers.setStage("ViewCustomers.fxml", "All Customers", saveButton);
                     } else {
                         throw new Exception();
                     }
@@ -94,13 +108,23 @@ public class ModifyCustomer implements Initializable
         }
     }
 
+    /**
+     * When Country combo box changes, reverts division combo box
+     *
+     * @param event Country ComboBox
+     * @throws SQLException
+     * */
     @FXML
     private void onActionCountry(ActionEvent event) throws SQLException {
         fldComboBox.getSelectionModel().clearSelection();
         FXML_Helpers.setFLDComboBox(fldComboBox, countryComboBox.getValue());
     }
 
-
+    /**
+     * Runs on initialization - sets values into all controls
+     *
+     * @param c customer object containing old values
+     * */
     private void setCustomer(Customer c) {
         IDTextField.setText((String.valueOf(c.getCustomerID())));
         nameTextField.setText((String.valueOf(c.getCustomerName())));
@@ -113,13 +137,14 @@ public class ModifyCustomer implements Initializable
     }
 
     /**
-     * Gets data from fields/boxes, creates new Customer, inserts into db
-     * Called in onActionSave event handler
+     * Updates customer in database or throws exception (if fields are empty).
+     *
+     * @return boolean true if update successful, false if not
+     * @throws SQLException database insertion protection
      * */
     private boolean modifyCustomer() throws SQLException {
         try {
             if(nameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || addressTextField.getText().isEmpty() || postalCodeTextField.getText().isEmpty() || phoneTextField.getText().isEmpty() || fldComboBox.getValue().isEmpty() || countryComboBox.getValue().isEmpty()){
-                //Alerts.message("Something went wrong.", "All fields must be correctly filled out.", Alert.AlertType.ERROR);
                 throw new Exception();
             }
 
@@ -140,6 +165,7 @@ public class ModifyCustomer implements Initializable
     }
 
     /**
+     * Runs on scene initialization, sets controls
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

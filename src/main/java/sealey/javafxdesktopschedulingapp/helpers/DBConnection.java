@@ -4,9 +4,9 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 
 /**
- * Description:
+ * Description: Connect to MySql database
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public abstract class DBConnection {
 

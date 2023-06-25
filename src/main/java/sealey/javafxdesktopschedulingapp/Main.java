@@ -12,7 +12,7 @@ import java.util.Locale;
 /**
  * Description: The Main class sets the initial scene and launches the application.
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class Main extends Application {
 

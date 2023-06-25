@@ -1,9 +1,9 @@
 package sealey.javafxdesktopschedulingapp.model;
 
 /**
- * Description:
+ * Description: Model class containing first-level division data
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class FirstLevDivision {
 
@@ -51,10 +51,16 @@ public class FirstLevDivision {
         this.divisionID = divisionID;
     }
 
+    /**
+     * @return countryID id
+     * */
     public int getCountryID() {
         return countryID;
     }
 
+    /**
+     * @param countryID id
+     * */
     public void setCountryID(int countryID) {
         this.countryID = countryID;
     }

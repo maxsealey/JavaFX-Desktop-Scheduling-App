@@ -11,6 +11,11 @@ import java.sql.SQLException;
 public class ReportsDAO {
     public static ObservableList<String> typeList = FXCollections.observableArrayList();
 
+    /**
+     * Populates local static typeList with data retrieved from the database
+     *
+     * @throws SQLException sql protection
+     * */
     public static void populateTypeList() throws SQLException {
         String sql = "SELECT DISTINCT Type FROM client_schedule.appointments";
         PreparedStatement ps = DBConnection.connection.prepareStatement(sql);
@@ -23,6 +28,9 @@ public class ReportsDAO {
         }
     }
 
+    /**
+     * Counts the # of different types
+     * */
     public static int getTotalOfType(String type) throws SQLException {
         int count = -1;
         String sql = "SELECT COUNT(Type) AS count FROM client_schedule.appointments WHERE Type = " + type;
@@ -35,6 +43,9 @@ public class ReportsDAO {
         return count;
     }
 
+    /**
+     * Gets
+     * */
     public static ObservableList<String> getTypeList() {
         return typeList;
     }

@@ -71,7 +71,7 @@ public class LoginForm implements Initializable
 
         try {
             if(UserDAO.validateCredentials(username, password) > 0){
-                UserDAO.setCurrentUser(new User(UserDAO.convertUsernameToID(username), username, "hidden"));// informs rest of the program who is signed in
+                UserDAO.setCurrentUser(new User(Misc_Helpers.convertUsernameToID(username), username, "hidden"));// informs rest of the program who is signed in
                 Misc_Helpers.loginActivity(username, true);
                 FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
                 Alerts.loginAlert();

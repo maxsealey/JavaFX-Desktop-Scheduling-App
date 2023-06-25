@@ -38,19 +38,26 @@
          </font>
       </Label>
       <ComboBox fx:id="contactNameComboBox" layoutX="295.0" layoutY="164.0" onAction="#onActionScheduleComboBox" prefWidth="150.0" promptText="Contacts" />
-      <Label layoutX="69.0" layoutY="491.0" text="Report #2: Customer Appointments by Type:" textFill="#2e94b9">
+      <Label layoutX="59.0" layoutY="492.0" text="Report #2:   Customer Appointments by Type:" textFill="#2e94b9">
          <font>
             <Font name="Futura Medium" size="16.0" />
          </font>
       </Label>
       <ComboBox fx:id="typeComboBox" layoutX="411.0" layoutY="490.0" onAction="#onActionTypeComboBox" prefWidth="150.0" promptText="Types" />
-      <TextField fx:id="totalAppointmentsByTypeTextField" disable="true" layoutX="567.0" layoutY="490.0" prefHeight="26.0" prefWidth="99.0" promptText="Total:" />
-      <Label layoutX="64.0" layoutY="569.0" text="Report #3: Customer Appointments by Name:" textFill="#2e94b9">
+      <TextField fx:id="totalAppointmentsByTypeTextField" editable="false" layoutX="567.0" layoutY="490.0" prefHeight="26.0" prefWidth="99.0" promptText="Total:" />
+      <Label layoutX="64.0" layoutY="594.0" text="Report #3: Customer Appointments by Name:" textFill="#2e94b9">
          <font>
             <Font name="Futura Medium" size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="customerNameComboBox" layoutX="411.0" layoutY="568.0" onAction="#onActionCustomerNameComboBox" prefWidth="150.0" promptText="Names" />
-      <TextField fx:id="totalAppointmentsByNameTextField" disable="true" layoutX="567.0" layoutY="568.0" prefHeight="26.0" prefWidth="99.0" promptText="Total:" />
+      <ComboBox fx:id="customerNameComboBox" layoutX="411.0" layoutY="593.0" onAction="#onActionCustomerNameComboBox" prefWidth="150.0" promptText="Names" />
+      <TextField fx:id="totalAppointmentsByNameTextField" editable="false" layoutX="567.0" layoutY="592.0" prefHeight="26.0" prefWidth="99.0" promptText="Total:" />
+      <Label layoutX="140.0" layoutY="528.0" text="Customer Appointments by Month:" textFill="#2e94b9">
+         <font>
+            <Font name="Futura Medium" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="monthComboBox" layoutX="411.0" layoutY="527.0" onAction="#onActionMonthComboBox" prefWidth="150.0" promptText="Months" />
+      <TextField fx:id="totalAppointmentsByMonthTextField" editable="false" layoutX="567.0" layoutY="527.0" prefHeight="26.0" prefWidth="99.0" promptText="Total:" />
    </children>
 </AnchorPane>

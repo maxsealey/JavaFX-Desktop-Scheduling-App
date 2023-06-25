@@ -115,114 +115,7 @@ public class FXML_Helpers {
         start.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
         end.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
 
-        contactName.setCellValueFactory(contact-> new SimpleStringProperty(Misc_Helpers.convertIDtoName(contact.getValue().getContactID())));
-    }
-
-    /**
-     * Sets division names in combo box (AddCustomer and ModifyCustomer)
-     *
-     * @param divisions ComboBox list of strings
-     * @param selectedCountry country to use to filter down to first-level divisions
-     * @throws SQLException sql protection
-     * */
-    public static void setFLDComboBox(ComboBox<String> divisions, String selectedCountry) throws SQLException {
-        ObservableList<String> divNames = FXCollections.observableArrayList();
-
-        for(FirstLevDivision f : LocationDAO.getDivisionList()){
-            if(f.getCountryID() == LocationDAO.getMatchCountryID(selectedCountry))
-            {
-                divNames.add(f.getDivisionName());
-            }
-        }
-
-        divisions.setItems(divNames);
-        divisions.setVisibleRowCount(8);
-    }
-
-    /**
-     * Sets country names in ComboBox (AddCustomer and ModifyCustomer)
-     *
-     * @param countries ComboBox list of strings
-     * */
-    public static void setCountryComboBox(ComboBox<String> countries){
-        ObservableList<String> countryNames = FXCollections.observableArrayList();
-        for(Country c : LocationDAO.getCountryList())
-        {
-            countryNames.add(c.getCountry());
-        }
-
-        countries.setItems(countryNames);
-        countries.setVisibleRowCount(3);
-        countries.setPromptText("Countries");
-    }
-
-    /**
-     * Sets contact ID and contact name into ComboBox containing list of contacts (AddAppointment, ModifyAppointment, GenerateReports)
-     *
-     * @param contacts the ComboBox control
-     * @throws SQLException sql protection
-     * */
-    public static void setContactComboBox(ComboBox<String> contacts) throws SQLException {
-        ObservableList<String> contactNames = FXCollections.observableArrayList();
-
-        ContactDAO.populateContactList();
-        for(Contact c : ContactDAO.getContactList()){
-            contactNames.add(c.getContactID() + " " + c.getContactName());
-        }
-
-        contacts.setItems(contactNames);
-        contacts.setVisibleRowCount(5);
-        contacts.setPromptText("Contacts");
-    }
-
-    /**
-     * Sets customer ID and name into ComboBox containing list of customers (AddAppointment, ModifyAppointment, GenerateReports)
-     *
-     * @param customers the ComboBox control
-     * @throws SQLException sql protection
-     * */
-    public static void setCustomerComboBox(ComboBox<String> customers) throws SQLException {
-        ObservableList<String> customerNames = FXCollections.observableArrayList();
-
-        CustomerDAO.populateCustomerList();
-        for(Customer c : CustomerDAO.getCustomerList()){
-            customerNames.add(c.getCustomerID() + " " + c.getCustomerName());
-        }
-
-        customers.setItems(customerNames);
-        customers.setVisibleRowCount(5);
-        customers.setPromptText("Customers");
-    }
-
-    /**
-     * Sets user ID and username into ComboBox containing list of users (AddAppointment, ModifyAppointment)
-     *
-     * @param users the ComboBox control
-     * @throws SQLException sql protection
-     * */
-    public static void setUserComboBox(ComboBox<String> users) throws SQLException {
-        ObservableList<String> usernames = FXCollections.observableArrayList();
-
-        UserDAO.populateUserList();
-        for(User u : UserDAO.getUserList()){
-            usernames.add(u.getUserID() + " " + u.getUsername());
-        }
-
-        users.setItems(usernames);
-        users.setVisibleRowCount(5);
-        users.setPromptText("Users");
-    }
-
-    /**
-     * Sets list of types into ComboBox (GenerateReports)
-     *
-     * @param types the ComboBox control
-     * @throws SQLException sql protection
-     * */
-    public static void setTypesComboBox(ComboBox<String> types) throws SQLException {
-        ReportsDAO.populateTypeList();
-        types.setItems(ReportsDAO.getTypeList());
-        types.setVisibleRowCount(5);
+        contactName.setCellValueFactory(contact-> new SimpleStringProperty(Misc_Helpers.convertContactIDtoName(contact.getValue().getContactID())));
     }
 
     /**
@@ -255,6 +148,118 @@ public class FXML_Helpers {
         customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
     }
 
+    /**
+     * Sets division names in combo box (AddCustomer and ModifyCustomer)
+     *
+     * @param divisions ComboBox list of strings
+     * @param selectedCountry country to use to filter down to first-level divisions
+     * @throws SQLException sql protection
+     * */
+    public static void setFLDComboBox(ComboBox<String> divisions, String selectedCountry) throws SQLException {
+        ObservableList<String> divNames = FXCollections.observableArrayList();
+
+        for(FirstLevDivision f : LocationDAO.getDivisionList()){
+            if(f.getCountryID() == LocationDAO.getMatchCountryID(selectedCountry))
+            {
+                divNames.add(f.getDivisionName());
+            }
+        }
+
+        divisions.setItems(divNames);
+        divisions.setVisibleRowCount(8);
+    }
+
+    /**
+     * Sets country names in ComboBox (AddCustomer and ModifyCustomer)
+     *
+     * @param countries ComboBox list of strings
+     * @throws SQLException
+     * */
+    public static void setCountryComboBox(ComboBox<String> countries) throws SQLException {
+        ObservableList<String> countryNames = FXCollections.observableArrayList();
+        for(Country c : LocationDAO.getCountryList())
+        {
+            countryNames.add(c.getCountry());
+        }
+
+        countries.setItems(countryNames);
+        countries.setVisibleRowCount(3);
+        countries.setPromptText("Countries");
+    }
+
+    /**
+     * Sets contact ID and contact name into ComboBox containing list of contacts (AddAppointment, ModifyAppointment, GenerateReports)
+     *
+     * @param contacts the ComboBox control
+     * @throws SQLException sql protection
+     * */
+    public static void setContactComboBox(ComboBox<String> contacts) throws SQLException {
+        ObservableList<String> contactNames = FXCollections.observableArrayList();
+
+        for(Contact c : ContactDAO.getContactList()){
+            contactNames.add(c.getContactID() + " " + c.getContactName());
+        }
+
+        contacts.setItems(contactNames);
+        contacts.setVisibleRowCount(5);
+        contacts.setPromptText("Contacts");
+    }
+
+    /**
+     * Sets customer ID and name into ComboBox containing list of customers (AddAppointment, ModifyAppointment, GenerateReports)
+     *
+     * @param customers the ComboBox control
+     * @throws SQLException sql protection
+     * */
+    public static void setCustomerComboBox(ComboBox<String> customers) throws SQLException {
+        ObservableList<String> customerNames = FXCollections.observableArrayList();
+
+        for(Customer c : CustomerDAO.getCustomerList()){
+            customerNames.add(c.getCustomerID() + " " + c.getCustomerName());
+        }
+
+        customers.setItems(customerNames);
+        customers.setVisibleRowCount(5);
+        customers.setPromptText("Customers");
+    }
+
+    /**
+     * Sets user ID and username into ComboBox containing list of users (AddAppointment, ModifyAppointment)
+     *
+     * @param users the ComboBox control
+     * @throws SQLException sql protection
+     * */
+    public static void setUserComboBox(ComboBox<String> users) throws SQLException {
+        ObservableList<String> usernames = FXCollections.observableArrayList();
+
+        for(User u : UserDAO.getUserList()){
+            usernames.add(u.getUserID() + " " + u.getUsername());
+        }
+
+        users.setItems(usernames);
+        users.setVisibleRowCount(5);
+        users.setPromptText("Users");
+    }
+
+    /**
+     * Sets list of types into ComboBox (GenerateReports)
+     *
+     * @param types the ComboBox control
+     * @throws SQLException sql protection
+     * */
+    public static void setTypesComboBox(ComboBox<String> types) throws SQLException {
+        types.setItems(ReportsDAO.getTypeList());
+        types.setVisibleRowCount(5);
+    }
+
+    /**
+     * Sets the list of months in the ComboBox on the Generate Reports page
+     *
+     * @param months ComboBox control
+     * */
+    public static void setMonthsComboBox(ComboBox<String> months){
+        months.setItems(Misc_Helpers.listOfMonths());
+    }
 }
 
 

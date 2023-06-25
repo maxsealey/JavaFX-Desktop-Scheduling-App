@@ -5,13 +5,17 @@ import javafx.collections.ObservableList;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
 import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
 import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
+import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Contact;
 import sealey.javafxdesktopschedulingapp.model.Customer;
+import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.*;
+import java.util.Objects;
 
 /**
  * Description: Contains some helper functions used in program to reduce clutter and increase readability
@@ -59,8 +63,9 @@ public class Misc_Helpers {
      * of last item incremented
      *
      * @return newID returns 1 if empty list, returns highest
+     * @throws SQLException
      * */
-    public static int getNextAppointmentID(){
+    public static int getNextAppointmentID() throws SQLException {
         int newID = 1, prev = 1;
 
         if(AppointmentDAO.getAppointmentList().isEmpty()) return newID;
@@ -85,8 +90,9 @@ public class Misc_Helpers {
      * of last item incremented
      *
      * @return newID returns 1 if empty list, returns highest
+     * @throws SQLException
      * */
-    public static int getNextCustomerID(){
+    public static int getNextCustomerID() throws SQLException {
         int newID = 1, prev = 1;
 
         if(CustomerDAO.getCustomerList().isEmpty()) return newID;
@@ -134,8 +140,9 @@ public class Misc_Helpers {
      *
      * @param contactID selected contact
      * @return temp filtered list of appointments assigned to contact
+     * @throws SQLException
      * */
-    public static ObservableList<Appointment> filteredAppointmentsForReport(int contactID){
+    public static ObservableList<Appointment> filteredAppointmentsForReport(int contactID) throws SQLException {
         ObservableList<Appointment> temp = FXCollections.observableArrayList();
 
         for(Appointment a : AppointmentDAO.getAppointmentList())
@@ -153,7 +160,7 @@ public class Misc_Helpers {
      * @param id to convert
      * @return contactName converted
      * */
-    public static String convertIDtoName(int id){
+    public static String convertContactIDtoName(int id){
         try{
             for(Contact c : ContactDAO.getContactList()){
                 if(c.getContactID() == id){
@@ -164,6 +171,34 @@ public class Misc_Helpers {
             System.out.println("Could not find contact.");
         }
         return null;
+    }
+
+    /**
+     * Get user id with username
+     *
+     * @param username username
+     * @return id userid or 0 if error/not found (should always be found)
+     * */
+    public static int convertUsernameToID(String username) {
+        try {
+            for(User u : UserDAO.getUserList()){
+                if(Objects.equals(username, u.getUsername())){
+                    return u.getUserID();
+                }
+            }
+        } catch(Exception ignored){}
+        return 0;
+    }
+
+    /**
+     * Returns list of all months to populate ComboBox on GenerateReports
+     *
+     * @return  months list of months
+     * */
+    public static ObservableList<String> listOfMonths(){
+        ObservableList<String> months = FXCollections.observableArrayList();
+        months.addAll("1 Jan", "2 Feb", "3 Mar", "4 Apr", "5 May", "6 Jun", "7 Jul", "8 Aug", "9 Sep", "10 Oct", "11 Nov", "12 Dec");
+        return months;
     }
 }
 

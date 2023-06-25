@@ -10,7 +10,6 @@ import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -108,24 +107,13 @@ public class Dashboard implements Initializable
     }
 
     /**
-     * Runs on initialization, runs DAO methods to get data from the database.
+     * Runs on initialization
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            LocationDAO.populateCountryList();
-            LocationDAO.populateDivisionList();
-            AppointmentDAO.populateAppointmentList();
-            UserDAO.populateUserList();
-            CustomerDAO.populateCustomerList();
-            ContactDAO.populateContactList();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
         welcomeText.setText("Welcome, " + UserDAO.getCurrentUser().getUsername() + "!");
     }
 }

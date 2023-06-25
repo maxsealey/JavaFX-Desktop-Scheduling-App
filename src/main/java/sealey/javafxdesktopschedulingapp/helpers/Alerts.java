@@ -5,6 +5,7 @@ import javafx.scene.control.ButtonType;
 import sealey.javafxdesktopschedulingapp.dao.AppointmentDAO;
 import sealey.javafxdesktopschedulingapp.model.Appointment;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -126,8 +127,10 @@ public class Alerts {
 
     /**
      * Displays upon log in and tells user whether they have an appointment scheduled in the next 15 minutes
+     *
+     * @throws SQLException
      * */
-    public static void loginAlert(){
+    public static void loginAlert() throws SQLException {
         LocalDateTime currentTime = LocalDateTime.now();
         boolean appointment = false;
 

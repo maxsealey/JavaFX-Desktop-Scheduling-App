@@ -70,7 +70,7 @@ public class Time_Helpers {
      * @param localEnd check end time
      * @return false if invalid, true if valid
      * */
-    public static boolean timeValidityCheck(LocalDateTime localStart, LocalDateTime localEnd) throws SQLException {
+    public static boolean timeValidityCheck(LocalDateTime localStart, LocalDateTime localEnd) {
         ZoneId localZone = ZoneId.systemDefault();
         ZoneId estZone = ZoneId.of("America/New_York");
 
@@ -102,13 +102,15 @@ public class Time_Helpers {
     /**
      * Checks whether a customer has a pre-existing appointment that would overlap with new appointment
      *
+     * @param checkOverlapList list of appointments to iterate through
      * @param customerID customer to check
      * @param start check start time
      * @param end check end time
+     * @throws SQLException
      * */
-    public static boolean checkCustomerOverlap(int customerID, LocalDateTime start, LocalDateTime end){
+    public static boolean checkCustomerOverlap(ObservableList<Appointment> checkOverlapList, int customerID, LocalDateTime start, LocalDateTime end) throws SQLException {
         for(Customer c : CustomerDAO.getCustomerList()){
-            for(Appointment a : AppointmentDAO.getAppointmentList()){
+            for(Appointment a : checkOverlapList){
                 if((a.getCustomerID() == c.getCustomerID()) && (c.getCustomerID() == customerID)){
                     if((a.getStartDateTime().isBefore(start) || a.getStartDateTime().isEqual(start)) && a.getEndDateTime().isAfter(start)){
                         return false;

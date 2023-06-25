@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.dao.UserDAO;
 import sealey.javafxdesktopschedulingapp.helpers.Alerts;
 import sealey.javafxdesktopschedulingapp.helpers.FXML_Helpers;
+import sealey.javafxdesktopschedulingapp.helpers.Misc_Helpers;
 import sealey.javafxdesktopschedulingapp.model.User;
 
 import java.io.IOException;
@@ -71,11 +72,12 @@ public class LoginForm implements Initializable
 
         try {
             if(UserDAO.validateCredentials(username, password) > 0){
-                UserDAO.setCurrentUser(new User(UserDAO.convertUsernameToID(username), username, "hidden")); // informs rest of the program who is signed in
+                UserDAO.setCurrentUser(new User(UserDAO.convertUsernameToID(username), username, "hidden"));// informs rest of the program who is signed in
+                Misc_Helpers.loginActivity(username, true);
                 FXML_Helpers.setStage("Dashboard.fxml", "Employee Dashboard", signinButton);
                 Alerts.loginAlert();
             } else {
-                System.out.println("wrong username or password");
+                Misc_Helpers.loginActivity(username, false);
                 Alerts.invalidCredentials();
             }
         } catch(Exception e) {

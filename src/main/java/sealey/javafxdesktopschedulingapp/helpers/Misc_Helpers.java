@@ -8,10 +8,11 @@ import sealey.javafxdesktopschedulingapp.model.Appointment;
 import sealey.javafxdesktopschedulingapp.model.Contact;
 import sealey.javafxdesktopschedulingapp.model.Customer;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 
 /**
  * Description:
@@ -96,5 +97,40 @@ public class Misc_Helpers {
         }
         return newID + 1;
     }
+
+    /**
+     *
+     * */
+    public static void loginActivity(String username, boolean successOrFail) throws IOException {
+        ZonedDateTime timestamp = ZonedDateTime.now();
+
+        LocalDate date = timestamp.toLocalDate();
+        LocalTime time = timestamp.toLocalTime();
+        ZoneId zone = timestamp.getZone();
+
+        String record = "";
+
+        if(successOrFail){
+            record = "Successful Login Attempt:: Username: " + username + "\n" + "Date: " + date + " " + "Time: " + time + " " + zone + "\n\n";
+        } else {
+            record = "Failed Login Attempt:: Username: " + username + "\n" + "Date: " + date + " " + "Time: " + time + " " + zone + "\n\n";
+        }
+        FileWriter output = new FileWriter("login_activity.txt", true);
+        output.write(record);
+        output.close();
+    }
+
+    public static ObservableList<Appointment> filteredAppointmentsForReport(int contactID){
+        ObservableList<Appointment> temp = FXCollections.observableArrayList();
+
+        for(Appointment a : AppointmentDAO.getAppointmentList())
+        {
+            if(a.getContactID() == contactID){
+                temp.add(a);
+            }
+        }
+        return temp;
+    }
 }
+
 

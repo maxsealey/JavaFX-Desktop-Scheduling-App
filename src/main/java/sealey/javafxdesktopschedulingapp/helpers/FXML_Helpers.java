@@ -13,10 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sealey.javafxdesktopschedulingapp.Main;
 import sealey.javafxdesktopschedulingapp.controller.ModifyCustomer;
-import sealey.javafxdesktopschedulingapp.dao.ContactDAO;
-import sealey.javafxdesktopschedulingapp.dao.CustomerDAO;
-import sealey.javafxdesktopschedulingapp.dao.LocationDAO;
-import sealey.javafxdesktopschedulingapp.dao.UserDAO;
+import sealey.javafxdesktopschedulingapp.dao.*;
 import sealey.javafxdesktopschedulingapp.model.*;
 
 import java.io.IOException;
@@ -215,6 +212,35 @@ public class FXML_Helpers {
         users.setVisibleRowCount(5);
         users.setPromptText("Users");
     }
+
+    /**
+     * Sets list of types into ComboBox
+     *
+     * @param types the ComboBox control
+     * */
+    public static void setTypesComboBox(ComboBox<String> types) throws SQLException {
+        ReportsDAO.populateTypeList();
+        types.setItems(ReportsDAO.getTypeList());
+        types.setVisibleRowCount(5);
+    }
+
+    public static void setAppointmentReportTable(ObservableList<Appointment> appointments, TableView<Appointment> appointmentTable,
+                                                 TableColumn<Appointment, Integer> appointmentIDCol, TableColumn<Appointment, String> titleCol,
+                                                 TableColumn<Appointment, String> descCol, TableColumn<Appointment, String> typeCol,
+                                                 TableColumn<Appointment, LocalDateTime> startCol, TableColumn<Appointment, LocalDateTime> endCol,
+                                                 TableColumn<Appointment, Integer> customerIDCol)
+    {
+        appointmentTable.setItems(appointments);
+
+        appointmentIDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        customerIDCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+    }
+
 }
 
 

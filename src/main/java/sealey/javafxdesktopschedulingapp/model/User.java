@@ -1,9 +1,9 @@
 package sealey.javafxdesktopschedulingapp.model;
 
 /**
- * Description:
+ * Description: Model class containing user data
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class User {
     

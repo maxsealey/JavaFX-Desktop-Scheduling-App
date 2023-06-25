@@ -11,9 +11,18 @@ import sealey.javafxdesktopschedulingapp.model.Customer;
 import java.sql.SQLException;
 import java.time.*;
 
+
+/**
+ * Description: Contains time-related helper functions used in program to reduce clutter and increase readability
+ *
+ * @author maxsealey Sealey
+ * */
 public class Time_Helpers {
     /**
+     * Converts UTC timestamp to local time
      *
+     * @param utc UTC date and time to be converted
+     * @return ZonedDateTime local ZDT
      * */
     public static ZonedDateTime utcToLocal(LocalDateTime utc){
         ZonedDateTime utcZDT = utc.atZone(ZoneId.of("UTC"));
@@ -21,7 +30,10 @@ public class Time_Helpers {
     }
 
     /**
+     * Converts local timestamp to utc time
      *
+     * @param local date and time to be converted
+     * @return ZonedDateTime UTC ZDT
      * */
     public static ZonedDateTime localToUTC(LocalDateTime local){
         ZonedDateTime localZDT = local.atZone(ZoneId.systemDefault());
@@ -33,11 +45,11 @@ public class Time_Helpers {
      *
      * @param localTimes ComboBox to contain the times
      * @param startOrEnd String which input will either be 'StartOrEnd'
+     * @param addOrUpdate 1 if adding, 0 if modifying
      * */
     public static void setTimesInComboBoxes(ComboBox<LocalTime> localTimes, String startOrEnd, int addOrUpdate){
         ObservableList<LocalTime> times = FXCollections.observableArrayList();
 
-        // should simplify using lambda
         for(int i = 0; i < 24; i++){
             for(int j = 0; j < 60; j += 5){
                 times.add(LocalTime.of(i,j));
@@ -52,7 +64,11 @@ public class Time_Helpers {
     }
 
     /**
+     * Checks whether input times are valid in EST (start before end, within business hours)
      *
+     * @param localStart check start time
+     * @param localEnd check end time
+     * @return false if invalid, true if valid
      * */
     public static boolean timeValidityCheck(LocalDateTime localStart, LocalDateTime localEnd) throws SQLException {
         ZoneId localZone = ZoneId.systemDefault();
@@ -84,7 +100,11 @@ public class Time_Helpers {
     }
 
     /**
+     * Checks whether a customer has a pre-existing appointment that would overlap with new appointment
      *
+     * @param customerID customer to check
+     * @param start check start time
+     * @param end check end time
      * */
     public static boolean checkCustomerOverlap(int customerID, LocalDateTime start, LocalDateTime end){
         for(Customer c : CustomerDAO.getCustomerList()){
@@ -101,11 +121,4 @@ public class Time_Helpers {
         }
         return true;
     }
-
-
-
-
-
-
-
 }

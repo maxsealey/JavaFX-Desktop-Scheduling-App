@@ -25,9 +25,9 @@ import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: This class is the controller for the page for updating appointments (ModifyAppointments.fxml).
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class ModifyAppointment implements Initializable
 {
@@ -77,13 +77,19 @@ public class ModifyAppointment implements Initializable
 
     private static Appointment toUpdate;
 
+    /**
+     * Sets the static Appointment object to contain data that will be assigned to
+     * controls, and eventually updated
+     *
+     * @param toUpdate sets toUpdate object
+     * */
     public static void setToUpdate(Appointment toUpdate) {
         ModifyAppointment.toUpdate = toUpdate;
     }
 
 
     /**
-     * Returns user to dashboard without saving
+     * Returns user to schedule without saving
      *
      * @param event Cancel button event
      * @throws IOException IOException
@@ -100,7 +106,7 @@ public class ModifyAppointment implements Initializable
     }
 
     /**
-     * Saves customer data, returns user to dashboard
+     * Saves customer data, returns user to schedule
      *
      * LAMBDA EXPRESSION USAGE: Used a lambda to remove an appointment from the appointment list if the id is the same
      * as the one that I'm updating. This allows my overlap checker to work for ModifyAppointment.
@@ -123,10 +129,11 @@ public class ModifyAppointment implements Initializable
                         return;
                     }
 
-                    try {
+                    try { // checks whether the appointment would overlap with a customer's other appointments
                         LocalDateTime startDateTime = LocalDateTime.of(startDatePicker.getValue(), startTimeCombo.getValue());
                         LocalDateTime endDateTime = LocalDateTime.of(endDatePicker.getValue(), endTimeCombo.getValue());
 
+                        // LAMBDA, necessary to check overlapping times - see above
                         AppointmentDAO.getAppointmentList().removeIf(a -> a.getAppointmentID() == Integer.parseInt(apptIDTextField.getText()));
 
                         if(!Time_Helpers.checkCustomerOverlap(Misc_Helpers.splitID(customerComboBox.getValue()), startDateTime, endDateTime))
@@ -137,7 +144,7 @@ public class ModifyAppointment implements Initializable
                         Alerts.overlappingAppointmentsAlert();
                         return;
                     }
-
+                    // if inserting a new appointment is successful, adds to appointment list and sends user to appointment schedule
                     if(modifyAppointment()){
                         AppointmentDAO.updateAppointment(toUpdate);
                         FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", saveButton);
@@ -156,6 +163,11 @@ public class ModifyAppointment implements Initializable
         }
     }
 
+    /**
+     * Runs on initialization - sets values into all controls
+     *
+     * @param a appointment object containing old values
+     * */
     private void setAppointment(Appointment a) {
         apptIDTextField.setText(String.valueOf(a.getAppointmentID()));
         titleTextField.setText(a.getTitle());
@@ -192,6 +204,12 @@ public class ModifyAppointment implements Initializable
         endTimeCombo.setValue(a.getEndDateTime().toLocalTime());
     }
 
+    /**
+     * Updates appointment in database or throws exception (if fields are empty).
+     *
+     * @return boolean true if update successful, false if not
+     * @throws SQLException database insertion protection
+     * */
     private boolean modifyAppointment() throws SQLException {
         try {
             if(titleTextField.getText().isEmpty() || descTextArea.getText().isEmpty() || locationTextField.getText().isEmpty()
@@ -228,6 +246,7 @@ public class ModifyAppointment implements Initializable
     }
 
     /**
+     * Runs on scene initialization, sets controls
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

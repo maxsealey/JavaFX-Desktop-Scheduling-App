@@ -19,34 +19,45 @@ import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
- * Description:
+ * Description: This class is the controller for the page to view all customers.
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class ViewCustomers implements Initializable
 {
     @FXML
     private TableView<Customer> customerTable;
+
     @FXML
     private TableColumn<Customer, String> addressCol;
+
     @FXML
     private TableColumn<Customer, String> divCol;
+
     @FXML
     private TableColumn<Customer, Integer> idCol;
+
     @FXML
     private TableColumn<Customer, String> nameCol;
+
     @FXML
     private TableColumn<Customer, String> phoneCol;
+
     @FXML
     private TableColumn<Customer, String> postalCol;
+
     @FXML
     private Button newAppointmentButton;
+
     @FXML
     private Button newCustomerButton;
+
     @FXML
     private Button updateCustomerButton;
+
     @FXML
     private Button backButton;
+
     @FXML
     private Button deleteButton;
 
@@ -103,6 +114,7 @@ public class ViewCustomers implements Initializable
     void onActionNewCustomer(ActionEvent event) throws IOException {
         FXML_Helpers.setStage("AddCustomer.fxml","Add New Customer", newCustomerButton);
     }
+
     /**
      * Deletes customer if no associated appointments attached
      *
@@ -146,6 +158,7 @@ public class ViewCustomers implements Initializable
     }
 
     /**
+     * Runs on initialization, populates customer lists, customer-appointment lists, sets customer table
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

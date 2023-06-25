@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 /**
  * Description: Controller for the initial log-in scene.
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class LoginForm implements Initializable
 {
@@ -45,6 +45,8 @@ public class LoginForm implements Initializable
 
     /**
      * Closes and exits the program
+     *
+     * @param event event
      * */
     @FXML
     private void onActionExit(ActionEvent event) {
@@ -56,7 +58,8 @@ public class LoginForm implements Initializable
     }
 
     /**
-     * Upon verification takes user to dashboard
+     * Upon verification takes user to dashboard and assigns static User object for program access
+     * Also logs attempt to login_activity.txt
      *
      * @param event Back button event
      * @throws IOException IOException
@@ -100,6 +103,7 @@ public class LoginForm implements Initializable
         }
     }
     /**
+     * Runs on initialization, sets locale, zoneid, and sets labels
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

@@ -4,9 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Description:
+ * Description: Model class containing customer data
  *
- * @author Max Sealey
+ * @author maxsealey Sealey
  * */
 public class Customer {
 
@@ -38,11 +38,18 @@ public class Customer {
     private String phone;
     private int divisionID;
     private String location;
-    private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+    private ObservableList<Appointment> appointmentList = FXCollections.observableArrayList(); // note to self: need to remove, redundant
+
+    /**
+     * @return appointmentList list of customer's appointments
+     * */
     public ObservableList<Appointment> getAppointmentList() {
         return appointmentList;
     }
 
+    /**
+     * @param a appointment to add to list
+     * */
     public void addAppointment(Appointment a){
         appointmentList.add(a);
     }

@@ -74,7 +74,7 @@ public class GenerateReports implements Initializable
     /**
      * Sends user back to dashboard
      *
-     * @param event back button event
+     * @param event back button
      * @throws IOException IOException
      * */
     @FXML

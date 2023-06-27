@@ -107,7 +107,7 @@ public class Dashboard implements Initializable
     }
 
     /**
-     * Runs on initialization
+     * Runs on initialization, sets text to display username
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

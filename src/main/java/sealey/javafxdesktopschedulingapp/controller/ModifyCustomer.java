@@ -51,6 +51,7 @@ public class ModifyCustomer implements Initializable
     @FXML
     private Button saveButton;
 
+    // stores static object to hole updated customer attributes
     private static Customer toUpdate;
 
     /**
@@ -121,7 +122,7 @@ public class ModifyCustomer implements Initializable
     }
 
     /**
-     * Runs on initialization - sets values into all controls
+     * Runs on initialization - sets values of object before update into all controls
      *
      * @param c customer object containing old values
      * */
@@ -165,7 +166,7 @@ public class ModifyCustomer implements Initializable
     }
 
     /**
-     * Runs on scene initialization, sets controls and local toUpdate object
+     * Runs on scene initialization, sets ComboBox option lists and fills all fields
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

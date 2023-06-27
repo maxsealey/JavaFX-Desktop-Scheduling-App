@@ -139,7 +139,7 @@ public class AddCustomer implements Initializable
 
 
     /**
-     * Runs on initialization, sets ID text and ComboBoxes
+     * Runs on initialization, sets ID text, ComboBoxes, and FLD ComboBox prompt text
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null
@@ -149,6 +149,7 @@ public class AddCustomer implements Initializable
         try {
             IDTextField.setText(String.valueOf(Misc_Helpers.getNextCustomerID()));
             FXML_Helpers.setCountryComboBox(countryComboBox);
+            fldComboBox.setPromptText("Divisions");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

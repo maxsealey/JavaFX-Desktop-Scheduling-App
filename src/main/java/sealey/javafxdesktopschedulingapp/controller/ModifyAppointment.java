@@ -76,6 +76,7 @@ public class ModifyAppointment implements Initializable
     @FXML
     private Label timeZoneLabel;
 
+    // stores static object to hole updated appointment attributes
     private static Appointment toUpdate;
 
     /**
@@ -166,7 +167,7 @@ public class ModifyAppointment implements Initializable
     }
 
     /**
-     * Runs on initialization - sets values into all controls
+     * Runs on initialization - sets values for the appointment before update into all controls
      *
      * @param a appointment object containing old values
      * @throws SQLException
@@ -208,7 +209,7 @@ public class ModifyAppointment implements Initializable
     }
 
     /**
-     * Updates appointment in database or throws exception (if fields are empty).
+     * Updates appointment in database or throws exception (if fields are empty). Uses toUpdate static object to store values
      *
      * @return boolean true if update successful, false if not
      * */
@@ -249,7 +250,7 @@ public class ModifyAppointment implements Initializable
     }
 
     /**
-     * Runs on scene initialization, sets controls
+     * Runs on scene initialization, sets control list options
      *
      * @param url location used to resolve relative paths for the root object, or null
      * @param resourceBundle resources used to localize root object or null

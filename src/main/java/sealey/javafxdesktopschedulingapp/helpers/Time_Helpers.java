@@ -85,14 +85,17 @@ public class Time_Helpers {
         LocalTime open = LocalTime.of(8, 0);
         LocalTime close = LocalTime.of(22, 0);
 
+        // executes if the start date and end date are on different days
         if (!startEstZDT.toLocalDate().equals(endEstZDT.toLocalDate())) {
             return false;
         }
 
+        // executes if start and end are the same or start comes after end
         if (startEstZDT.isAfter(endEstZDT) || startEstZDT.isEqual(endEstZDT)) {
-            return false; // Start time is after end time
+            return false;
         }
 
+        // executes if times aren't within business hours
         if(startTime.isBefore(LocalTime.from(open)) || endTime.isAfter(LocalTime.from(close))){
             return false;
         }
@@ -110,13 +113,13 @@ public class Time_Helpers {
      * */
     public static boolean checkCustomerOverlap(ObservableList<Appointment> checkOverlapList, int customerID, LocalDateTime start, LocalDateTime end) throws SQLException {
         for(Customer c : CustomerDAO.getCustomerList()){
-            for(Appointment a : checkOverlapList){
+            for(Appointment a : checkOverlapList){ // Appointments need to be passed in as parameter for ModifyAppointment
                 if((a.getCustomerID() == c.getCustomerID()) && (c.getCustomerID() == customerID)){
                     if((a.getStartDateTime().isBefore(start) || a.getStartDateTime().isEqual(start)) && a.getEndDateTime().isAfter(start)){
                         return false;
                     }
                     if(a.getStartDateTime().isAfter(start) && a.getStartDateTime().isBefore(end)){
-                        return false;
+                        return false; // runs on edge case that new appointment is enveloped by pre-existing appointment
                     }
                 }
             }

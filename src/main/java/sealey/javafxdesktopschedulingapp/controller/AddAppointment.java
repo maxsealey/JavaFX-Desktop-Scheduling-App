@@ -115,7 +115,6 @@ public class AddAppointment implements Initializable
                         return;
                     }
 
-                    // if inserting a new appointment is successful, sends user to appointment schedule
                     if(newAppointment()){
                         FXML_Helpers.setStage("AppointmentSchedule.fxml", "Appointment Schedule", saveButton);
                     } else {
@@ -142,7 +141,7 @@ public class AddAppointment implements Initializable
                     || typeTextField.getText().isEmpty() || contactComboBox.getValue().isEmpty() || customerComboBox.getValue().isEmpty()
                     || userComboBox.getValue().isEmpty() || startDatePicker.getValue() == null || endDatePicker.getValue() == null
                     || startTimeCombo.getValue() == null || endTimeCombo.getValue() == null){
-                throw new Exception(); // checks for empty control values
+                throw new Exception();
             }
 
             int appointmentID = Integer.parseInt(apptIDTextField.getText());

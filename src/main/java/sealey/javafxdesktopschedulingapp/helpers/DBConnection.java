@@ -5,7 +5,6 @@ import java.sql.Connection;
 
 /**
  * Description: Connect to MySql database
- * Note to evaluator: if timezone issue, may need to comment out 16 and uncomment 17. Did not use VM
  * */
 public abstract class DBConnection {
 
@@ -13,8 +12,8 @@ public abstract class DBConnection {
     private static final String vendor = ":mysql:";
     private static final String location = "//localhost/";
     private static final String databaseName = "client_schedule";
-    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER";
-    //private static final String jdbcUrl = protocol + vendor + location + databaseName + "?serverTimeZone = UTC";
+    //private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER";
+    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?serverTimeZone = UTC";
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password

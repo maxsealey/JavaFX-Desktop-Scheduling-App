@@ -113,10 +113,10 @@ public class Time_Helpers {
      * */
     public static boolean checkCustomerOverlap(ObservableList<Appointment> checkOverlapList, int customerID, LocalDateTime start, LocalDateTime end) throws SQLException {
         for(Customer c : CustomerDAO.getCustomerList()){
-            for(Appointment a : checkOverlapList){ // needs to run through parameter list so ModifyAppointment can pass in shortened list
+            for(Appointment a : checkOverlapList){ // Appointments need to be passed in as parameter for ModifyAppointment
                 if((a.getCustomerID() == c.getCustomerID()) && (c.getCustomerID() == customerID)){
                     if((a.getStartDateTime().isBefore(start) || a.getStartDateTime().isEqual(start)) && a.getEndDateTime().isAfter(start)){
-                        return false; // timeValidityChecker runs first
+                        return false;
                     }
                     if(a.getStartDateTime().isAfter(start) && a.getStartDateTime().isBefore(end)){
                         return false; // runs on edge case that new appointment is enveloped by pre-existing appointment

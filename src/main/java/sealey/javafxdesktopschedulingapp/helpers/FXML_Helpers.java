@@ -27,7 +27,7 @@ public class FXML_Helpers {
 
     /**
      * Helper function used globally to switch to a different scene. Pass in data specific to each
-     * stage of the program. Useful as this is a common action
+     * stage of the program.
      *
      * @param fxmlFile fxml file containing scene to be switched to
      * @param windowTitle title of the scene
@@ -74,13 +74,6 @@ public class FXML_Helpers {
 
     /**
      * Sets cells in table of appointments.
-     * -------------------------------------------------
-     * LAMBDA EXPRESSION USAGE #1:
-     * -------------------------------------------------
-     * Used a lambda expression in this method to take the value in the
-     * contact ComboBox (an int, representing the contact ID), and convert it into
-     * the contact name. This made it much easier to populate the Customer cells and
-     * improved readability.
      *
      * @param appointmentList the list of appointments to be put into cells
      * @param appointmentTable the table to be filled out
